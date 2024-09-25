@@ -46,7 +46,7 @@ et de se faire livrer à des points spécifiques en un temps précis.</h5>
         <img style="margin: 20px; border-radius: 20px" src="./doc/assets/teampics/mathias.png" width="100" height=auto>
         <p align="center">Mathias SANTOS REIS</p>
     </div>
-</div
+</div>
 
 ## doc
 Contient vos rapports et les documents qui présentent votre projet.
