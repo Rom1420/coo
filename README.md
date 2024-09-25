@@ -25,7 +25,7 @@ et de se faire livrer à des points spécifiques en un temps précis.</h5>
 
 ## TEAM
 
-<div align="center" style="display: flex; justify-content: space-evenly;">
+<div align="center" style="display: flex; justify-content: space-evenly; flex">
     <div>
         <img style="margin: 20px; border-radius: 20px" src="./doc/assets/teampics/nora.png" width="100" height=auto>
         <p align="center">Nora KAYMA-KCILAR</p>
