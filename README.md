@@ -1,5 +1,21 @@
-# SopiaTech Eats-Team-24-25 #template
-_Template for classroom SI4-COO_
+<h1 align="center">
+  <br>
+  <img src="./doc/assets/logo.png">
+  <br>
+  Sophia Eats
+  <br>
+</h1>
+
+<h5 align="center">Sophia Eats est un système en ligne de commande de repas pour le campus, 
+permettant aux étudiants et au personnel de commander facilement auprès de différents restaurants 
+et de se faire livrer à des points spécifiques en un temps précis.</h5>
+
+<p align="center">
+  <a href="#team">Team</a> •
+  <a href="#doc">Doc</a> 
+</p>
+
+---
 
 >. CETTE PAGE DOIT ETRE MISE A JOUR POUR CORRESPONDRE A VOTRE PROJET.  
 >. C'est seulement un modèle !!
@@ -9,12 +25,33 @@ _Template for classroom SI4-COO_
 
 ## TEAM
 
-Présentez vous! 
+<div align="center" style="display: flex; justify-content: space-evenly;">
+    <div>
+        <img style="margin: 20px; border-radius: 20px" src="./doc/assets/teampics/nora.png" width="100" height=auto>
+        <p align="center">Nora KAYMA-KCILAR</p>
+    </div>
+    <div>
+        <img style="margin: 20px; border-radius: 20px" src="./doc/assets/teampics/romain.png" width="100" height=auto>
+        <p align="center">Romain ABBONATO</p>
+    </div>
+    <div>
+        <img style="margin: 20px; border-radius: 20px" src="./doc/assets/teampics/matice.png" width="100" height=auto>
+        <p align="center">Matice MARILL</p>
+    </div>
+    <div>
+        <img style="margin: 20px; border-radius: 20px" src="./doc/assets/teampics/yohan.png" width="100" height=auto>
+        <p align="center">Yohan MAZZI</p>
+    </div>
+    <div>
+        <img style="margin: 20px; border-radius: 20px" src="./doc/assets/teampics/mathias.png" width="100" height=auto>
+        <p align="center">Mathias SANTOS REIS</p>
+    </div>
+</div
 
 ## doc
 Contient vos rapports et les documents qui présentent votre projet.
-Précisez le chemin dans votre structure.
 
+- [Rendu A2](./doc/RenduA2.pdf)
 
 ## .github
    1. Contient sous workflows/maven.yml, une version d'un fichier d'actions qui est déclenché dès que vous poussez du code. 
