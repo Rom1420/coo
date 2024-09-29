@@ -2,12 +2,15 @@ package fr.unice.polytech.biblio;
 
 public class Facade {
 
-    //private OrderManager orderManager;
-    //private GroupOrderManager groupOrderManager;
-    private RestaurantManager restaurantManager;
+    private static int orderId = 0;
+    private static int groupOrderId = 0;
+
+    private OrderManager orderManager = OrderManager.getOrderManagerInstance();
+    private GroupOrderManager groupOrderManager = GroupOrderManager.getGroupOrderManagerInstance();
+    private RestaurantManager restaurantManager = RestaurantManager.getRestaurantManagerInstance();
 
     public void consultRestaurants () {
-        return;
+        restaurantManager.consultRestaurant();
     }
 
     public void placeOrder (){
@@ -27,6 +30,10 @@ public class Facade {
     }
 
     public void joinGroup() {
+        return;
+    }
+
+    public static void main (String args[]) {
         return;
     }
 
