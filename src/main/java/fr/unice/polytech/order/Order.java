@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Order {
     private int orderId;
-    private List<String> articles; // TODO : List<Article> articles
+    private List<Article> articles;
 
     public Order(int orderId){
         this.orderId = orderId;
@@ -16,16 +16,16 @@ public class Order {
         return orderId;
     }
 
-    public List<String> getArticles() {
+    public List<Article> getArticles() {
         return articles;
     }
 
-    public List<String> getAvailableArticles() {
+    public List<Article> getAvailableArticles() {
         // TODO : Récupérer la liste des articles disponible pour le restaurant
         return articles;
     }
 
-    public void addArticle(String article){
+    public void addArticle(Article article){
         if(getAvailableArticles().contains(article)){
             this.articles.add(article);
         }
