@@ -1,5 +1,7 @@
 package fr.unice.polytech.biblio;
 
+import fr.unice.polytech.user.Etudiant;
+
 import java.time.LocalDate;
 import java.util.Objects;
 

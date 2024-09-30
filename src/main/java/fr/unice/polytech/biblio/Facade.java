@@ -1,5 +1,9 @@
 package fr.unice.polytech.biblio;
 
+import fr.unice.polytech.order.GroupOrderManager;
+import fr.unice.polytech.order.OrderManager;
+import fr.unice.polytech.restaurant.RestaurantManager;
+
 public class Facade {
 
     private static int orderId = 0;

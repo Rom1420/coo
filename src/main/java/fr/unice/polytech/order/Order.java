@@ -1,5 +1,7 @@
 package fr.unice.polytech.order;
 
+import fr.unice.polytech.restaurant.Article;
+
 import java.util.ArrayList;
 import java.util.List;
 

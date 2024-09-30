@@ -1,5 +1,6 @@
 package fr.unice.polytech.biblio;
 
+import fr.unice.polytech.user.Etudiant;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;

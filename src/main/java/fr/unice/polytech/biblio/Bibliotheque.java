@@ -1,5 +1,7 @@
 package fr.unice.polytech.biblio;
 
+import fr.unice.polytech.user.Etudiant;
+
 import java.time.LocalDate;
 import java.util.*;
 
@@ -10,7 +12,7 @@ import java.util.*;
 public class Bibliotheque {
 
 	public static final int DUREE_MAX_EMPRUNT = 15;
-	private Map<String,Etudiant> etudiants = new HashMap<>();
+	private Map<String, Etudiant> etudiants = new HashMap<>();
 	private Map<String,List<Livre>> livres = new HashMap<>();
 	private Map<Livre,Emprunt> emprunts = new HashMap<>();
 

@@ -1,4 +1,4 @@
-package fr.unice.polytech.biblio;
+package fr.unice.polytech.user;
 
 public class UserAccount {
     private String name;

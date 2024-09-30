@@ -1,4 +1,6 @@
-package fr.unice.polytech.biblio;
+package fr.unice.polytech.user;
+
+import fr.unice.polytech.biblio.Emprunt;
 
 import java.util.*;
 
