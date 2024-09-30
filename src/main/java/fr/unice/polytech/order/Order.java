@@ -1,6 +1,7 @@
 package fr.unice.polytech.order;
 
 import fr.unice.polytech.restaurant.Article;
+import fr.unice.polytech.restaurant.Restaurant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,17 +19,17 @@ public class Order {
         return orderId;
     }
 
-    public List<Article> getArticles() {
-        return articles;
-    }
-
     public List<Article> getAvailableArticles() {
         // TODO : Récupérer la liste des articles disponible pour le restaurant
         return articles;
     }
 
+    public List<Article> getArticles() {
+        return articles;
+    }
+
     public void addArticle(Article article){
-        if(getAvailableArticles().contains(article)){
+        if(.contains(article)){
             this.articles.add(article);
         }
         else{

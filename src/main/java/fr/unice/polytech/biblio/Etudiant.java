@@ -1,4 +1,4 @@
-package fr.unice.polytech.user;
+package fr.unice.polytech.biblio;
 
 import fr.unice.polytech.biblio.Emprunt;
 

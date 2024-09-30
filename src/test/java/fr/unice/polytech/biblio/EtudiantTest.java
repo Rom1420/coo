@@ -1,6 +1,5 @@
 package fr.unice.polytech.biblio;
 
-import fr.unice.polytech.user.Etudiant;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
