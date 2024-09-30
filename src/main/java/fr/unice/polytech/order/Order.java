@@ -11,14 +11,15 @@ import java.util.List;
 public class Order {
     private List<Article> orderedArticles; // Liste d'articles commandés
     private List<Menu> orderedMenus; // Liste de menus commandés
+
     private float totalPrice; // Prix total de la commande
+
     private int totalPreparationTime; // Temps de préparation total en minutes
     private Date orderDate; // Date de commande
     private Date deliveryDate; // Date de livraison prévue
     private String deliveryLocation; // Lieu de livraison
     private String status; // État de la commande
     private Restaurant restaurant;
-
     public Order(Date orderDate, Date deliveryDate, String deliveryLocation) {
         this.orderedArticles = new ArrayList<>();
         this.orderedMenus = new ArrayList<>();
@@ -34,16 +35,6 @@ public class Order {
         return restaurant;
     }
 
-
-    public List<Article> getAvailableArticles() {
-        // TODO : Récupérer la liste des articles disponible pour le restaurant
-        return orderedArticles;
-    }
-
-    public List<Article> getOrderedArticles() {
-        return orderedArticles;
-    }
-
     public void addArticle(Article article){
         orderedArticles.add(article);
         totalPrice += article.getPrice();
@@ -54,5 +45,37 @@ public class Order {
         orderedMenus.add(menu);
         totalPrice += menu.getPrice();
         totalPreparationTime += menu.getTotalTimeRequiredForPreparation();
+    }
+
+    public List<Article> getOrderedArticles() {
+        return orderedArticles;
+    }
+
+    public List<Menu> getOrderedMenus() {
+        return orderedMenus;
+    }
+
+    public float getTotalPrice() {
+        return totalPrice;
+    }
+
+    public int getTotalPreparationTime() {
+        return totalPreparationTime;
+    }
+
+    public Date getOrderDate() {
+        return orderDate;
+    }
+
+    public Date getDeliveryDate() {
+        return deliveryDate;
+    }
+
+    public String getDeliveryLocation() {
+        return deliveryLocation;
+    }
+
+    public String getStatus() {
+        return status;
     }
 }
