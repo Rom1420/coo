@@ -10,6 +10,7 @@ import java.util.Map;
 
 public interface GroupOrderInterface {
     Order getOrder(RegisteredUser user);
+    Restaurant getRestaurant();
     int getGroupId();
     void addOrUpdateUserOrder(RegisteredUser user, Order order);
     Map<RegisteredUser, Order> getUsersOrders();

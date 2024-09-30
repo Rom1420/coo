@@ -1,39 +1,58 @@
 package fr.unice.polytech.order;
 
 import fr.unice.polytech.restaurant.Article;
+import fr.unice.polytech.restaurant.Menu;
 import fr.unice.polytech.restaurant.Restaurant;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Order {
-    private int orderId;
-    private List<Article> articles;
+    private List<Article> orderedArticles; // Liste d'articles commandés
+    private List<Menu> orderedMenus; // Liste de menus commandés
+    private float totalPrice; // Prix total de la commande
+    private int totalPreparationTime; // Temps de préparation total en minutes
+    private Date orderDate; // Date de commande
+    private Date deliveryDate; // Date de livraison prévue
+    private String deliveryLocation; // Lieu de livraison
+    private String status; // État de la commande
+    private Restaurant restaurant;
 
-    public Order(int orderId){
-        this.orderId = orderId;
-        this.articles = new ArrayList<>();
+    public Order(Date orderDate, Date deliveryDate, String deliveryLocation) {
+        this.orderedArticles = new ArrayList<>();
+        this.orderedMenus = new ArrayList<>();
+        this.totalPrice = 0;
+        this.totalPreparationTime = 0;
+        this.orderDate = orderDate;
+        this.deliveryDate = deliveryDate;
+        this.deliveryLocation = deliveryLocation;
+        this.status = "en attente";
     }
 
-    public int getOrderId() {
-        return orderId;
+    public Restaurant getRestaurant() {
+        return restaurant;
     }
+
 
     public List<Article> getAvailableArticles() {
         // TODO : Récupérer la liste des articles disponible pour le restaurant
-        return articles;
+        return orderedArticles;
     }
 
-    public List<Article> getArticles() {
-        return articles;
+    public List<Article> getOrderedArticles() {
+        return orderedArticles;
     }
 
     public void addArticle(Article article){
-        if(.contains(article)){
-            this.articles.add(article);
-        }
-        else{
-            throw new IllegalArgumentException("L'article : '"+article+"' n'est pas disponible !");
-        }
+        orderedArticles.add(article);
+        totalPrice += article.getPrice();
+        totalPreparationTime += article.getTimeRequiredForPreparation();
+    }
+
+    public void addMenu(Menu menu){
+        orderedMenus.add(menu);
+        totalPrice += menu.getPrice();
+        totalPreparationTime += menu.getTotalTimeRequiredForPreparation();
     }
 }

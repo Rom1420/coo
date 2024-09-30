@@ -1,7 +1,11 @@
 package fr.unice.polytech.restaurant;
 
+import fr.unice.polytech.order.Order;
+import fr.unice.polytech.user.RegisteredUser;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Restaurant {
     private String name;
@@ -35,5 +39,13 @@ public class Restaurant {
     }
     public void getDiscount(){ //TODO: à faire quand on aura la discountStrategy
         return;
+    }
+
+    public boolean isOpen() {
+        return isOpen;
+    }
+
+    public boolean canPrepare(Order order, Map<RegisteredUser, Order> usersOrders) {
+        return false;
     }
 }
