@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class OrderTest {
 
@@ -65,5 +66,21 @@ class OrderTest {
 
         Exception exception = assertThrows(RuntimeException.class, () -> order.addMenu(menu));
         assertEquals("Impossible d'ajouter ce menu, cela dépasserait la date de livraison.", exception.getMessage());
+    }
+    @Test
+    void testGetOrderDate() {
+        assertNotEquals(order.getOrderDate(), null);
+    }
+    @Test
+    void testGetDeliveryDate() {
+        assertNull(order.getDeliveryDate());
+    }
+    @Test
+    void testGetDeliveryLocation() {
+        assertEquals("123 Street", order.getDeliveryLocation());
+    }
+    @Test
+    void testGetStatus() {
+        assertEquals("en attente", order.getStatus());
     }
 }
