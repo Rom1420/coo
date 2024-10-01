@@ -17,9 +17,11 @@ public class Order {
     private int totalPreparationTime; // Temps de préparation total en minutes
     private Date orderDate; // Date de commande
     private Date deliveryDate; // Date de livraison prévue
+    private Date estimatedDeliveryDate;
     private String deliveryLocation; // Lieu de livraison
     private String status; // État de la commande
     private Restaurant restaurant;
+
     public Order(Date orderDate, Date deliveryDate, String deliveryLocation) {
         this.orderedArticles = new ArrayList<>();
         this.orderedMenus = new ArrayList<>();
@@ -27,26 +29,22 @@ public class Order {
         this.totalPreparationTime = 0;
         this.orderDate = orderDate;
         this.deliveryDate = deliveryDate;
+        this.estimatedDeliveryDate = deliveryDate;
         this.deliveryLocation = deliveryLocation;
         this.status = "en attente";
     }
 
-    public Restaurant getRestaurant() {
-        return restaurant;
-    }
+    public Order(Date orderDate,  String deliveryLocation) {
+        this.orderedArticles = new ArrayList<>();
+        this.orderedMenus = new ArrayList<>();
+        this.totalPrice = 0;
+        this.totalPreparationTime = 0;
+        this.orderDate = orderDate;
+        this.deliveryDate = null;
+        this.deliveryLocation = deliveryLocation;
+        this.status = "en attente";
 
-    public void addArticle(Article article){
-        orderedArticles.add(article);
-        totalPrice += article.getPrice();
-        totalPreparationTime += article.getTimeRequiredForPreparation();
     }
-
-    public void addMenu(Menu menu){
-        orderedMenus.add(menu);
-        totalPrice += menu.getPrice();
-        totalPreparationTime += menu.getTotalTimeRequiredForPreparation();
-    }
-
     public List<Article> getOrderedArticles() {
         return orderedArticles;
     }
@@ -77,5 +75,55 @@ public class Order {
 
     public String getStatus() {
         return status;
+    }
+
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+
+    public void addArticle(Article article){
+        if (deliveryDate == null) {
+            // Aucune date de livraison choisie, on met à jour la prévision
+            updateEstimatedDeliveryDate(article.getTimeRequiredForPreparation()); // Minutes
+        } else {
+            // Vérifier si le menu peut être ajouté sans dépasser la date de livraison
+            if (!canAddArticleOrMenu(article.getTimeRequiredForPreparation())) {
+                throw new RuntimeException("Impossible d'ajouter ce menu, cela dépasserait la date de livraison.");
+            }
+        }
+        orderedArticles.add(article);
+        totalPrice += article.getPrice();
+        totalPreparationTime += article.getTimeRequiredForPreparation();
+    }
+
+    public void addMenu(Menu menu){
+        if (deliveryDate == null) {
+            // Aucune date de livraison choisie, on met à jour la prévision
+            updateEstimatedDeliveryDate(menu.getTotalTimeRequiredForPreparation());
+        } else {
+            // Vérifier si le menu peut être ajouté sans dépasser la date de livraison
+            if (!canAddArticleOrMenu(menu.getTotalTimeRequiredForPreparation())) {
+                throw new RuntimeException("Impossible d'ajouter ce menu, cela dépasserait la date de livraison.");
+            }
+        }
+        orderedMenus.add(menu);
+        totalPrice += menu.getPrice();
+        totalPreparationTime += menu.getTotalTimeRequiredForPreparation();
+    }
+
+    private void updateEstimatedDeliveryDate(int timeRequiredForPreparation) {
+        if (estimatedDeliveryDate == null) {
+            estimatedDeliveryDate = new Date(System.currentTimeMillis()); // Milliseconds
+        }
+
+        long newEstimatedTime = estimatedDeliveryDate.getTime() + ((long) timeRequiredForPreparation * 60 * 1000); // Milliseconds
+        estimatedDeliveryDate.setTime(newEstimatedTime);
+    }
+
+    private boolean canAddArticleOrMenu(int timeRequiredForPreparation) {
+        long currentTime = System.currentTimeMillis();
+        long deliveryTime = deliveryDate.getTime();
+        long totalPreparationTimeWithNewItem = ((long) totalPreparationTime * 60 * 1000) + ((long) timeRequiredForPreparation * 60 * 1000); // Milliseconds
+        return (currentTime + (totalPreparationTimeWithNewItem)) <= deliveryTime;
     }
 }
