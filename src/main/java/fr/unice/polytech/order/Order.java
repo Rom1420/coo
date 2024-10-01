@@ -17,11 +17,12 @@ public class Order {
     private int totalPreparationTime; // Temps de préparation total en minutes
     private Date orderDate; // Date de commande
     private Date deliveryDate; // Date de livraison prévue
+
     private Date estimatedDeliveryDate;
+
     private String deliveryLocation; // Lieu de livraison
     private String status; // État de la commande
     private Restaurant restaurant;
-
     public Order(Date orderDate, Date deliveryDate, String deliveryLocation) {
         this.orderedArticles = new ArrayList<>();
         this.orderedMenus = new ArrayList<>();
@@ -45,10 +46,10 @@ public class Order {
         this.status = "en attente";
 
     }
+
     public List<Article> getOrderedArticles() {
         return orderedArticles;
     }
-
     public List<Menu> getOrderedMenus() {
         return orderedMenus;
     }
@@ -75,6 +76,10 @@ public class Order {
 
     public String getStatus() {
         return status;
+    }
+
+    public Date getEstimatedDeliveryDate() {
+        return estimatedDeliveryDate;
     }
 
     public Restaurant getRestaurant() {
