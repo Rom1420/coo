@@ -43,4 +43,19 @@ public class Menu {
         return totalTime;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Menu Name: ").append(name).append("\n");
+        sb.append("Price: ").append(price).append("\n");
+        sb.append("Total Preparation Time: ").append(timeRequiredForPreparation).append(" minutes\n");
+        sb.append("Articles in Menu:\n");
+        for (Article article : articlesInMenu) {
+            sb.append("- ").append(article.getName())
+                    .append(": ").append(article.getPrice())
+                    .append(" (").append(article.getTimeRequiredForPreparation()).append(" min)\n");
+        }
+        return sb.toString();
+    }
+
 }

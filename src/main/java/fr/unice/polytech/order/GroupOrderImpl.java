@@ -14,12 +14,14 @@ public class GroupOrderImpl implements GroupOrderInterface {
     private Restaurant restaurant;
 
     private Date deliveryDate;
+    private String deliveryLocation;
 
-    public GroupOrderImpl(int groupId, Restaurant restaurant, Date deliveryDate) {
+    public GroupOrderImpl(int groupId, Restaurant restaurant, Date deliveryDate, String deliveryLocation) {
         this.groupId = groupId;
         usersOrders = new HashMap<>();
         this.restaurant = restaurant;
         this.deliveryDate = deliveryDate;
+        this.deliveryLocation = deliveryLocation;
     }
 
     @Override
