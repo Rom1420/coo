@@ -8,7 +8,9 @@ public class Menu {
 
     public float price;
     public int timeRequiredForPreparation;
+
     public List<Article> articlesInMenu;
+
     public Menu(String name, float price) {
         this.name = name;
         this.price = price;
@@ -21,6 +23,12 @@ public class Menu {
         this.articlesInMenu = new ArrayList<>();
         this.timeRequiredForPreparation = time;
     }
+    public Menu(String name, float price, List<Article> articlesInMenu) {
+        this.name = name;
+        this.price = price;
+        this.articlesInMenu = articlesInMenu;
+        this.timeRequiredForPreparation = calculateTotalTimeForPreparation();
+    }
 
     public float getPrice() {
         return price;
@@ -29,12 +37,12 @@ public class Menu {
     public String getName() {
         return name;
     }
+
     public void addArticleInMenu(Article article){
         this.articlesInMenu.add(article);
         price += article.getPrice();
         timeRequiredForPreparation += article.getTimeRequiredForPreparation();
     }
-
     public int getTotalTimeRequiredForPreparation() {
         return timeRequiredForPreparation;
     }
@@ -60,6 +68,10 @@ public class Menu {
                     .append(" (").append(article.getTimeRequiredForPreparation()).append(" min)\n");
         }
         return sb.toString();
+    }
+
+    public List<Article> getArticlesInMenu() {
+        return articlesInMenu;
     }
 
 }

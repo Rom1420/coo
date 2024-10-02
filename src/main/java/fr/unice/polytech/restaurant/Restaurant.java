@@ -63,4 +63,8 @@ public class Restaurant {
     public String toString() {
         return "Restaurant{Nom :'" + name + "', Ouvert : '" + isOpen + "'}";
     }
+
+    public String getName(){
+        return this.name;
+    }
 }

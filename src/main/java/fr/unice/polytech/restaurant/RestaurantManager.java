@@ -24,4 +24,13 @@ public class RestaurantManager {
     public List<Restaurant> consultRestaurant(){
         return new ArrayList<>(restaurants);
     }
+
+    public Restaurant findRestaurantByName(String name){
+        for(Restaurant resto : restaurants){
+           if(resto.getName().equals(name)){
+               return resto;
+           }
+        }
+        return null;
+    }
 }
