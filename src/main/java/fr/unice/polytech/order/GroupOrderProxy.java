@@ -13,7 +13,7 @@ public class GroupOrderProxy implements GroupOrderInterface{
     }
     @Override
     public Order getOrder(RegisteredUser user) {
-        return null;
+        return groupOrderInterface.getOrder(user);
     }
 
     @Override

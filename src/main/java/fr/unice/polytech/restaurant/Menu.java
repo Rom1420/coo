@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Menu {
     public String name;
+
     public float price;
     public int timeRequiredForPreparation;
     public List<Article> articlesInMenu;
@@ -14,7 +15,6 @@ public class Menu {
         this.articlesInMenu = new ArrayList<>();
         this.timeRequiredForPreparation = this.calculateTotalTimeForPreparation();
     }
-
     public Menu(String name, float price, int time) {
         this.name = name;
         this.price = price;
@@ -24,6 +24,10 @@ public class Menu {
 
     public float getPrice() {
         return price;
+    }
+
+    public String getName() {
+        return name;
     }
     public void addArticleInMenu(Article article){
         this.articlesInMenu.add(article);

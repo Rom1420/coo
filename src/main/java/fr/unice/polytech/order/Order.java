@@ -131,4 +131,29 @@ public class Order {
         long totalPreparationTimeWithNewItem = ((long) totalPreparationTime * 60 * 1000) + ((long) timeRequiredForPreparation * 60 * 1000); // Milliseconds
         return (currentTime + (totalPreparationTimeWithNewItem)) <= deliveryTime;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Order Details:\n");
+        sb.append("Order Date: ").append(orderDate).append("\n");
+        sb.append("Delivery Date: ").append(deliveryDate != null ? deliveryDate : "Not specified").append("\n");
+        sb.append("Delivery Location: ").append(deliveryLocation).append("\n");
+        sb.append("Status: ").append(status).append("\n");
+        sb.append("Total Price: ").append(String.format("%.2f", totalPrice)).append(" €\n");
+        sb.append("Total Preparation Time: ").append(totalPreparationTime).append(" minutes\n");
+        sb.append("Estimated Delivery Date: ").append(estimatedDeliveryDate).append("\n");
+
+        sb.append("Ordered Articles:\n");
+        for (Article article : orderedArticles) {
+            sb.append("- ").append(article.getName()).append(": ").append(String.format("%.2f", article.getPrice())).append(" € (Preparation time: ").append(article.getTimeRequiredForPreparation()).append(" minutes)\n");
+        }
+
+        sb.append("Ordered Menus:\n");
+        for (Menu menu : orderedMenus) {
+            sb.append("- ").append(menu.getName()).append(": ").append(String.format("%.2f", menu.getPrice())).append(" € (Total preparation time: ").append(menu.getTotalTimeRequiredForPreparation()).append(" minutes)\n");
+        }
+
+        return sb.toString();
+    }
 }

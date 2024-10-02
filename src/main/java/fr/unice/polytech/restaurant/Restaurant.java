@@ -19,6 +19,11 @@ public class Restaurant {
         this.menusOfRestaurant = menusOfRestaurant;
         this.isOpen=true; //arbitraire à voir comment on gère les ouvertures et fermetures du restaurant
     }
+
+    public void setOpen(boolean open){
+        isOpen = open;
+    }
+
     public List<Article> getArticlesSimples() {
         return articlesSimples;
     }
