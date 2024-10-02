@@ -17,7 +17,11 @@ public class RestaurantManager {
         return RESTAURANT_MANAGER_INSTANCE;
     }
 
-    public void consultRestaurant(){
-        return;
+    public void addRestaurant(Restaurant restaurant) {
+        restaurants.add(restaurant);
+    }
+
+    public List<Restaurant> consultRestaurant(){
+        return new ArrayList<>(restaurants);
     }
 }
