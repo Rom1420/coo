@@ -21,6 +21,7 @@ public class Order {
     private Date estimatedDeliveryDate;
 
     private String deliveryLocation; // Lieu de livraison
+
     private String status; // État de la commande
     private Restaurant restaurant;
     public Order(Date orderDate, Date deliveryDate, String deliveryLocation) {
@@ -30,11 +31,10 @@ public class Order {
         this.totalPreparationTime = 0;
         this.orderDate = orderDate;
         this.deliveryDate = deliveryDate;
-        this.estimatedDeliveryDate = deliveryDate;
+        this.estimatedDeliveryDate = orderDate;
         this.deliveryLocation = deliveryLocation;
         this.status = "en attente";
     }
-
     public Order(Date orderDate,  String deliveryLocation) {
         this.orderedArticles = new ArrayList<>();
         this.orderedMenus = new ArrayList<>();
@@ -47,13 +47,15 @@ public class Order {
 
     }
 
+
+
     public List<Article> getOrderedArticles() {
         return orderedArticles;
     }
+
     public List<Menu> getOrderedMenus() {
         return orderedMenus;
     }
-
     public float getTotalPrice() {
         return totalPrice;
     }
@@ -130,6 +132,11 @@ public class Order {
         long deliveryTime = deliveryDate.getTime();
         long totalPreparationTimeWithNewItem = ((long) totalPreparationTime * 60 * 1000) + ((long) timeRequiredForPreparation * 60 * 1000); // Milliseconds
         return (currentTime + (totalPreparationTimeWithNewItem)) <= deliveryTime;
+    }
+
+    public void updateEstimatedDeliveryDate(long estimatedDeliveryDate) {
+        Date newDate = new Date(estimatedDeliveryDate);
+        this.estimatedDeliveryDate = newDate;
     }
 
     @Override

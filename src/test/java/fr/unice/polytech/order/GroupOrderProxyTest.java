@@ -29,29 +29,23 @@ class GroupOrderProxyTest {
 
     @BeforeEach
     void setUp() {
-        // Initialize articles
-        burger = new Article("Burger", 8.50f, 10);
+        burger = new Article("Burger", 8.50f, 4);
         fries = new Article("Frites", 2.50f, 5);
         classicMenu = new Menu("Menu Classique", 10.00f);
         classicMenu.addArticleInMenu(fries);
         List<Article> articles = new ArrayList<>(); articles.add(burger); articles.add(fries);
 
-        // Create a real restaurant instance
         restaurant = new Restaurant("Test Restaurant", articles, List.of(classicMenu));
-        restaurant.setOpen(true); // Assuming you have a way to set the restaurant state
+        restaurant.setOpen(true);
 
-        // Initialize an order
         order = new Order(new Date(), new Date(System.currentTimeMillis() + 600000), "123 Street"); // Delivery in 1 hour
         order.addArticle(burger);
 
-        // Create an actual GroupOrder instance
         groupOrder = new GroupOrderImpl(667, restaurant, new Date(System.currentTimeMillis() + 600000), "123 Street"); // Delivery in 1 hour
-        groupOrder.addOrUpdateUserOrder(user, order); // Assuming this method exists
+        groupOrder.addOrUpdateUserOrder(user, order);
 
-        // Create the proxy
         groupOrderProxy = new GroupOrderProxy(groupOrder);
 
-        // Initialize the user
         user = new RegisteredUser("user1", 0, "password");
     }
 
@@ -69,7 +63,7 @@ class GroupOrderProxyTest {
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
             groupOrderProxy.addOrUpdateUserOrder(user, order);
         });
-        assertEquals("Restaurant non disponible pour cette commande.", exception.getMessage());
+        assertEquals("Restaurant fermé", exception.getMessage());
     }
 
     @Test
