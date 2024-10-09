@@ -83,4 +83,9 @@ public class GroupOrderProxy implements GroupOrderInterface{
     public Date getGroupOrderDeliveryDate() {
         return groupOrderInterface.getGroupOrderDeliveryDate();
     }
+
+    @Override
+    public String getGroupOrderDeliveryLocation() {
+        return null;
+    }
 }

@@ -75,4 +75,9 @@ public class GroupOrderImpl implements GroupOrderInterface {
         return this.deliveryDate;
     }
 
+    @Override
+    public String getGroupOrderDeliveryLocation() {
+        return this.deliveryLocation;
+    }
+
 }

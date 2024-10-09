@@ -20,5 +20,6 @@ public interface GroupOrderInterface {
     Map<RegisteredUser, Order> getUsersOrders();
     void removeOrder(RegisteredUser user);
     Date getGroupOrderDeliveryDate();
+    String getGroupOrderDeliveryLocation();
     int getTotalPreparationTime();
 }
