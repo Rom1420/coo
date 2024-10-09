@@ -12,3 +12,8 @@ Feature: manage group order
       And There is 3 members in the group order with id 1234
       And "Robert" creates his individual order for the group order with id 1234
       And The localisation and delivery time of his individual order is predefined by the group order with id 1234
+
+  Scenario: Validate a group order
+    When "Robert" validates the group order
+    Then the group order status should be "validated"
+    Then the group order is closed

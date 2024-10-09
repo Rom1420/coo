@@ -46,6 +46,10 @@ public class GroupOrderProxy implements GroupOrderInterface{
         int newTotalPrepTime = currentTotalPrepTime + order.getTotalPreparationTime(); // Minutes
         long currentTime = System.currentTimeMillis();
 
+        if (!restaurant.isOpen()) {
+            throw new RuntimeException("Restaurant fermé");
+        }
+
         if (groupDeliveryDate != null) {
             long groupDeliveryTime = groupDeliveryDate.getTime(); // Milliseconds
             long estimatedTimeWithNewOrder = currentTime + (newTotalPrepTime * 60 * 1000); // Milliseconds
@@ -53,13 +57,12 @@ public class GroupOrderProxy implements GroupOrderInterface{
             if (estimatedTimeWithNewOrder > groupDeliveryTime) {
                 throw new RuntimeException("Impossible d'ajouter cette commande, elle dépasserait la date de livraison du groupe.");
             }
+            else{
+                order.updateEstimatedDeliveryDate(estimatedTimeWithNewOrder);
+                groupOrderInterface.addOrUpdateUserOrder(user, order);
+            }
         }
 
-        if (restaurant.isOpen()) {
-            groupOrderInterface.addOrUpdateUserOrder(user, order);
-        } else {
-            throw new RuntimeException("Restaurant non disponible pour cette commande.");
-        }
     }
 
     @Override
