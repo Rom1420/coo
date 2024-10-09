@@ -3,9 +3,7 @@ package fr.unice.polytech.order;
 import fr.unice.polytech.restaurant.Restaurant;
 import fr.unice.polytech.user.RegisteredUser;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class GroupOrderImpl implements GroupOrderInterface {
     private int groupId;
@@ -16,12 +14,20 @@ public class GroupOrderImpl implements GroupOrderInterface {
     private Date deliveryDate;
     private String deliveryLocation;
 
+    private List<RegisteredUser> userList;
+
     public GroupOrderImpl(int groupId, Restaurant restaurant, Date deliveryDate, String deliveryLocation) {
         this.groupId = groupId;
         usersOrders = new HashMap<>();
         this.restaurant = restaurant;
         this.deliveryDate = deliveryDate;
         this.deliveryLocation = deliveryLocation;
+        this.userList = new ArrayList<>();
+    }
+
+    @Override
+    public void addMember(RegisteredUser user) {
+        userList.add(user);
     }
 
     @Override
@@ -36,6 +42,10 @@ public class GroupOrderImpl implements GroupOrderInterface {
     @Override
     public int getGroupId() {
         return groupId;
+    }
+
+    public List<RegisteredUser> getUserList() {
+        return userList;
     }
 
     @Override
