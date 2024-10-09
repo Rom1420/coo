@@ -16,4 +16,8 @@ Feature: Restaurant managers can update their opening hours and menu offering
 
   Scenario: search a restaurant out of its opening hours
     When "Patrick" searches "Pizzz" at 11:00
-    Then the restaurant is closed.
+    Then the restaurant is closed
+
+  Scenario: search a restaurant during its opening hours
+    When "Patrick" searches "Pizzz" at 13:00
+    Then the restaurant is open

@@ -66,8 +66,13 @@ public class RManagerUpdateTime {
         throw new io.cucumber.java.PendingException();
     }
 
-    @Then("the restaurant is closed.")
+    @Then("the restaurant is closed")
     public void the_restaurant_is_closed() {
+        // Write code here that turns the phrase above into concrete actions
+        throw new io.cucumber.java.PendingException();
+    }
+    @Then("the restaurant is open")
+    public void the_restaurant_is_open() {
         // Write code here that turns the phrase above into concrete actions
         throw new io.cucumber.java.PendingException();
     }
