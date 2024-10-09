@@ -15,6 +15,8 @@ public class GroupOrderImpl implements GroupOrderInterface {
     private String deliveryLocation;
 
     private List<RegisteredUser> userList;
+    private String status;
+
 
     public GroupOrderImpl(int groupId, Restaurant restaurant, Date deliveryDate, String deliveryLocation) {
         this.groupId = groupId;
@@ -23,6 +25,7 @@ public class GroupOrderImpl implements GroupOrderInterface {
         this.deliveryDate = deliveryDate;
         this.deliveryLocation = deliveryLocation;
         this.userList = new ArrayList<>();
+        this.status = "pending";
     }
 
     @Override
@@ -73,6 +76,18 @@ public class GroupOrderImpl implements GroupOrderInterface {
     @Override
     public Date getGroupOrderDeliveryDate() {
         return this.deliveryDate;
+    }
+
+    public void validateOrder() {
+        this.status = "validated";
+    }
+
+    public void closeOrder() {
+        this.status = "closed";
+    }
+
+    public String getStatus() {
+        return status;
     }
 
 }

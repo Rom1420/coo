@@ -24,7 +24,7 @@ public class GroupOrderManageStepdefs {
     Date deliveryTime;
     String deliveryLocation;
     Order order;
-    
+
     @Given("a group order with id {int} and and already {string} and {string} in it")
     public void a_group_order_with_id_and_and_already_and_in_it(Integer int1, String string, String string2) {
         restaurant = new Restaurant("Nono", new ArrayList<>(), new ArrayList<>());
@@ -76,4 +76,24 @@ public class GroupOrderManageStepdefs {
         assertEquals(order.getDeliveryLocation(), deliveryLocation);
     }
 
+    @When("{string} validates the group order")
+    public void validate_the_group_order(String userName) {
+        // Write code here that turns the phrase above into concrete actions
+        groupOrder.validateOrder();
+        System.out.println(userName + " has validated the group order");
+    }
+
+    @Then("the group order status should be {string}")
+    public void the_group_order_status_should_be(String expectedStatus) {
+        // Write code here that turns the phrase above into concrete actions
+        String actualStatus = groupOrder.getStatus();
+        assertEquals(expectedStatus, actualStatus);
+    }
+
+    @Then("the group order is closed")
+    public void the_group_order_is_closed() {
+        // Write code here that turns the phrase above into concrete actions
+        groupOrder.closeOrder();
+        assertEquals("closed", groupOrder.getStatus());
+    }
 }
