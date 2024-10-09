@@ -17,7 +17,20 @@ public class RestaurantManager {
         return RESTAURANT_MANAGER_INSTANCE;
     }
 
-    public void consultRestaurant(){
-        return;
+    public void addRestaurant(Restaurant restaurant) {
+        restaurants.add(restaurant);
+    }
+
+    public List<Restaurant> consultRestaurant(){
+        return new ArrayList<>(restaurants);
+    }
+
+    public Restaurant findRestaurantByName(String name){
+        for(Restaurant resto : restaurants){
+           if(resto.getName().equals(name)){
+               return resto;
+           }
+        }
+        return null;
     }
 }

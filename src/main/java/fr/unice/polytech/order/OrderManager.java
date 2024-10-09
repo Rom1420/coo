@@ -1,12 +1,14 @@
 package fr.unice.polytech.order;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class OrderManager {
 
-    private HashMap<Integer, Order> orders;
+    private final HashMap<Integer, ArrayList<Order>> orders;
 
-    private OrderManager() {
+    public OrderManager() {
         orders = new HashMap<>();
     }
 
@@ -17,16 +19,22 @@ public class OrderManager {
         return ORDER_MANAGER_INSTANCE;
     }
 
-    public void addOrder(Integer orderId, Order order) {
-        orders.put(orderId, order);
+    public void addOrder(Integer userId, Order order) {
+        if(orders.get(userId) == null){
+            orders.put(userId, new ArrayList<>());
+            orders.get(userId).add(order);
+        }
+        else{
+            orders.get(userId).add(order);
+        }
     }
 
-    public Order getOrder(Integer orderId) {
-        return orders.get(orderId);
+    public List<Order> getOrders(Integer userId) {
+        return orders.get(userId);
     }
 
-    public void removeOrder(Integer orderId) {
-        orders.remove(orderId);
+    public void removeOrder(Integer userId) {
+        orders.remove(userId);
     }
 }
 

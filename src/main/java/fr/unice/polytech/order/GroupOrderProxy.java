@@ -4,6 +4,7 @@ import fr.unice.polytech.restaurant.Restaurant;
 import fr.unice.polytech.user.RegisteredUser;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 public class GroupOrderProxy implements GroupOrderInterface{
@@ -22,6 +23,16 @@ public class GroupOrderProxy implements GroupOrderInterface{
     }
 
     @Override
+    public List<RegisteredUser> getUserList() {
+        return null;
+    }
+
+    @Override
+    public void addMember(RegisteredUser user) {
+        return;
+    }
+
+    @Override
     public Restaurant getRestaurant() {
         return groupOrderInterface.getRestaurant();
     }
@@ -35,6 +46,10 @@ public class GroupOrderProxy implements GroupOrderInterface{
         int newTotalPrepTime = currentTotalPrepTime + order.getTotalPreparationTime(); // Minutes
         long currentTime = System.currentTimeMillis();
 
+        if (!restaurant.isOpen()) {
+            throw new RuntimeException("Restaurant fermé");
+        }
+
         if (groupDeliveryDate != null) {
             long groupDeliveryTime = groupDeliveryDate.getTime(); // Milliseconds
             long estimatedTimeWithNewOrder = currentTime + (newTotalPrepTime * 60 * 1000); // Milliseconds
@@ -42,13 +57,12 @@ public class GroupOrderProxy implements GroupOrderInterface{
             if (estimatedTimeWithNewOrder > groupDeliveryTime) {
                 throw new RuntimeException("Impossible d'ajouter cette commande, elle dépasserait la date de livraison du groupe.");
             }
+            else{
+                order.updateEstimatedDeliveryDate(estimatedTimeWithNewOrder);
+                groupOrderInterface.addOrUpdateUserOrder(user, order);
+            }
         }
 
-        if (restaurant.isOpen()) {
-            groupOrderInterface.addOrUpdateUserOrder(user, order);
-        } else {
-            throw new RuntimeException("Restaurant non disponible pour cette commande.");
-        }
     }
 
     @Override
@@ -71,5 +85,10 @@ public class GroupOrderProxy implements GroupOrderInterface{
     @Override
     public Date getGroupOrderDeliveryDate() {
         return groupOrderInterface.getGroupOrderDeliveryDate();
+    }
+
+    @Override
+    public String getGroupOrderDeliveryLocation() {
+        return null;
     }
 }

@@ -9,6 +9,5 @@ public class PaymentSystem {
 
     public void proceedPayment() {
 
-
     }
 }

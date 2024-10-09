@@ -20,6 +20,11 @@ public class Restaurant {
         this.isOpen=true; //arbitraire à voir comment on gère les ouvertures et fermetures du restaurant
     }
 
+    public Restaurant(String name) {
+        this.name = name;
+        this.isOpen=true;
+    }
+
     public void setOpen(boolean open){
         isOpen = open;
     }
@@ -52,5 +57,14 @@ public class Restaurant {
 
     public boolean canPrepare(Order order, Map<RegisteredUser, Order> usersOrders) {
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return "Restaurant{Nom :'" + name + "', Ouvert : '" + isOpen + "'}";
+    }
+
+    public String getName(){
+        return this.name;
     }
 }

@@ -16,7 +16,7 @@ public class GroupOrder {
         this.groupOrders = new ArrayList<>();
     }
 
-    public void addUser(RegisteredUser user) {
+    public void addMember(RegisteredUser user) {
         userList.add(user);
     }
 
