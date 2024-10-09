@@ -4,6 +4,7 @@ import fr.unice.polytech.restaurant.Restaurant;
 import fr.unice.polytech.user.RegisteredUser;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 public class GroupOrderProxy implements GroupOrderInterface{
@@ -19,6 +20,16 @@ public class GroupOrderProxy implements GroupOrderInterface{
     @Override
     public int getGroupId() {
         return groupOrderInterface.getGroupId();
+    }
+
+    @Override
+    public List<RegisteredUser> getUserList() {
+        return null;
+    }
+
+    @Override
+    public void addMember(RegisteredUser user) {
+        return;
     }
 
     @Override
