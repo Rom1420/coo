@@ -1,5 +1,8 @@
 package fr.unice.polytech.restaurant;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,5 +35,14 @@ public class RestaurantManager {
            }
         }
         return null;
+    }
+    public List<Restaurant> searchOpenRestaurant(DayOfWeek date, LocalTime time){
+        List<Restaurant> OpenRestaurants = new ArrayList<>();
+        for(Restaurant resto : restaurants){
+            if(resto.isOpen(date,time)){
+                OpenRestaurants.add(resto);
+            }
+        }
+        return OpenRestaurants;
     }
 }
