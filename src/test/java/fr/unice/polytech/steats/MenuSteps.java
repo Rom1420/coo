@@ -1,9 +1,6 @@
 package fr.unice.polytech.steats;
 
-import fr.unice.polytech.restaurant.Article;
-import fr.unice.polytech.restaurant.Menu;
-import fr.unice.polytech.restaurant.Restaurant;
-import fr.unice.polytech.restaurant.RestaurantManager;
+import fr.unice.polytech.restaurant.*;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -17,6 +14,7 @@ public class MenuSteps {
     private String userName;
     private List<Restaurant> availableRestaurants;
     private Restaurant selectedRestaurant;
+    private List<Article> filteredArticles;
 
     @Given("an internet User {string}")
     public void anInternetUser(String name) {
@@ -44,9 +42,9 @@ public class MenuSteps {
     @Given("the user consults restaurants")
     public void theUserConsultsRestaurants() {
         // Création d'un restaurant
-        Article burger = new Article("Burger", 8.50f, 10);
-        Article fries = new Article("Frites", 2.50f, 5);
-        Article drink = new Article("Boisson", 1.50f, 2);
+        Article burger = new Article("Burger", 8.50f, 10, Categorie.PLAT);
+        Article fries = new Article("Frites", 2.50f, 5, Categorie.ACCOMPAGNEMENT);
+        Article drink = new Article("Boisson", 1.50f, 2, Categorie.BOISSON);
         List<Article> articlesInMenu = new ArrayList<>();
         articlesInMenu.add(burger);
         articlesInMenu.add(fries);
@@ -69,15 +67,33 @@ public class MenuSteps {
         this.selectedRestaurant = manager.findRestaurantByName(restaurantName);
     }
 
-    @Then("they should see the menus for {string}")
-    public void theyShouldSeeTheMenuFor(String restaurantName) {
-        assertTrue("The selected restaurant should not be null", selectedRestaurant != null);
+    @When("the user filters by category {string}")
+    public void theUserFiltersByCategory(String category) {
+        Categorie categorie = Categorie.valueOf(category.toUpperCase());
+        this.filteredArticles = selectedRestaurant.filterArticlesByCategory(categorie);
+    }
+    @Then("they should see articles in the {string} category")
+    public void theyShouldSeeArticlesInTheCategory(String category) {
+        assertTrue("Filtered articles should not be empty", filteredArticles != null && !filteredArticles.isEmpty());
 
-        // Affichage du menu
-        List<Menu> menus = selectedRestaurant.getMenusOfRestaurant(); // Supposons que Restaurant a une méthode getMenu
-        for(Menu menu : menus){
-            System.out.println("\n"+menu.toString());
-            assertTrue("The menu should not be empty", !menu.getArticlesInMenu().isEmpty());
-        }
+        filteredArticles.forEach(article -> {
+            System.out.println(article);
+            assertTrue("Article category should match", article.getCategorie().toString().equalsIgnoreCase(category));
+        });
+    }
+
+    @When("the user filters by maximum price {float}")
+    public void theUserFiltersByMaximumPrice(float maxPrice) {
+        this.filteredArticles = selectedRestaurant.filterArticlesByMaxPrice(maxPrice);
+    }
+
+    @Then("they should see articles costing less than {float} euros")
+    public void theyShouldSeeArticlesCostingLessThan(float maxPrice) {
+        assertTrue("Filtered articles should not be empty", filteredArticles != null && !filteredArticles.isEmpty());
+
+        filteredArticles.forEach(article -> {
+            System.out.println(article);
+            assertTrue("Article price should be less than or equal to max price", article.getPrice() <= maxPrice);
+        });
     }
 }

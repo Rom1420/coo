@@ -1,6 +1,7 @@
 package fr.unice.polytech.order;
 
 import fr.unice.polytech.restaurant.Article;
+import fr.unice.polytech.restaurant.Categorie;
 import fr.unice.polytech.restaurant.Menu;
 import fr.unice.polytech.restaurant.Restaurant;
 import fr.unice.polytech.user.RegisteredUser;
@@ -31,9 +32,9 @@ class GroupOrderTest {
     @BeforeEach
     void setUp() {
         // Initialisation des articles
-        burger = new Article("Burger", 8.50f, 10);
-        fries = new Article("Frites", 2.50f, 5);
-        drink = new Article("Boisson", 1.50f, 2);
+        burger = new Article("Burger", 8.50f, 10, Categorie.PLAT);
+        fries = new Article("Frites", 2.50f, 5, Categorie.ACCOMPAGNEMENT);
+        drink = new Article("Boisson", 1.50f, 2, Categorie.BOISSON);
         List<Article> articles = new ArrayList<>();
         articles.add(burger);
         articles.add(fries);

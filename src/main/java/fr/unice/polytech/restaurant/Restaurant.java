@@ -103,4 +103,39 @@ public class Restaurant {
     public String getName(){
         return this.name;
     }
+
+
+    // Filtrer par catégorie
+    public List<Article> filterArticlesByCategory(Categorie categorie) {
+        List<Article> filteredArticles = new ArrayList<>();
+        for (Article article : articlesSimples) {
+            if (article.getCategorie() == categorie) {
+                filteredArticles.add(article);
+            }
+        }
+        return filteredArticles;
+    }
+
+    // Filtrer par prix
+    public List<Article> filterArticlesByMaxPrice(float maxPrice) {
+        List<Article> filteredArticles = new ArrayList<>();
+        for (Article article : articlesSimples) {
+            if (article.getPrice() <= maxPrice) {
+                filteredArticles.add(article);
+            }
+        }
+        return filteredArticles;
+    }
+
+    // Filtrer par temps de préparation
+    public List<Article> filterArticlesByMaxPreparationTime(int maxTime) {
+        List<Article> filteredArticles = new ArrayList<>();
+        for (Article article : articlesSimples) {
+            if (article.getTimeRequiredForPreparation() <= maxTime) {
+                filteredArticles.add(article);
+            }
+        }
+        return filteredArticles;
+    }
 }
+

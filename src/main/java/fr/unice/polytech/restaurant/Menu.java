@@ -65,7 +65,8 @@ public class Menu {
         for (Article article : articlesInMenu) {
             sb.append("- ").append(article.getName())
                     .append(": ").append(article.getPrice())
-                    .append(" (").append(article.getTimeRequiredForPreparation()).append(" min)\n");
+                    .append(" (").append(article.getTimeRequiredForPreparation()).append(" min)\n")
+                    .append(" - ").append(article.getCategorie()).append("\n");
         }
         return sb.toString();
     }

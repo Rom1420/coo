@@ -1,6 +1,7 @@
 package fr.unice.polytech.order;
 
 import fr.unice.polytech.restaurant.Article;
+import fr.unice.polytech.restaurant.Categorie;
 import fr.unice.polytech.restaurant.Menu;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,7 +22,7 @@ class OrderTest {
         Date orderDate = new Date();
         String deliveryLocation = "123 Street";
         order = new Order(orderDate, deliveryLocation);
-        article = new Article("Burger", 10, 15); // Prix: 10, Temps de préparation: 15 minutes
+        article = new Article("Burger", 10, 15, Categorie.PLAT); // Prix: 10, Temps de préparation: 15 minutes
         menu = new Menu("Menu1", 25, 30); // Prix: 25, Temps de préparation: 30 minutes
     }
 

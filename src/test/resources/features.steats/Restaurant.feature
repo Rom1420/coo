@@ -1,6 +1,7 @@
 Feature: Browse Restaurant Menus
 
 
+
   Background:
     Given an internet User "Womain"
 
@@ -8,7 +9,14 @@ Feature: Browse Restaurant Menus
     When the user navigates to the restaurant section
     Then he should see a list of available restaurants
 
-  Scenario: View the menu of a specific restaurant
+  Scenario: Filter articles by category
     Given the user consults restaurants
     When the user selects "Restoto"
-    Then they should see the menus for "Restoto"
+    And the user filters by category "PLAT"
+    Then they should see articles in the "PLAT" category
+
+  Scenario: Filter articles by maximum price
+    Given the user consults restaurants
+    When the user selects "Restoto"
+    And the user filters by maximum price 5.0
+    Then they should see articles costing less than 5.0 euros
