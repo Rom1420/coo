@@ -1,7 +1,4 @@
-Feature: Browse Restaurant Menus
-
-
-
+Feature: Browse and filter Restaurant Menus
   Background:
     Given an internet User "Womain"
 

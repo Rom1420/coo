@@ -23,7 +23,7 @@ class RestaurantTest {
         articles.add(plat);
         articles.add(dessert);
 
-        restaurant = new Restaurant("Le Gourmet", articles, new ArrayList<>());
+        restaurant = new Restaurant("Le Gourmet", TypeCuisine.FRANCAISE ,articles, new ArrayList<>());
     }
 
     @Test

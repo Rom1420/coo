@@ -1,9 +1,6 @@
 package fr.unice.polytech.order;
 
-import fr.unice.polytech.restaurant.Article;
-import fr.unice.polytech.restaurant.Categorie;
-import fr.unice.polytech.restaurant.Menu;
-import fr.unice.polytech.restaurant.Restaurant;
+import fr.unice.polytech.restaurant.*;
 import fr.unice.polytech.user.RegisteredUser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -46,7 +43,7 @@ class GroupOrderTest {
         classicMenu.addArticleInMenu(drink);
 
         // Initialisation du restaurant
-        restaurant = new Restaurant("Mcdo", articles, List.of(classicMenu));
+        restaurant = new Restaurant("Mcdo", TypeCuisine.FASTFOOD ,articles, List.of(classicMenu));
 
         // Initialisation des données de test
         Date orderDate = new Date();
