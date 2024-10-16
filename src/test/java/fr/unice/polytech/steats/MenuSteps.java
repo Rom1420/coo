@@ -96,4 +96,19 @@ public class MenuSteps {
             assertTrue("Article price should be less than or equal to max price", article.getPrice() <= maxPrice);
         });
     }
+
+    @When("the user filters by maximum preparation time {float}")
+    public void theUserFiltersByMaximumPreparationTime(float maxPrepTime) {
+        this.filteredArticles = selectedRestaurant.filterArticlesByMaxPrice(maxPrepTime);
+    }
+
+    @Then("they should see articles taking less than {float} min")
+    public void theyShouldSeeArticlesTakingLessThan(float maxPrepTime) {
+        assertTrue("Filtered articles should not be empty", filteredArticles != null && !filteredArticles.isEmpty());
+
+        filteredArticles.forEach(article -> {
+            System.out.println(article);
+            assertTrue("Article preparation time should be less than or equal to the filter", article.getTimeRequiredForPreparation() <= maxPrepTime);
+        });
+    }
 }
