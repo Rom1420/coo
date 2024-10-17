@@ -28,6 +28,10 @@ public class RestaurantManager {
         return new ArrayList<>(restaurants);
     }
 
+    public void clearRestaurants() {
+        restaurants.clear();
+    }
+
     public Restaurant findRestaurantByName(String name){
         for(Restaurant resto : restaurants){
            if(resto.getName().equals(name)){
