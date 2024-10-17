@@ -35,8 +35,6 @@ public class MenuSteps {
     public void userShouldSeeListOfRestaurants() {
         assertTrue("The list of available restaurants should not be empty",
                 availableRestaurants != null && !availableRestaurants.isEmpty());
-
-        availableRestaurants.forEach(restaurant -> System.out.println(restaurant));
     }
 
     @Given("the user consults restaurants")
@@ -74,10 +72,11 @@ public class MenuSteps {
     }
     @Then("they should see articles in the {string} category")
     public void theyShouldSeeArticlesInTheCategory(String category) {
+        Categorie categorie = Categorie.valueOf(category.toUpperCase());
+        this.filteredArticles = selectedRestaurant.filterArticlesByCategory(categorie);
         assertTrue("Filtered articles should not be empty", filteredArticles != null && !filteredArticles.isEmpty());
 
         filteredArticles.forEach(article -> {
-            System.out.println(article);
             assertTrue("Article category should match", article.getCategorie().toString().equalsIgnoreCase(category));
         });
     }
@@ -87,12 +86,20 @@ public class MenuSteps {
         this.filteredArticles = selectedRestaurant.filterArticlesByMaxPrice(maxPrice);
     }
 
-    @Then("they should see articles costing less than {float} euros")
-    public void theyShouldSeeArticlesCostingLessThan(float maxPrice) {
+    @Then("they should see articles costing less than {float} euros and in the {string} category")
+    public void theyShouldSeeArticlesCostingLessThan(float maxPrice, String category) {
+        Article burger = new Article("Burger", 8.50f, 10, Categorie.PLAT);
+        Article fries = new Article("Frites", 2.50f, 5, Categorie.ACCOMPAGNEMENT);
+        Article drink = new Article("Boisson", 1.50f, 2, Categorie.BOISSON);
+        List<Article> articles = new ArrayList<>();
+        selectedRestaurant.addArticle(burger);
+        selectedRestaurant.addArticle(drink);
+        selectedRestaurant.addArticle(fries);
+        Categorie categorie = Categorie.valueOf(category.toUpperCase());
+        this.filteredArticles = selectedRestaurant.filterArticlesByCategory(categorie);
         assertTrue("Filtered articles should not be empty", filteredArticles != null && !filteredArticles.isEmpty());
 
-        filteredArticles.forEach(article -> {
-            System.out.println(article);
+        filteredArticles.forEach(article -> {;
             assertTrue("Article price should be less than or equal to max price", article.getPrice() <= maxPrice);
         });
     }
@@ -107,7 +114,6 @@ public class MenuSteps {
         assertTrue("Filtered articles should not be empty", filteredArticles != null && !filteredArticles.isEmpty());
 
         filteredArticles.forEach(article -> {
-            System.out.println(article);
             assertTrue("Article preparation time should be less than or equal to the filter", article.getTimeRequiredForPreparation() <= maxPrepTime);
         });
     }

@@ -16,7 +16,7 @@ Feature: Browse and filter Restaurant Menus
     Given the user consults restaurants
     When the user selects "Restoto"
     And the user filters by maximum price 5.0
-    Then they should see articles costing less than 5.0 euros
+    Then they should see articles costing less than 5.0 euros and in the "ACCOMPAGNEMENT" category
 
   Scenario: Filter articles by maximum preparation time
     Given the user consults restaurants

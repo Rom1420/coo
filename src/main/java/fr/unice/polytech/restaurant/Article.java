@@ -16,6 +16,12 @@ public class Article {
         this.description="none";
         this.categorie = categorie;
     }
+    public Article(String name,float price,int timeRequiredForPreparation){
+        this.name=name;
+        this.price=price;
+        this.timeRequiredForPreparation=timeRequiredForPreparation;
+        this.description="none";
+    }
 
     public Article(String name,float price,int timeRequiredForPreparation,String description, Categorie categorie){
         this.name=name;
