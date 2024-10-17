@@ -30,11 +30,13 @@ public class Restaurant {
     public Restaurant(String name) {
         this.name = name;
         this.isOpen=true;
+        this.articlesSimples =new ArrayList<>();
         this.weeklySchedules = new HashMap<>();
     }
     public Restaurant(String name,int nbOfCook){
         this.name=name;
         this.nbOfCook=nbOfCook;
+        this.articlesSimples = new ArrayList<>();
         this.weeklySchedules = new HashMap<>();
     }
 
@@ -52,6 +54,9 @@ public class Restaurant {
     }
     public int getNbOfCook() {return nbOfCook;}
     public void setNbOfCook(int nbOfCook) {this.nbOfCook = nbOfCook;}
+    public void addArticle(Article article){
+        this.articlesSimples.add(article);
+    }
 
     public List<Article> selectAvailableArticle(){
         List<Article> availableArticle=new ArrayList<>();
@@ -136,6 +141,17 @@ public class Restaurant {
             }
         }
         return filteredArticles;
+    }
+    public int calculateNbOfArticleCanBePrepared(Article article,int timeInterval){
+        int nbOfCooker = this.getNbOfCook();
+        int preparationtime = article.getTimeRequiredForPreparation()*60; //pour le mettre en secondes
+        if(preparationtime==0 || nbOfCooker==0){
+            return 0;
+        }
+        int preparationTimeForOneArticle = preparationtime/nbOfCooker;
+        if (preparationTimeForOneArticle==0){return 0;}
+        int nbOfArticle = timeInterval/preparationTimeForOneArticle; //je travaille ici en seconde pour eviter les problèmes de division par 0
+        return nbOfArticle;
     }
 }
 
