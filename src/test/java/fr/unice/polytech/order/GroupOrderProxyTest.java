@@ -36,7 +36,7 @@ class GroupOrderProxyTest {
         classicMenu.addArticleInMenu(fries);
         List<Article> articles = new ArrayList<>(); articles.add(burger); articles.add(fries);
 
-        restaurant = new Restaurant("Test Restaurant", articles, List.of(classicMenu));
+        restaurant = new Restaurant("Test Restaurant" ,articles, List.of(classicMenu));
         restaurant.setOpen(true);
 
         order = new Order(new Date(), new Date(System.currentTimeMillis() + 600000), "123 Street"); // Delivery in 1 hour
