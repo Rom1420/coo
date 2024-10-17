@@ -44,7 +44,7 @@ public class FilteringRestaurantsSteps {
         LocalTime closing = LocalTime.parse(closingTime);
         restaurant.setSchedules(dayOfWeek, opening, closing);
 
-        Article article = new Article("Cassoulet", 10f, 10, Categorie.ACCOMPAGNEMENT);
+        Article article = new Article("Cassoulet", 10f, 10, Categorie.PLAT);
         restaurant.addArticle(article);
         restaurantManager.addRestaurant(restaurant);
     }
