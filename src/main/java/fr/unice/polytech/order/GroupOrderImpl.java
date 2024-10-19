@@ -86,11 +86,14 @@ public class GroupOrderImpl implements GroupOrderInterface {
 
     public void validateOrder() {
         this.status = "validated";
-        System.out.println("La commande de groupe a été validée");
     }
 
     public String getStatus() {
         return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public void closeOrder() {

@@ -33,10 +33,10 @@ public class GroupOrderManager {
 
         if (groupOrder != null) {
             try {
-                groupOrder.validateOrder();
-                notifyRestaurant(groupOrder);
-                groupOrder.closeOrder();
-                System.out.println("Commande de groupe validée et envoyée en préparation");
+                groupOrder.validateOrder(); // La commande passe à "validated"
+                notifyRestaurant(groupOrder); // La notification du restaurant
+                groupOrder.closeOrder();  // Assure que la commande est fermée après notification
+                System.out.println("Commande de groupe validée, fermée et envoyée en préparation");
             } catch (IllegalStateException e) {
                 System.out.println("Erreur: " + e.getMessage());
             }
@@ -45,11 +45,16 @@ public class GroupOrderManager {
         }
     }
 
-
-    private void notifyRestaurant(GroupOrderImpl groupOrder) {
-        Restaurant restaurant = groupOrder.getRestaurant();
-        System.out.println("Le restaurant " + restaurant.getName() + " a été notifié pour commencer la préparation");
+    public void closeGroupOrder(GroupOrderImpl groupOrder) {
+        groupOrder.setStatus("closed");
     }
+
+
+    public void notifyRestaurant(GroupOrderImpl groupOrder) {
+        Restaurant restaurant = groupOrder.getRestaurant();
+    }
+
+
 
     public void removeOrder(Integer groupOrderId) {
         groupOrders.remove(groupOrderId);

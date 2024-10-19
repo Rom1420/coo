@@ -3,6 +3,7 @@ package fr.unice.polytech.system;
 import fr.unice.polytech.order.GroupOrderImpl;
 import fr.unice.polytech.order.GroupOrderManager;
 import fr.unice.polytech.order.OrderManager;
+import fr.unice.polytech.restaurant.Restaurant;
 import fr.unice.polytech.restaurant.RestaurantManager;
 
 public class Facade {
@@ -40,6 +41,11 @@ public class Facade {
 
     public void validateGroupOrder(int groupOrderId) {
         groupOrderManager.validateGroupOrder(groupOrderId);
+    }
+
+    public void notifyRestaurant(GroupOrderImpl groupOrder) {
+        groupOrderManager.notifyRestaurant(groupOrder);
+        groupOrderManager.closeGroupOrder(groupOrder);
     }
 
 
