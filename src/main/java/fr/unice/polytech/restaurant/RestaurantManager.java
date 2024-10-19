@@ -28,6 +28,10 @@ public class RestaurantManager {
         return new ArrayList<>(restaurants);
     }
 
+    public void clearRestaurants() {
+        restaurants.clear();
+    }
+
     public Restaurant findRestaurantByName(String name){
         for(Restaurant resto : restaurants){
            if(resto.getName().equals(name)){
@@ -44,5 +48,15 @@ public class RestaurantManager {
             }
         }
         return OpenRestaurants;
+    }
+
+    public List<Restaurant> filterRestaurantsByCuisineType(TypeCuisine type, List<Restaurant> restaurants) {
+        List<Restaurant> filteredRestaurants = new ArrayList<>();
+        for (Restaurant restaurant : restaurants) {
+            if (restaurant.matchesCuisineType(type)) {
+                filteredRestaurants.add(restaurant);
+            }
+        }
+        return filteredRestaurants;
     }
 }
