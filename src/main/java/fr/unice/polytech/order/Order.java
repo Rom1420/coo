@@ -24,7 +24,8 @@ public class Order {
 
     private String status; // État de la commande
     private Restaurant restaurant;
-    public Order(Date orderDate, Date deliveryDate, String deliveryLocation) {
+
+    public Order(Date orderDate, Date deliveryDate, String deliveryLocation, Restaurant restaurant) {
         this.orderedArticles = new ArrayList<>();
         this.orderedMenus = new ArrayList<>();
         this.totalPrice = 0;
@@ -33,9 +34,10 @@ public class Order {
         this.deliveryDate = deliveryDate;
         this.estimatedDeliveryDate = orderDate;
         this.deliveryLocation = deliveryLocation;
+        this.restaurant = restaurant;
         this.status = "en attente";
     }
-    public Order(Date orderDate,  String deliveryLocation) {
+    public Order(Date orderDate, String deliveryLocation, Restaurant restaurant) {
         this.orderedArticles = new ArrayList<>();
         this.orderedMenus = new ArrayList<>();
         this.totalPrice = 0;
@@ -43,6 +45,7 @@ public class Order {
         this.orderDate = orderDate;
         this.deliveryDate = null;
         this.deliveryLocation = deliveryLocation;
+        this.restaurant = restaurant;
         this.status = "en attente";
 
     }
@@ -89,13 +92,16 @@ public class Order {
     }
 
     public void addArticle(Article article){
+        if (!restaurant.getArticlesSimples().contains(article)) {
+            throw new RuntimeException("Impossible d'ajouter cette article, il n'appartient pas au restaurant de la commande.");
+        }
         if (deliveryDate == null) {
             // Aucune date de livraison choisie, on met à jour la prévision
             updateEstimatedDeliveryDate(article.getTimeRequiredForPreparation()); // Minutes
         } else {
             // Vérifier si le menu peut être ajouté sans dépasser la date de livraison
             if (!canAddArticleOrMenu(article.getTimeRequiredForPreparation())) {
-                throw new RuntimeException("Impossible d'ajouter ce menu, cela dépasserait la date de livraison.");
+                throw new RuntimeException("Impossible d'ajouter cette article, cela dépasserait la date de livraison.");
             }
         }
         orderedArticles.add(article);
@@ -104,6 +110,9 @@ public class Order {
     }
 
     public void addMenu(Menu menu){
+        if (!restaurant.getMenusOfRestaurant().contains(menu)) {
+            throw new RuntimeException("Impossible d'ajouter ce menu, il n'appartient pas au restaurant de la commande.");
+        }
         if (deliveryDate == null) {
             // Aucune date de livraison choisie, on met à jour la prévision
             updateEstimatedDeliveryDate(menu.getTotalTimeRequiredForPreparation());
@@ -139,10 +148,16 @@ public class Order {
         this.estimatedDeliveryDate = newDate;
     }
 
+    public void setOrderArticlesAndMenus(ArrayList<Article> articles, ArrayList<Menu> menus) {
+        for (Article article : articles) addArticle(article);
+        for (Menu menu : menus) addMenu(menu);
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Order Details:\n");
+        sb.append("Restaurant: ").append(restaurant).append("\n");
         sb.append("Order Date: ").append(orderDate).append("\n");
         sb.append("Delivery Date: ").append(deliveryDate != null ? deliveryDate : "Not specified").append("\n");
         sb.append("Delivery Location: ").append(deliveryLocation).append("\n");
@@ -163,4 +178,5 @@ public class Order {
 
         return sb.toString();
     }
+
 }

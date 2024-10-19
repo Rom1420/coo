@@ -60,7 +60,9 @@ class GroupOrderTest {
 
     @Test
     void testAddOrUpdateUserOrder() {
-        Order order = new Order(new Date(), deliveryDate, "123 Street");
+        Restaurant restaurant = new Restaurant("Restau");
+        restaurant.addMenu(classicMenu);
+        Order order = new Order(new Date(), deliveryDate, "123 Street", restaurant);
         order.addMenu(classicMenu);
         groupOrder.addOrUpdateUserOrder(user1, order);
 
@@ -70,7 +72,9 @@ class GroupOrderTest {
 
     @Test
     void testGetOrder() {
-        Order order = new Order(new Date(), deliveryDate, "123 Street");
+        Restaurant restaurant = new Restaurant("Restau");
+        restaurant.addMenu(classicMenu);
+        Order order = new Order(new Date(), deliveryDate, "123 Street", restaurant);
         order.addMenu(classicMenu);
         groupOrder.addOrUpdateUserOrder(user1, order);
 
@@ -81,7 +85,7 @@ class GroupOrderTest {
 
     @Test
     void testRemoveOrder() {
-        Order order = new Order(new Date(), deliveryDate, "123 Street");
+        Order order = new Order(new Date(), deliveryDate, "123 Street", new Restaurant("Restau"));
         groupOrder.addOrUpdateUserOrder(user1, order);
 
         assertTrue(groupOrder.getUsersOrders().containsKey(user1));
@@ -98,11 +102,14 @@ class GroupOrderTest {
 
     @Test
     void testGetTotalPreparationTime() {
-        Order order1 = new Order(new Date(), deliveryDate, "123 Street");
+        Restaurant restaurant = new Restaurant("Restau");
+        restaurant.addMenu(classicMenu);
+        restaurant.addArticle(burger);
+        Order order1 = new Order(new Date(), deliveryDate, "123 Street", restaurant);
         order1.addMenu(classicMenu);
         groupOrder.addOrUpdateUserOrder(user1, order1);
 
-        Order order2 = new Order(new Date(), deliveryDate, "123 Street");
+        Order order2 = new Order(new Date(), deliveryDate, "123 Street", restaurant);
         order2.addArticle(burger);
         groupOrder.addOrUpdateUserOrder(user2, order2);
 

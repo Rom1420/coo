@@ -46,6 +46,8 @@ public class Restaurant {
         this.isOpen=true;
         this.articlesSimples =new ArrayList<>();
         this.weeklySchedules = new HashMap<>();
+        this.articlesSimples = new ArrayList<>();
+        this.menusOfRestaurant = new ArrayList<>();
     }
 
     public Restaurant(String name,int nbOfCook){
@@ -53,6 +55,8 @@ public class Restaurant {
         this.nbOfCook=nbOfCook;
         this.articlesSimples =new ArrayList<>();
         this.weeklySchedules = new HashMap<>();
+        this.articlesSimples = new ArrayList<>();
+        this.menusOfRestaurant = new ArrayList<>();
     }
 
     public void setOpen(boolean open){
@@ -72,12 +76,9 @@ public class Restaurant {
     public void setTypeCuisine(TypeCuisine typeCuisine) {
         this.typeCuisine = typeCuisine;
     }
-    public void addArticle(Article article){
-        if(this.articlesSimples == null){
-            this.articlesSimples = new ArrayList<>();
-        }
-        this.articlesSimples.add(article);
-    }
+
+    public void addArticle(Article article) {articlesSimples.add(article);}
+    public void addMenu(Menu menu) {menusOfRestaurant.add(menu);}
 
     public List<Article> selectAvailableArticle(){
         List<Article> availableArticle=new ArrayList<>();

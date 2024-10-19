@@ -44,6 +44,19 @@ public class RManagerUpdateTime {
     public void an_user_registered_of_name_with_id(String string, Integer int1) {
         user2 = new UserAccount(string, int1, "2222");
     }
+
+    @When("{string} specifies a preparation time of {int} seconds per person for the {string}")
+    public void specifies_a_preparation_time_of_seconds_per_person_for_the(String string, Integer int1, String string2) {
+        // Write code here that turns the phrase above into concrete actions
+        //throw new io.cucumber.java.PendingException();
+    }
+
+    @Then("they can produce up to {int} portions of fires")
+    public void they_can_produce_up_to_portions_of_fires(Integer int1) {
+        // Write code here that turns the phrase above into concrete actions
+        //throw new io.cucumber.java.PendingException();
+    }
+
     @When("{string} updates the opening hours of {string} for 11h-15h")
     public void updates_the_opening_hours_of_for_11h_15h(String string, String string2) {
         DayOfWeek day= DayOfWeek.MONDAY;
@@ -60,6 +73,13 @@ public class RManagerUpdateTime {
         assertEquals(fermeture, mondaySchedules.getValue());
 
     }
+
+    @Then("they can produce up to {int} portions of fries during opening hours")
+    public void they_can_produce_up_to_portions_of_fries_during_opening_hours(Integer int1) {
+        // Write code here that turns the phrase above into concrete actions
+        //throw new io.cucumber.java.PendingException();
+    }
+
     @Given("a restaurant of name {string} with opening hours between {int}:{int} and {int}:{int}")
     public void a_restaurant_of_name_with_opening_hours_between_and(String string, Integer int1, Integer int2, Integer int3, Integer int4) {
         manager =RestaurantManager.getRestaurantManagerInstance();
