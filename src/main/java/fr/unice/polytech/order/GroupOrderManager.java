@@ -1,8 +1,12 @@
 package fr.unice.polytech.order;
 
+import fr.unice.polytech.restaurant.Article;
+import fr.unice.polytech.restaurant.Menu;
 import fr.unice.polytech.restaurant.Restaurant;
+import fr.unice.polytech.user.RegisteredUser;
 import fr.unice.polytech.user.RegisteredUserManager;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -41,13 +45,11 @@ public class GroupOrderManager {
         groupOrder.setGroupOrderDeliveryDate(deliveryDate);
     }
 
-    public void createGroup(Boolean validate, Integer creatorId, Restaurant restaurant, String deliveryLocation, Date deliveryDate, Order order) {
+    public void createGroup(Boolean validate, Integer creatorId, Restaurant restaurant, String deliveryLocation, Date deliveryDate, ArrayList<Article> articles, ArrayList<Menu> menus) {
         if (validate) { // On valide la création d'un groupe avec les inputs
             int gid = addGroupOrder();
             setGroupOrderAttributes(gid, restaurant, deliveryLocation, deliveryDate);
-            RegisteredUserManager registeredUsers = getRegisteredUserManagerInstance();
-            getGroupOrderById(gid).addMember(registeredUsers.getRegisteredUserById(creatorId));
-            getGroupOrderById(gid).addOrUpdateUserOrder(registeredUsers.getRegisteredUserById(creatorId), order);
+            joinGroup(true, creatorId, gid, articles, menus);
         }
     }
 
@@ -61,6 +63,24 @@ public class GroupOrderManager {
 
     public void removeGroupOrderById(Integer groupOrderId) {
         groupOrders.remove(groupOrderId);
+    }
+
+    public void joinGroup(Boolean validate, Integer userId, Integer groupOrderId, ArrayList<Article> articles, ArrayList<Menu> menus) {
+        if (validate) {
+            // Récupération de l'utilisateur
+            RegisteredUserManager registeredUsers = getRegisteredUserManagerInstance();
+            RegisteredUser joiner = registeredUsers.getRegisteredUserById(userId);
+            // Récupération du groupe et des paramètres utiles
+            GroupOrderImpl groupOrder = groupOrders.get(groupOrderId);
+            Date deliveryDate = groupOrder.getGroupOrderDeliveryDate();
+            String deliveryLocation = groupOrder.getGroupOrderDeliveryLocation();
+            Restaurant restaurant = groupOrder.getRestaurant();
+            // Ajoute de l'utilisateur et de sa commande au groupe
+            if (!groupOrder.getUserList().contains(joiner)) groupOrder.addMember(joiner);
+            Order userOrder = new Order(new Date(), deliveryDate, deliveryLocation, restaurant);
+            userOrder.setOrderArticlesAndMenus(articles, menus); // création de sa commande avec les articles et menus qu'il a sélectionné
+            groupOrder.addOrUpdateUserOrder(joiner, userOrder);
+        }
     }
 }
 

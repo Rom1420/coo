@@ -22,7 +22,7 @@ public class GroupOrderCreationStepdefs {
     Date deliveryTime;
     String deliveryLocation;
     Integer groupId;
-    Order order = new Order(new Date(), deliveryTime, deliveryLocation);
+    Order order = new Order(new Date(), deliveryTime, deliveryLocation, new Restaurant("Restau"));
 
     @Given("a registered user of name Paul with id {int}")
     public void a_registered_user_of_name_paul_with_id(Integer int1) {

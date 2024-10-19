@@ -2,6 +2,7 @@ package fr.unice.polytech.steats;
 
 import fr.unice.polytech.order.Order;
 import fr.unice.polytech.order.OrderManager;
+import fr.unice.polytech.restaurant.Restaurant;
 import fr.unice.polytech.system.PaymentSystem;
 import fr.unice.polytech.user.UserAccount;
 import io.cucumber.java.en.Given;
@@ -23,7 +24,7 @@ public class payOrder {
     public void aUserOfNameAndWithId(String arg0, int arg1) {
         user = new UserAccount(arg0, arg1, "1111");
         manager = new OrderManager();
-        order = new Order(new Date(), "Popo");
+        order = new Order(new Date(), "Popo", new Restaurant("Restau"));
         manager.addOrder(user.getId(), order);
     }
 

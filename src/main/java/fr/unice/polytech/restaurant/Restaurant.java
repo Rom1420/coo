@@ -31,11 +31,16 @@ public class Restaurant {
         this.name = name;
         this.isOpen=true;
         this.weeklySchedules = new HashMap<>();
+        this.articlesSimples = new ArrayList<>();
+        this.menusOfRestaurant = new ArrayList<>();
     }
+
     public Restaurant(String name,int nbOfCook){
         this.name=name;
         this.nbOfCook=nbOfCook;
         this.weeklySchedules = new HashMap<>();
+        this.articlesSimples = new ArrayList<>();
+        this.menusOfRestaurant = new ArrayList<>();
     }
 
 
@@ -52,6 +57,9 @@ public class Restaurant {
     }
     public int getNbOfCook() {return nbOfCook;}
     public void setNbOfCook(int nbOfCook) {this.nbOfCook = nbOfCook;}
+
+    public void addArticle(Article article) {articlesSimples.add(article);}
+    public void addMenu(Menu menu) {menusOfRestaurant.add(menu);}
 
     public List<Article> selectAvailableArticle(){
         List<Article> availableArticle=new ArrayList<>();

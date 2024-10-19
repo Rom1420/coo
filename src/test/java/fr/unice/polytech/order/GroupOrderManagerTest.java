@@ -1,12 +1,17 @@
 package fr.unice.polytech.order;
 
+import fr.unice.polytech.restaurant.Article;
+import fr.unice.polytech.restaurant.Menu;
 import fr.unice.polytech.restaurant.Restaurant;
 import fr.unice.polytech.user.RegisteredUser;
 import fr.unice.polytech.user.RegisteredUserManager;
-import io.cucumber.java.zh_tw.假如;
+
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -51,6 +56,12 @@ class GroupOrderManagerTest {
 
     @Test
     void createGroup() {
+        Restaurant restaurant1 = new Restaurant("Franky Vincent Le Restaurant");
+        Restaurant restaurant2 = new Restaurant("Bella Vita");
+        Article article = new Article("Poisson", 10, 10);
+        restaurant1.addArticle(article);
+        restaurant2.addArticle(article);
+
         registeredUserManager.addNewRegisteredUser(new RegisteredUser("p1", 1, "pp1"));
         registeredUserManager.addNewRegisteredUser(new RegisteredUser("p2", 2, "pp2"));
         int lastUsedId = gid;
@@ -58,7 +69,7 @@ class GroupOrderManagerTest {
         assertEquals(lastUsedId, gid);
         assertEquals(currentId, gid);
         // On valide la création d'un groupe avec les inputs
-        groupOrderManager.createGroup(true, 1, new Restaurant("Franky Vincent Le Restaurant"), "Templiers", new Date());
+        groupOrderManager.createGroup(true, 1, restaurant1, "Templiers", new Date(1767225600000L), new ArrayList<>(List.of(article)), new ArrayList<>());
         gid = groupOrderManager.getGroupOrderId();
         currentId+=1;
         assertEquals(currentId, gid);
@@ -70,7 +81,7 @@ class GroupOrderManagerTest {
         assertNotEquals("p2", groupOrderManager.getGroupOrderById(lastUsedId).getUserList().get(0).getName());
 
         lastUsedId = gid; // Nouvel id à utiliser
-        groupOrderManager.createGroup(true, 2, new Restaurant("Bella Vita"), "Templiers", new Date());
+        groupOrderManager.createGroup(true, 2, restaurant2, "Templiers", new Date(1767225600000L), new ArrayList<>(List.of(article)), new ArrayList<>());
         gid = groupOrderManager.getGroupOrderId();
         currentId+=1;
         assertEquals(currentId, gid);
@@ -83,22 +94,33 @@ class GroupOrderManagerTest {
 
         // On annule la commande en cours de création
         lastUsedId = gid;
-        groupOrderManager.createGroup(false, 3, new Restaurant("Pizzati"), "Béal", new Date());
+        groupOrderManager.createGroup(false, 3, restaurant1, "Béal", new Date(), new ArrayList<>(List.of(article)), new ArrayList<>());
         gid = groupOrderManager.getGroupOrderId();
         assertEquals(lastUsedId, gid);
         assertEquals(2, groupOrderManager.getGroupOrders().size());
+
+        groupOrderManager.removeGroupOrderById(lastUsedId-2);
+        groupOrderManager.removeGroupOrderById(lastUsedId-1);
+
+        assertEquals(0, groupOrderManager.getGroupOrders().size());
     }
 
     @Test
     void removeGroupOrder() {
+        Restaurant restaurant1 = new Restaurant("Franky Vincent Le Restaurant");
+        Restaurant restaurant2 = new Restaurant("Bella vita");
+        Article article = new Article("Poisson", 10, 10);
+        restaurant1.addArticle(article);
+        restaurant2.addArticle(article);
+
         registeredUserManager.addNewRegisteredUser(new RegisteredUser("p1", 1, "pp1"));
         registeredUserManager.addNewRegisteredUser(new RegisteredUser("p2", 2, "pp2"));
         int firstId = gid;
         int secondId = firstId + 1;
-        groupOrderManager.createGroup(true, 1, new Restaurant("Franky Vincent Le Restaurant"), "Templiers", new Date());
+        groupOrderManager.createGroup(true, 1, restaurant1, "Templiers", new Date(1767225600000L),new ArrayList<>(List.of(article)), new ArrayList<>() );
         assertEquals(1, groupOrderManager.getGroupOrders().size());
         assertEquals("Templiers", groupOrderManager.getGroupOrderById(firstId).getGroupOrderDeliveryLocation());
-        groupOrderManager.createGroup(true, 2, new Restaurant("Bella Vita"), "Béal", new Date());
+        groupOrderManager.createGroup(true, 2, restaurant2, "Béal", new Date(1767225600000L), new ArrayList<>(List.of(article)), new ArrayList<>());
         assertEquals(2, groupOrderManager.getGroupOrders().size());
         assertEquals("Béal", groupOrderManager.getGroupOrderById(secondId).getGroupOrderDeliveryLocation());
 
@@ -109,4 +131,40 @@ class GroupOrderManagerTest {
         groupOrderManager.removeGroupOrderById(firstId);
         assertEquals(0, groupOrderManager.getGroupOrders().size());
     }
+
+    @Test
+    void joinGroupOrder() {
+        int lastUsedId = gid;
+        Restaurant restaurant1 = new Restaurant("Franky Vincent Le Restaurant");
+        Article article = new Article("Poisson", 10, 10);
+        Article article2 = new Article("Steak", 12, 12);
+        restaurant1.addArticle(article);
+        restaurant1.addArticle(article2);
+        Date date = new Date(1767225600000L);
+        RegisteredUser user1 = new RegisteredUser("p1", 1, "pp1");
+        RegisteredUser user2 = new RegisteredUser("p2", 2, "pp2");
+        registeredUserManager.addNewRegisteredUser(user1);
+        registeredUserManager.addNewRegisteredUser(user2);
+
+        groupOrderManager.createGroup(true, 1, restaurant1, "Learning Center", date, new ArrayList<>(List.of(article)), new ArrayList<>());
+        assertEquals(1, groupOrderManager.getGroupOrderById(lastUsedId).getUserList().size());
+
+        groupOrderManager.joinGroup(true, 2, lastUsedId, new ArrayList<>(List.of(article2)), new ArrayList<>());
+        assertEquals(2, groupOrderManager.getGroupOrderById(lastUsedId).getUserList().size());
+
+        assertEquals("Poisson", groupOrderManager.getGroupOrderById(lastUsedId).getOrder(user1).getOrderedArticles().get(0).getName());
+        assertEquals("Steak", groupOrderManager.getGroupOrderById(lastUsedId).getOrder(user2).getOrderedArticles().get(0).getName());
+
+        assertEquals("Learning Center", groupOrderManager.getGroupOrderById(lastUsedId).getOrder(user1).getDeliveryLocation());
+        assertEquals("Learning Center", groupOrderManager.getGroupOrderById(lastUsedId).getOrder(user2).getDeliveryLocation());
+
+        assertEquals(2, groupOrderManager.getGroupOrderById(lastUsedId).getUserList().size());
+        groupOrderManager.joinGroup(true, 2, lastUsedId, new ArrayList<>(List.of(article)), new ArrayList<>());
+        assertEquals(2, groupOrderManager.getGroupOrderById(lastUsedId).getUserList().size());
+        assertEquals("Poisson", groupOrderManager.getGroupOrderById(lastUsedId).getOrder(user2).getOrderedArticles().get(0).getName());
+        assertNotEquals("Steak", groupOrderManager.getGroupOrderById(lastUsedId).getOrder(user2).getOrderedArticles().get(0).getName());
+
+        groupOrderManager.removeGroupOrderById(lastUsedId);
+    }
 }
+
