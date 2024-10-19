@@ -21,32 +21,31 @@ import static org.junit.jupiter.api.Assertions.*;
 class GroupOrderManagerTest {
 
   
-    private GroupOrderManager groupOrderManager2;
+    private GroupOrderManager groupOrderManager;
     private GroupOrderImpl groupOrder;
     private Restaurant restaurant;
-
-    GroupOrderManager groupOrderManager = GroupOrderManager.getGroupOrderManagerInstance();
-    int gid = groupOrderManager.getGroupOrderId();
-
+    int gid;
     RegisteredUserManager registeredUserManager = RegisteredUserManager.getRegisteredUserManagerInstance();
 
     @BeforeEach
     public void setUp() {
-        groupOrderManager2 = GroupOrderManager.getGroupOrderManagerInstance();
+        groupOrderManager = GroupOrderManager.getGroupOrderManagerInstance();
+        gid = groupOrderManager.getGroupOrderId();
         restaurant = new Restaurant("yoyo");
-        groupOrder = new GroupOrderImpl(1, restaurant, new Date(), "Campus");
-        groupOrderManager2.addGroupOrder(1, groupOrder);
+        groupOrder = new GroupOrderImpl(10, restaurant, new Date(), "Campus");
     }
 
     @Test
     public void testValidateGroupOrder_Success() {
+        groupOrderManager.addGroupOrder(10, groupOrder);
         RegisteredUser user1 = new RegisteredUser("User1", 1, "password");
-        Order order1 = new Order(new Date(), "Campus");
+        Order order1 = new Order(new Date(), "Campus", new Restaurant("Restau"));
         groupOrder.addOrUpdateUserOrder(user1, order1);
 
-        groupOrderManager2.validateGroupOrder(1);
+        groupOrderManager.validateGroupOrder(10);
 
         assertEquals("closed", groupOrder.getStatus());
+        groupOrderManager.removeGroupOrderById(10);
     }
 
     @Test

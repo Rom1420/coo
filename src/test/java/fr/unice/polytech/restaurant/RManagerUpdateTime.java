@@ -45,11 +45,11 @@ public class RManagerUpdateTime {
         user2 = new UserAccount(string, int1, "2222");
     }
 
-    @When("{string} specifies a preparation time of {int} seconds per person for the {string}")
+    /*@When("{string} specifies a preparation time of {int} seconds per person for the {string}")
     public void specifies_a_preparation_time_of_seconds_per_person_for_the(String string, Integer int1, String string2) {
         // Write code here that turns the phrase above into concrete actions
         //throw new io.cucumber.java.PendingException();
-    }
+    }*/
 
 
     @Then("they can produce up to {int} portions of fires")
