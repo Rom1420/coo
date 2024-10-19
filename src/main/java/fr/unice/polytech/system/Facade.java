@@ -43,11 +43,6 @@ public class Facade {
         groupOrderManager.validateGroupOrder(groupOrderId);
     }
 
-    public void notifyRestaurant(GroupOrderImpl groupOrder) {
-        groupOrderManager.notifyRestaurant(groupOrder);
-        groupOrderManager.closeGroupOrder(groupOrder);
-    }
-
 
     public static void main (String args[]) {
         return;

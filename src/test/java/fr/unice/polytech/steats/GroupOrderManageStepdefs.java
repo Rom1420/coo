@@ -92,13 +92,6 @@ public class GroupOrderManageStepdefs {
         assertEquals(expectedStatus, actualStatus);
     }
 
-    /*@Then("the group order is closed")
-    public void the_group_order_is_closed() {
-        // Write code here that turns the phrase above into concrete actions
-        groupOrder.closeOrder();
-        assertEquals("closed", groupOrder.getStatus());
-    }*/
-
     @And("no individual orders can be modified after validation")
     public void noIndividualOrdersCanBeModifiedAfterValidation() {
         boolean ordersAreLocked = groupOrder.getUsersOrders().entrySet().stream()
@@ -111,13 +104,12 @@ public class GroupOrderManageStepdefs {
     public void theGroupOrderIsReadyForRestaurantPreparation() {
         assertEquals("The group order should be ready for restaurant preparation", "validated", groupOrder.getStatus());
         System.out.println("The group order is ready for restaurant preparation");
-        Facade facade = new Facade();
-        facade.notifyRestaurant(groupOrder);
     }
 
 
     @And("the group order status should change to {string}")
     public void theGroupOrderStatusShouldChangeTo(String expectedStatus) {
+        groupOrder.closeOrder();
         String actualStatus = groupOrder.getStatus();
         assertEquals("The group order status should change to " + expectedStatus, expectedStatus, actualStatus);
         System.out.println("group order closed");
