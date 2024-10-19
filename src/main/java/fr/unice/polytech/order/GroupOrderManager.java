@@ -52,8 +52,8 @@ public class GroupOrderManager {
 
     public void notifyRestaurant(GroupOrderImpl groupOrder) {
         Restaurant restaurant = groupOrder.getRestaurant();
+        System.out.println("Le restaurant " + restaurant.getName() + " a été notifié pour commencer la préparation.");
     }
-
 
 
     public void removeOrder(Integer groupOrderId) {

@@ -111,16 +111,12 @@ public class GroupOrderManageStepdefs {
     public void theGroupOrderIsReadyForRestaurantPreparation() {
         assertEquals("The group order should be ready for restaurant preparation", "validated", groupOrder.getStatus());
         System.out.println("The group order is ready for restaurant preparation");
-    }
-
-    @When("the group order is sent to the restaurant for preparation")
-    public void theGroupOrderIsSentToTheRestaurantForPreparation() {
         Facade facade = new Facade();
         facade.notifyRestaurant(groupOrder);
-        System.out.println("The group order has been sent to the restaurant for preparation");
     }
 
-    @Then("the group order status should change to {string}")
+
+    @And("the group order status should change to {string}")
     public void theGroupOrderStatusShouldChangeTo(String expectedStatus) {
         String actualStatus = groupOrder.getStatus();
         assertEquals("The group order status should change to " + expectedStatus, expectedStatus, actualStatus);

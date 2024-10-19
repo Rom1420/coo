@@ -18,7 +18,4 @@ Feature: manage group order
     Then the group order status should be "validated"
       And no individual orders can be modified after validation
       And the group order is ready for restaurant preparation
-
-  Scenario: Send the group order to the restaurant and close it
-    When the group order is sent to the restaurant for preparation
-    Then the group order status should change to "closed"
+      And the group order status should change to "closed"
