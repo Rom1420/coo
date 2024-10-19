@@ -17,16 +17,29 @@ public class GroupOrderImpl implements GroupOrderInterface {
     private List<RegisteredUser> userList;
     private String status;
 
+    //Default constructor
+    public GroupOrderImpl(int groupId) {
+        this.groupId = groupId;
+        this.usersOrders = new HashMap<>();
+        this.userList = new ArrayList<>();
+        this.status = "pending";
+    }
 
     public GroupOrderImpl(int groupId, Restaurant restaurant, Date deliveryDate, String deliveryLocation) {
         this.groupId = groupId;
-        usersOrders = new HashMap<>();
+        this.usersOrders = new HashMap<>();
         this.restaurant = restaurant;
         this.deliveryDate = deliveryDate;
         this.deliveryLocation = deliveryLocation;
         this.userList = new ArrayList<>();
         this.status = "pending";
     }
+
+    public void setGroupOrderRestaurant(Restaurant restaurant) {this.restaurant = restaurant;}
+
+    public void setGroupOrderDeliveryDate(Date deliveryDate) {this.deliveryDate = deliveryDate;}
+
+    public void setGroupOrderDeliveryLocation(String deliveryLocation) {this.deliveryLocation = deliveryLocation;}
 
     @Override
     public void addMember(RegisteredUser user) {

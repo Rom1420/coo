@@ -36,10 +36,10 @@ class GroupOrderProxyTest {
         classicMenu.addArticleInMenu(fries);
         List<Article> articles = new ArrayList<>(); articles.add(burger); articles.add(fries);
 
-        restaurant = new Restaurant("Test Restaurant", articles, List.of(classicMenu));
+        restaurant = new Restaurant("Test Restaurant" ,articles, List.of(classicMenu));
         restaurant.setOpen(true);
 
-        order = new Order(new Date(), new Date(System.currentTimeMillis() + 600000), "123 Street"); // Delivery in 1 hour
+        order = new Order(new Date(), new Date(System.currentTimeMillis() + 600000), "123 Street", restaurant); // Delivery in 1 hour
         order.addArticle(burger);
 
         groupOrder = new GroupOrderImpl(667, restaurant, new Date(System.currentTimeMillis() + 600000), "123 Street"); // Delivery in 1 hour
@@ -69,7 +69,7 @@ class GroupOrderProxyTest {
 
     @Test
     void testAddOrUpdateUserOrder_DeliveryTimeExceeded() {
-        Order longOrder = new Order(new Date(), "123 Street");
+        Order longOrder = new Order(new Date(), "123 Street", restaurant);
         longOrder.addArticle(burger);
         longOrder.addArticle(fries);
 

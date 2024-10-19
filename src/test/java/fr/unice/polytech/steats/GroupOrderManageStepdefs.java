@@ -67,7 +67,7 @@ public class GroupOrderManageStepdefs {
     @Then("{string} creates his individual order for the group order with id {int}")
     public void creates_his_individual_order_for_the_group_order_with_id(String name, Integer int1) {
         // Write code here that turns the phrase above into concrete actions
-        order = new Order(new Date(), deliveryTime, deliveryLocation);
+        order = new Order(new Date(), deliveryTime, deliveryLocation, new Restaurant("Restau"));
         groupOrder.addOrUpdateUserOrder(user3, order);
     }
 

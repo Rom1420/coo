@@ -2,6 +2,7 @@ package fr.unice.polytech.steats;
 
 import fr.unice.polytech.order.Order;
 import fr.unice.polytech.order.OrderManager;
+import fr.unice.polytech.restaurant.Restaurant;
 import fr.unice.polytech.user.UserAccount;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -25,7 +26,7 @@ public class createOrder {
     @When("{string} create an order {string} at {string}")
     public void createAnOrderAt(String arg0, String arg1, String arg2) {
         manager = new OrderManager();
-        order = new Order(new Date(), arg2);
+        order = new Order(new Date(), arg2, new Restaurant("Restau"));
     }
 
     @Then("the order is add to {string}'s orders")
