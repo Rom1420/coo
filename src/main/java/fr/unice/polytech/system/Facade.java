@@ -45,6 +45,11 @@ public class Facade {
         groupOrderManager.joinGroup(validate, joinerId, groupOrderId, articles, menus);
     }
 
+    public void validateGroupOrder(int groupOrderId) {
+        groupOrderManager.validateGroupOrder(groupOrderId);
+    }
+
+
     public static void main (String args[]) {
         return;
     }

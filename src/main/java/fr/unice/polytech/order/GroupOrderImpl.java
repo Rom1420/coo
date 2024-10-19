@@ -101,12 +101,15 @@ public class GroupOrderImpl implements GroupOrderInterface {
         this.status = "validated";
     }
 
-    public void closeOrder() {
-        this.status = "closed";
-    }
-
     public String getStatus() {
         return status;
+    }
 
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void closeOrder() {
+        this.status = "closed";
     }
 }

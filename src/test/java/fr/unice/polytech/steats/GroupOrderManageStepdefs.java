@@ -3,7 +3,9 @@ package fr.unice.polytech.steats;
 import fr.unice.polytech.order.GroupOrderImpl;
 import fr.unice.polytech.order.Order;
 import fr.unice.polytech.restaurant.Restaurant;
+import fr.unice.polytech.system.Facade;
 import fr.unice.polytech.user.RegisteredUser;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -11,7 +13,7 @@ import io.cucumber.java.en.When;
 import java.util.ArrayList;
 import java.util.Date;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class GroupOrderManageStepdefs {
 
@@ -90,10 +92,29 @@ public class GroupOrderManageStepdefs {
         assertEquals(expectedStatus, actualStatus);
     }
 
-    @Then("the group order is closed")
-    public void the_group_order_is_closed() {
-        // Write code here that turns the phrase above into concrete actions
-        groupOrder.closeOrder();
-        assertEquals("closed", groupOrder.getStatus());
+    @And("no individual orders can be modified after validation")
+    public void noIndividualOrdersCanBeModifiedAfterValidation() {
+        boolean ordersAreLocked = groupOrder.getUsersOrders().entrySet().stream()
+                .allMatch(entry -> entry.getValue().getStatus().equals("locked"));
+
+        assertTrue("All individual orders should be locked after group order validation", ordersAreLocked);
     }
+
+    @And("the group order is ready for restaurant preparation")
+    public void theGroupOrderIsReadyForRestaurantPreparation() {
+        assertEquals("The group order should be ready for restaurant preparation", "validated", groupOrder.getStatus());
+        System.out.println("The group order is ready for restaurant preparation");
+    }
+
+
+    @And("the group order status should change to {string}")
+    public void theGroupOrderStatusShouldChangeTo(String expectedStatus) {
+        groupOrder.closeOrder();
+        String actualStatus = groupOrder.getStatus();
+        assertEquals("The group order status should change to " + expectedStatus, expectedStatus, actualStatus);
+        System.out.println("group order closed");
+
+    }
+
+
 }

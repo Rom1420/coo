@@ -1,5 +1,6 @@
 package fr.unice.polytech.order;
 
+
 import fr.unice.polytech.restaurant.Article;
 import fr.unice.polytech.restaurant.Menu;
 import fr.unice.polytech.restaurant.Restaurant;
@@ -14,8 +15,8 @@ import static fr.unice.polytech.user.RegisteredUserManager.getRegisteredUserMana
 
 public class GroupOrderManager {
 
-    private static int groupOrderId = 0;
 
+    private static int groupOrderId = 0;
     private HashMap<Integer, GroupOrderImpl> groupOrders;
 
     private GroupOrderManager() {
@@ -37,6 +38,32 @@ public class GroupOrderManager {
         groupOrderId++;
         return currentGroupId;
     }
+
+    public void addGroupOrder(Integer groupOrderId, GroupOrderImpl groupOrder) {
+        groupOrders.put(groupOrderId, groupOrder);
+    }
+
+
+    public void validateGroupOrder(int groupOrderId) {
+        GroupOrderImpl groupOrder = groupOrders.get(groupOrderId);
+
+        if (groupOrder != null) {
+            try {
+                groupOrder.validateOrder(); // La commande passe à "validated"
+                groupOrder.closeOrder();  // Assure que la commande est fermée après notification
+                System.out.println("Commande de groupe validée, fermée et envoyée en préparation");
+            } catch (IllegalStateException e) {
+                System.out.println("Erreur: " + e.getMessage());
+            }
+        } else {
+            System.out.println("Erreur: Le groupe de commande n'existe pas");
+        }
+    }
+
+    public void closeGroupOrder(GroupOrderImpl groupOrder) {
+        groupOrder.setStatus("closed");
+    }
+
 
     public void setGroupOrderAttributes(Integer groupOrderId, Restaurant restaurant, String deliveryLocation, Date deliveryDate) {
         GroupOrderImpl groupOrder = groupOrders.get(groupOrderId);

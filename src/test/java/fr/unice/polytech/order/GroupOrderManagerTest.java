@@ -1,10 +1,13 @@
 package fr.unice.polytech.order;
 
+import fr.unice.polytech.order.Order;
 import fr.unice.polytech.restaurant.Article;
 import fr.unice.polytech.restaurant.Menu;
 import fr.unice.polytech.restaurant.Restaurant;
 import fr.unice.polytech.user.RegisteredUser;
 import fr.unice.polytech.user.RegisteredUserManager;
+import org.junit.jupiter.api.BeforeEach;
+
 
 import org.junit.jupiter.api.Test;
 
@@ -17,11 +20,34 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GroupOrderManagerTest {
 
+  
+    private GroupOrderManager groupOrderManager2;
+    private GroupOrderImpl groupOrder;
+    private Restaurant restaurant;
+
     GroupOrderManager groupOrderManager = GroupOrderManager.getGroupOrderManagerInstance();
     int gid = groupOrderManager.getGroupOrderId();
 
     RegisteredUserManager registeredUserManager = RegisteredUserManager.getRegisteredUserManagerInstance();
 
+    @BeforeEach
+    public void setUp() {
+        groupOrderManager2 = GroupOrderManager.getGroupOrderManagerInstance();
+        restaurant = new Restaurant("yoyo");
+        groupOrder = new GroupOrderImpl(1, restaurant, new Date(), "Campus");
+        groupOrderManager2.addGroupOrder(1, groupOrder);
+    }
+
+    @Test
+    public void testValidateGroupOrder_Success() {
+        RegisteredUser user1 = new RegisteredUser("User1", 1, "password");
+        Order order1 = new Order(new Date(), "Campus");
+        groupOrder.addOrUpdateUserOrder(user1, order1);
+
+        groupOrderManager2.validateGroupOrder(1);
+
+        assertEquals("closed", groupOrder.getStatus());
+    }
 
     @Test
     void addGroupOrder() {
@@ -167,4 +193,3 @@ class GroupOrderManagerTest {
         groupOrderManager.removeGroupOrderById(lastUsedId);
     }
 }
-
