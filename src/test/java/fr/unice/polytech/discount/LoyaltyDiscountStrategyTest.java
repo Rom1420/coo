@@ -21,12 +21,14 @@ public class LoyaltyDiscountStrategyTest {
     private Order order1, order2, order3;
     private RegisteredUser user1, user2, user3;
     private Article article1, article2, article3;
+    private Date date;
 
     private Map<RegisteredUser, Integer> orderHistory;
 
     @Before
     public void setUp() {
         restaurant = new Restaurant("Test Restaurant");
+        date = new Date(1767225600000L);
 
         article1 = new Article("Pizza", 12.0f, 10);
         article2 = new Article("Pasta", 15.0f, 8);
@@ -35,15 +37,15 @@ public class LoyaltyDiscountStrategyTest {
         restaurant.addArticle(article2);
         restaurant.addArticle(article3);
 
-        groupOrder = new GroupOrderImpl(1, restaurant, new Date(), "Delivery Location");
+        groupOrder = new GroupOrderImpl(1, restaurant, date, "Delivery Location");
 
         user1 = new RegisteredUser("User1", 1, "password");
         user2 = new RegisteredUser("User2", 2, "password");
         user3 = new RegisteredUser("User3", 3, "password");
 
-        order1 = new Order(new Date(), "Location 1", restaurant);
-        order2 = new Order(new Date(), "Location 2", restaurant);
-        order3 = new Order(new Date(), "Location 3", restaurant);
+        order1 = new Order(new Date(), date,"Delivery Location", restaurant);
+        order2 = new Order(new Date(), date, "Delivery Location", restaurant);
+        order3 = new Order(new Date(), date, "Delivery Location", restaurant);
 
         order1.addArticle(article1);
         order2.addArticle(article2);

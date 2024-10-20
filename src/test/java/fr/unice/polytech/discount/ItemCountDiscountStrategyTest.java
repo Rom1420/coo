@@ -18,10 +18,12 @@ public class ItemCountDiscountStrategyTest {
     private Restaurant restaurant;
     private Order order1, order2, order3, order4;
     private Article article1, article2, article3;
+    private Date date;
 
     @Before
     public void setUp() {
         restaurant = new Restaurant("Test Restaurant");
+        date = new Date(1767225600000L);
 
         article1 = new Article("Pizza", 12.0f, 10);
         article2 = new Article("Pasta", 15.0f, 8);
@@ -30,12 +32,12 @@ public class ItemCountDiscountStrategyTest {
         restaurant.addArticle(article2);
         restaurant.addArticle(article3);
 
-        groupOrder = new GroupOrderImpl(1, restaurant, new Date(), "Delivery Location");
+        groupOrder = new GroupOrderImpl(1, restaurant, date, "Delivery Location");
 
-        order1 = new Order(new Date(), "Location 1", restaurant);
-        order2 = new Order(new Date(), "Location 2", restaurant);
-        order3 = new Order(new Date(), "Location 3", restaurant);
-        order4 = new Order(new Date(), "Location 4", restaurant);
+        order1 = new Order(new Date(), date, "Delivery Location", restaurant);
+        order2 = new Order(new Date(), date, "Delivery Location", restaurant);
+        order3 = new Order(new Date(), date, "Delivery Location", restaurant);
+        order4 = new Order(new Date(), date, "Delivery Location", restaurant);
 
         order1.addArticle(article1);  // 1 article
         order1.addArticle(article2);  // 2 articles

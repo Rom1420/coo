@@ -17,18 +17,20 @@ public class GroupSizeDiscountStrategyTest {
     private GroupOrderImpl groupOrder;
     private Restaurant restaurant;
     private Article article1;
+    private Date date;
 
     @Before
     public void setUp() {
         restaurant = new Restaurant("Test Restaurant");
         article1 = new Article("Pizza", 12.0f, 10);
         restaurant.addArticle(article1);
+        date = new Date(1767225600000L);
 
-        groupOrder = new GroupOrderImpl(1, restaurant, new Date(), "Delivery Location");
+        groupOrder = new GroupOrderImpl(1, restaurant, date, "Delivery Location");
 
         // Ajouter 9 utilisateurs pour un test initial
         for (int i = 1; i <= 9; i++) {
-            Order newOrder = new Order(new Date(), "Location " + i, restaurant);
+            Order newOrder = new Order(new Date(), date,"Delivery Location", restaurant);
             newOrder.addArticle(article1);
             groupOrder.addOrUpdateUserOrder(new RegisteredUser("User" + i, i, "password"), newOrder);
         }
@@ -56,7 +58,7 @@ public class GroupSizeDiscountStrategyTest {
         System.out.println("Test: Réduction avec exactement 10 utilisateurs.");
 
         // Ajouter un utilisateur pour atteindre 10
-        Order newOrder = new Order(new Date(), "Location 10", restaurant);
+        Order newOrder = new Order(new Date(), date,"Delivery Location", restaurant);
         newOrder.addArticle(article1);
         groupOrder.addOrUpdateUserOrder(new RegisteredUser("User10", 10, "password"), newOrder);
 
@@ -77,7 +79,7 @@ public class GroupSizeDiscountStrategyTest {
 
         // Ajouter deux utilisateurs pour atteindre 11
         for (int i = 11; i <= 12; i++) {
-            Order newOrder = new Order(new Date(), "Location " + i, restaurant);
+            Order newOrder = new Order(new Date(), date, "Delivery Location", restaurant);
             newOrder.addArticle(article1);
             groupOrder.addOrUpdateUserOrder(new RegisteredUser("User" + i, i, "password"), newOrder);
         }
