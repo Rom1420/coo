@@ -47,7 +47,6 @@ public class GroupSizeDiscountStrategyTest {
 
         System.out.println("Réduction appliquée: " + discount * 100 + "%");
 
-        // Vérifier que la réduction est de 0% (0f)
         assertEquals(0f, discount, 0.01);
         System.out.println("Test réussi: Aucune réduction appliquée avec moins de 10 utilisateurs.\n");
     }
@@ -56,20 +55,18 @@ public class GroupSizeDiscountStrategyTest {
     public void testDiscountWith10OrMoreUsers() {
         System.out.println("Test: Réduction avec exactement 10 utilisateurs.");
 
-        // Ajouter un utilisateur supplémentaire pour atteindre 10
+        // Ajouter un utilisateur pour atteindre 10
         Order newOrder = new Order(new Date(), "Location 10", restaurant);
         newOrder.addArticle(article1);
         groupOrder.addOrUpdateUserOrder(new RegisteredUser("User10", 10, "password"), newOrder);
 
         System.out.println("Nombre d'utilisateurs dans le groupe après ajout: " + groupOrder.getUserList().size());
 
-        // Tester avec 10 utilisateurs (réduction de 10%)
         GroupSizeDiscountStrategy discountStrategy = new GroupSizeDiscountStrategy();
         float discount = discountStrategy.applyDiscount(groupOrder);
 
         System.out.println("Réduction appliquée: " + discount * 100 + "%");
 
-        // Vérifier que la réduction est de 10% (0.1)
         assertEquals(0.1f, discount, 0.01);
         System.out.println("Test réussi: Réduction de 10% appliquée avec 10 utilisateurs.\n");
     }
@@ -78,7 +75,7 @@ public class GroupSizeDiscountStrategyTest {
     public void testDiscountWithMoreThan10Users() {
         System.out.println("Test: Réduction avec plus de 10 utilisateurs.");
 
-        // Ajouter deux utilisateurs supplémentaires pour atteindre 11
+        // Ajouter deux utilisateurs pour atteindre 11
         for (int i = 11; i <= 12; i++) {
             Order newOrder = new Order(new Date(), "Location " + i, restaurant);
             newOrder.addArticle(article1);
@@ -87,13 +84,11 @@ public class GroupSizeDiscountStrategyTest {
 
         System.out.println("Nombre d'utilisateurs dans le groupe après ajout: " + groupOrder.getUserList().size());
 
-        // Tester avec plus de 10 utilisateurs (réduction de 10%)
         GroupSizeDiscountStrategy discountStrategy = new GroupSizeDiscountStrategy();
         float discount = discountStrategy.applyDiscount(groupOrder);
 
         System.out.println("Réduction appliquée: " + discount * 100 + "%");
 
-        // Vérifier que la réduction est de 10% (0.1)
         assertEquals(0.1f, discount, 0.01);
         System.out.println("Test réussi: Réduction de 10% appliquée avec plus de 10 utilisateurs.\n");
     }

@@ -50,6 +50,7 @@ public class GroupOrderManager {
         if (groupOrder != null) {
             try {
                 groupOrder.validateOrder(); // La commande passe à "validated"
+                groupOrder.applyDiscount();
                 groupOrder.closeOrder();  // Assure que la commande est fermée après notification
                 System.out.println("Commande de groupe validée, fermée et envoyée en préparation");
             } catch (IllegalStateException e) {

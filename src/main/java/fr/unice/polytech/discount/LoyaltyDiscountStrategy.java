@@ -9,7 +9,6 @@ import java.util.Map;
 public class LoyaltyDiscountStrategy implements DiscountStrategy {
     private Map<RegisteredUser, Integer> orderHistory;
 
-    // Constructeur avec l'historique des commandes des utilisateurs
     public LoyaltyDiscountStrategy(Map<RegisteredUser, Integer> orderHistory) {
         this.orderHistory = orderHistory;
     }
@@ -25,12 +24,11 @@ public class LoyaltyDiscountStrategy implements DiscountStrategy {
 
             int ordersThisMonth = orderHistory.getOrDefault(user, 0);
 
-            if (ordersThisMonth >= 5) { // Si l'utilisateur a passé 5 commandes ou plus ce mois-ci
+            if (ordersThisMonth >= 5) {
                 float originalPrice = order.getTotalPrice();
-                float discount = originalPrice * 0.10f; // 10% de réduction
+                float discount = originalPrice * 0.10f; // 10%
                 float newPrice = originalPrice - discount;
 
-                // Mettre à jour le prix de la commande avec la réduction
                 order.setTotalPrice(newPrice);
                 System.out.println(user.getName() + " bénéficie de 10% de réduction grâce à sa fidélité.");
 
@@ -38,6 +36,6 @@ public class LoyaltyDiscountStrategy implements DiscountStrategy {
             }
         }
 
-        return totalDiscount; // Retourne la somme des réductions appliquées
+        return totalDiscount;
     }
 }

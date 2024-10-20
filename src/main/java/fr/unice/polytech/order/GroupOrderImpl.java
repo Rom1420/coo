@@ -1,5 +1,7 @@
 package fr.unice.polytech.order;
 
+import fr.unice.polytech.discount.DiscountEngine;
+import fr.unice.polytech.discount.DiscountType;
 import fr.unice.polytech.restaurant.Restaurant;
 import fr.unice.polytech.user.RegisteredUser;
 
@@ -16,7 +18,7 @@ public class GroupOrderImpl implements GroupOrderInterface {
 
     private List<RegisteredUser> userList;
     private String status;
-
+    private DiscountEngine discountEngine;
     //Default constructor
     public GroupOrderImpl(int groupId) {
         this.groupId = groupId;
@@ -68,6 +70,9 @@ public class GroupOrderImpl implements GroupOrderInterface {
         if (!userList.contains(user)) {
             userList.add(user);
         }
+        if (this.getStatus().equals("validated")) {
+            throw new IllegalStateException("Impossible d'ajouter ou de modifier une commande car le groupe est fermé");
+        }
         usersOrders.put(user, order);
     }
 
@@ -113,5 +118,32 @@ public class GroupOrderImpl implements GroupOrderInterface {
 
     public void closeOrder() {
         this.status = "closed";
+    }
+
+    public Map<RegisteredUser, Integer> calculateOrderHistory() {
+        Map<RegisteredUser, Integer> orderHistory = new HashMap<>();
+        Restaurant currentRestaurant = this.getRestaurant();
+
+        for (RegisteredUser user : getUserList()) {
+            List<Order> userOrders = OrderManager.getOrderManagerInstance().getOrders(user.getId());
+
+            int numberOfOrdersInCurrentRestaurant = (userOrders != null)
+                    ? (int) userOrders.stream()
+                    .filter(order -> order.getRestaurant().equals(currentRestaurant))
+                    .count()
+                    : 0;
+
+            orderHistory.put(user, numberOfOrdersInCurrentRestaurant);
+        }
+
+        return orderHistory;
+    }
+
+
+    public void applyDiscount() {
+        Map<RegisteredUser, Integer> orderHistory = (restaurant.getDiscountType() == DiscountType.LOYALTY) ? calculateOrderHistory() : new HashMap<>();
+        discountEngine = new DiscountEngine();
+        discountEngine.chooseStrategy(this.getRestaurant(), orderHistory);
+        discountEngine.applyDiscount(this);
     }
 }

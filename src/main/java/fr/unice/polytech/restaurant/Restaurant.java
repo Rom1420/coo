@@ -63,7 +63,7 @@ public class Restaurant {
         this.menusOfRestaurant = new ArrayList<>();
     }
 
-    public Restaurant(String name, TypeCuisine typeCuisine, List<Article> articlesSimples, List<Menu> menusOfRestaurant, DiscountType discountTyp) {
+    public Restaurant(String name, TypeCuisine typeCuisine, List<Article> articlesSimples, List<Menu> menusOfRestaurant, DiscountType discountType) {
         this.name = name;
         this.articlesSimples = articlesSimples;
         this.menusOfRestaurant = menusOfRestaurant;
@@ -124,10 +124,6 @@ public class Restaurant {
     public Map<DayOfWeek, Map.Entry<LocalTime, LocalTime>> getWeeklySchedules() {
         return this.weeklySchedules;
     }
-    public void getDiscount(){ //TODO: à faire quand on aura la discountStrategy
-        return;
-    }
-
     public boolean isOpen() {
         return isOpen;
     }
@@ -196,21 +192,6 @@ public class Restaurant {
 
     public DiscountType getDiscountType() { return discountType; }
 
-    public void applyDiscount(GroupOrderImpl groupOrder, Map<RegisteredUser, Integer> orderHistory) {
-        DiscountEngine engine = new DiscountEngine();
-        engine.chooseStrategy(this, orderHistory); // Passer le restaurant et l'historique des commandes
-        float discount = engine.applyDiscount(groupOrder);
-        System.out.println("Discount applied: " + discount * 100 + "%");
-        applyDiscountToOrders(groupOrder, discount);
-    }
-
-
-    private void applyDiscountToOrders(GroupOrderImpl groupOrder, float discount) {
-        for (Order order : groupOrder.getUsersOrders().values()) {
-            float newPrice = order.getTotalPrice() * (1 - discount);
-            System.out.println("Old Price: " + order.getTotalPrice() + ", New Price: " + newPrice);
-            order.setTotalPrice(newPrice); // Mettre à jour le prix total avec le discount
-        }
-    }
+    public void setDiscountType(DiscountType discountType) { this.discountType=discountType; }
 }
 

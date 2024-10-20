@@ -23,7 +23,6 @@ public class ItemCountDiscountStrategyTest {
     public void setUp() {
         restaurant = new Restaurant("Test Restaurant");
 
-        // Ajouter des articles au restaurant
         article1 = new Article("Pizza", 12.0f, 10);
         article2 = new Article("Pasta", 15.0f, 8);
         article3 = new Article("Salad", 8.0f, 5);
@@ -33,13 +32,11 @@ public class ItemCountDiscountStrategyTest {
 
         groupOrder = new GroupOrderImpl(1, restaurant, new Date(), "Delivery Location");
 
-        // Créer des commandes
         order1 = new Order(new Date(), "Location 1", restaurant);
         order2 = new Order(new Date(), "Location 2", restaurant);
         order3 = new Order(new Date(), "Location 3", restaurant);
         order4 = new Order(new Date(), "Location 4", restaurant);
 
-        // Ajouter des articles aux commandes
         order1.addArticle(article1);  // 1 article
         order1.addArticle(article2);  // 2 articles
         order1.addArticle(article3);  // 3 articles
@@ -58,7 +55,6 @@ public class ItemCountDiscountStrategyTest {
         order4.addArticle(article1);  // 4 articles
         order4.addArticle(article2);  // 5 articles
 
-        // Ajouter les commandes au groupOrder
         groupOrder.addOrUpdateUserOrder(new RegisteredUser("User1", 1, "password"), order1);
         groupOrder.addOrUpdateUserOrder(new RegisteredUser("User2", 2, "password"), order2);
         groupOrder.addOrUpdateUserOrder(new RegisteredUser("User3", 3, "password"), order3);
@@ -74,32 +70,26 @@ public class ItemCountDiscountStrategyTest {
         float originalPriceOrder3 = order3.getTotalPrice();
         float originalPriceOrder4 = order4.getTotalPrice();
 
-        // Imprimer les prix avant réduction
         System.out.println("Avant réduction :");
         System.out.println("Prix Order1 : " + originalPriceOrder1);
         System.out.println("Prix Order2 : " + originalPriceOrder2);
         System.out.println("Prix Order3 : " + originalPriceOrder3);
         System.out.println("Prix Order4 : " + originalPriceOrder4);
 
-        // Appliquer la stratégie de réduction
         float totalDiscount = discountStrategy.applyDiscount(groupOrder);
 
-        // Imprimer les prix après réduction
         System.out.println("Après réduction :");
         System.out.println("Prix Order1 (après réduction) : " + order1.getTotalPrice());
         System.out.println("Prix Order2 (après réduction) : " + order2.getTotalPrice());
         System.out.println("Prix Order3 (après réduction) : " + order3.getTotalPrice());
         System.out.println("Prix Order4 (après réduction) : " + order4.getTotalPrice());
 
-        // Vérifier que la réduction a été appliquée à l'utilisateur 1 et 4 (5% de réduction)
         assertEquals(originalPriceOrder1 * 0.95f, order1.getTotalPrice(), 0.01);
         assertEquals(originalPriceOrder4 * 0.95f, order4.getTotalPrice(), 0.01);
 
-        // Vérifier que les autres commandes n'ont pas été affectées
         assertEquals(originalPriceOrder2, order2.getTotalPrice(), 0.01);
         assertEquals(originalPriceOrder3, order3.getTotalPrice(), 0.01);
 
-        // Vérifier le total de la réduction appliquée
         System.out.println("Total des réductions appliquées : " + totalDiscount);
         assertEquals((originalPriceOrder1 * 0.05f) + (originalPriceOrder4 * 0.05f), totalDiscount, 0.01);
     }
