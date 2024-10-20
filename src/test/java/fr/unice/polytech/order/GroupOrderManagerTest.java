@@ -1,9 +1,11 @@
 package fr.unice.polytech.order;
 
+import fr.unice.polytech.discount.DiscountType;
 import fr.unice.polytech.order.Order;
 import fr.unice.polytech.restaurant.Article;
 import fr.unice.polytech.restaurant.Menu;
 import fr.unice.polytech.restaurant.Restaurant;
+import fr.unice.polytech.restaurant.TypeCuisine;
 import fr.unice.polytech.user.RegisteredUser;
 import fr.unice.polytech.user.RegisteredUserManager;
 import org.junit.jupiter.api.BeforeEach;
@@ -41,7 +43,7 @@ class GroupOrderManagerTest {
         RegisteredUser user1 = new RegisteredUser("User1", 1, "password");
         Order order1 = new Order(new Date(), "Campus", new Restaurant("Restau"));
         groupOrder.addOrUpdateUserOrder(user1, order1);
-
+        groupOrder.setGroupOrderRestaurant(new Restaurant("toto", TypeCuisine.AUTRE, new ArrayList<>(), new ArrayList<>(), DiscountType.LOYALTY));
         groupOrderManager.validateGroupOrder(10);
 
         assertEquals("closed", groupOrder.getStatus());
