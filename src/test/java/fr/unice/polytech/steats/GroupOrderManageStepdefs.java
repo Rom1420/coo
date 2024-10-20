@@ -1,17 +1,25 @@
 package fr.unice.polytech.steats;
 
+import fr.unice.polytech.discount.DiscountEngine;
+import fr.unice.polytech.discount.DiscountType;
 import fr.unice.polytech.order.GroupOrderImpl;
 import fr.unice.polytech.order.Order;
+import fr.unice.polytech.order.OrderManager;
 import fr.unice.polytech.restaurant.Restaurant;
+import fr.unice.polytech.restaurant.TypeCuisine;
 import fr.unice.polytech.system.Facade;
 import fr.unice.polytech.user.RegisteredUser;
+import fr.unice.polytech.user.RegisteredUserManager;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.mockito.internal.matchers.Or;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -22,14 +30,19 @@ public class GroupOrderManageStepdefs {
     RegisteredUser user1;
     RegisteredUser user2;
     RegisteredUser user3;
+    Map<RegisteredUser, Integer> orderHistory;
 
     Date deliveryTime;
     String deliveryLocation;
     Order order;
+    Order order1;
+    Order order2;
+
+
 
     @Given("a group order with id {int} and and already {string} and {string} in it")
     public void a_group_order_with_id_and_and_already_and_in_it(Integer int1, String string, String string2) {
-        restaurant = new Restaurant("Nono", new ArrayList<>(), new ArrayList<>());
+        restaurant = new Restaurant("Nono", TypeCuisine.AUTRE, new ArrayList<>(), new ArrayList<>(), DiscountType.LOYALTY);
         deliveryTime = new Date();
         deliveryLocation = "Templiers";
         groupOrder = new GroupOrderImpl(int1, restaurant, deliveryTime, deliveryLocation);
@@ -37,6 +50,24 @@ public class GroupOrderManageStepdefs {
         user2 = new RegisteredUser(string2, 456, "pp");
         groupOrder.addMember(user1);
         groupOrder.addMember(user2);
+
+        OrderManager orderManager = OrderManager.getOrderManagerInstance();
+        orderManager.addOrder(123,new Order(new Date(), "location", restaurant));
+        orderManager.addOrder(123,new Order(new Date(), "location", restaurant));
+        orderManager.addOrder(123,new Order(new Date(), "location", restaurant));
+        orderManager.addOrder(123,new Order(new Date(), "location", restaurant));
+        orderManager.addOrder(123,new Order(new Date(), "location", restaurant));
+
+        orderHistory = groupOrder.calculateOrderHistory();
+
+        order1 = new Order(new Date(), deliveryTime, deliveryLocation, restaurant);
+        order1.setTotalPrice(20f);
+        groupOrder.addOrUpdateUserOrder(user1, order1);
+
+        order2 = new Order(new Date(), deliveryTime, deliveryLocation, restaurant);
+        order2.setTotalPrice(50f);
+        groupOrder.addOrUpdateUserOrder(user2, order2);
+
     }
 
     @Given("a registered user of name {string} with id {int}")
@@ -94,10 +125,20 @@ public class GroupOrderManageStepdefs {
 
     @And("no individual orders can be modified after validation")
     public void noIndividualOrdersCanBeModifiedAfterValidation() {
-        boolean ordersAreLocked = groupOrder.getUsersOrders().entrySet().stream()
-                .allMatch(entry -> entry.getValue().getStatus().equals("locked"));
+        assertThrows(IllegalStateException.class, () ->
+                groupOrder.addOrUpdateUserOrder(
+                        new RegisteredUser("John", 4, "password"),
+                        new Order(new Date(), "Location", groupOrder.getRestaurant())
+                )
+        );
+    }
 
-        assertTrue("All individual orders should be locked after group order validation", ordersAreLocked);
+
+    @And("personalized discounts \\(based on group size, loyalty, or number of items) are applied to each eligible individual order")
+    public void personalized_discounts_based_on_group_size_loyalty_or_number_of_items_are_applied_to_each_eligible_individual_order() {
+        System.out.println("prix avant "+ order1.getTotalPrice());
+        groupOrder.applyDiscount();
+        System.out.println("prix après "+ order1.getTotalPrice() );
     }
 
     @And("the group order is ready for restaurant preparation")
@@ -108,11 +149,11 @@ public class GroupOrderManageStepdefs {
 
 
     @And("the group order status should change to {string}")
-    public void theGroupOrderStatusShouldChangeTo(String expectedStatus) {
+    public void the_group_order_status_should_change_to(String expectedStatus) {
         groupOrder.closeOrder();
-        String actualStatus = groupOrder.getStatus();
-        assertEquals("The group order status should change to " + expectedStatus, expectedStatus, actualStatus);
-        System.out.println("group order closed");
+
+        assertEquals(expectedStatus, groupOrder.getStatus());
+        System.out.println("group order status changed to " + expectedStatus);
     }
 
 

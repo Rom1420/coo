@@ -17,5 +17,6 @@ Feature: manage group order
     When "Robert" validates the group order
     Then the group order status should be "validated"
       And no individual orders can be modified after validation
+      And personalized discounts (based on group size, loyalty, or number of items) are applied to each eligible individual order
       And the group order is ready for restaurant preparation
       And the group order status should change to "closed"

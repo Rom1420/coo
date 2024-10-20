@@ -1,5 +1,8 @@
 package fr.unice.polytech.restaurant;
 
+import fr.unice.polytech.discount.DiscountEngine;
+import fr.unice.polytech.discount.DiscountType;
+import fr.unice.polytech.order.GroupOrderImpl;
 import fr.unice.polytech.order.Order;
 import fr.unice.polytech.user.RegisteredUser;
 
@@ -21,6 +24,7 @@ public class Restaurant {
     private boolean isOpen;
 
     private TypeCuisine typeCuisine;
+    private DiscountType discountType; // Type de discount choisi pour ce restaurant
 
 
     public Restaurant(String name, TypeCuisine typeCuisine, List<Article> articlesSimples, List<Menu> menusOfRestaurant) {
@@ -57,6 +61,16 @@ public class Restaurant {
         this.weeklySchedules = new HashMap<>();
         this.articlesSimples = new ArrayList<>();
         this.menusOfRestaurant = new ArrayList<>();
+    }
+
+    public Restaurant(String name, TypeCuisine typeCuisine, List<Article> articlesSimples, List<Menu> menusOfRestaurant, DiscountType discountType) {
+        this.name = name;
+        this.articlesSimples = articlesSimples;
+        this.menusOfRestaurant = menusOfRestaurant;
+        this.weeklySchedules = new HashMap<>();
+        this.isOpen=false; //arbitraire à voir comment on gère les ouvertures et fermetures du restaurant
+        this.typeCuisine = typeCuisine;
+        this.discountType = discountType;
     }
 
     public void setOpen(boolean open){
@@ -110,10 +124,6 @@ public class Restaurant {
     public Map<DayOfWeek, Map.Entry<LocalTime, LocalTime>> getWeeklySchedules() {
         return this.weeklySchedules;
     }
-    public void getDiscount(){ //TODO: à faire quand on aura la discountStrategy
-        return;
-    }
-
     public boolean isOpen() {
         return isOpen;
     }
@@ -179,5 +189,9 @@ public class Restaurant {
         int nbOfArticle = timeInterval/preparationTimeForOneArticle; //je travaille ici en seconde pour eviter les problèmes de division par 0
         return nbOfArticle;
     }
+
+    public DiscountType getDiscountType() { return discountType; }
+
+    public void setDiscountType(DiscountType discountType) { this.discountType=discountType; }
 }
 

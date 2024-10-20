@@ -90,6 +90,7 @@ public class Order {
     public Restaurant getRestaurant() {
         return restaurant;
     }
+    public void setTotalPrice(float totalPrice) {this.totalPrice = totalPrice;}
 
     public void addArticle(Article article){
         if (!restaurant.getArticlesSimples().contains(article)) {
