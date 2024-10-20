@@ -18,8 +18,10 @@ public class GroupOrderImpl implements GroupOrderInterface {
 
     private List<RegisteredUser> userList;
     private String status;
+
     private DiscountEngine discountEngine;
-    //Default constructor
+  
+    //Default constructor, for testing
     public GroupOrderImpl(int groupId) {
         this.groupId = groupId;
         this.usersOrders = new HashMap<>();
@@ -45,7 +47,12 @@ public class GroupOrderImpl implements GroupOrderInterface {
 
     @Override
     public void addMember(RegisteredUser user) {
-        userList.add(user);
+        if (this.getStatus().equals("validated")) {
+            throw new IllegalStateException("Impossible d'ajouter un membre car le groupe est fermé");
+        }
+        if (!userList.contains(user)) {
+            userList.add(user);
+        }
     }
 
     @Override
@@ -67,12 +74,18 @@ public class GroupOrderImpl implements GroupOrderInterface {
     }
     @Override
     public void addOrUpdateUserOrder(RegisteredUser user, Order order) {
-        if (!userList.contains(user)) {
-            userList.add(user);
-        }
         if (this.getStatus().equals("validated")) {
             throw new IllegalStateException("Impossible d'ajouter ou de modifier une commande car le groupe est fermé");
         }
+
+        if (this.restaurant != order.getRestaurant() || this.deliveryDate != order.getDeliveryDate() || !Objects.equals(this.deliveryLocation, order.getDeliveryLocation())) {
+            throw new IllegalStateException("Les paramètres de la commande ne correspondent pas à ceux du groupe");
+        }
+
+        if (!userList.contains(user)) {
+            userList.add(user);
+        }
+
         usersOrders.put(user, order);
     }
 

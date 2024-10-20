@@ -28,26 +28,29 @@ class GroupOrderManagerTest {
     private Restaurant restaurant;
     int gid;
     RegisteredUserManager registeredUserManager = RegisteredUserManager.getRegisteredUserManagerInstance();
+    Date deliveryDate;
 
     @BeforeEach
     public void setUp() {
         groupOrderManager = GroupOrderManager.getGroupOrderManagerInstance();
         gid = groupOrderManager.getGroupOrderId();
         restaurant = new Restaurant("yoyo");
-        groupOrder = new GroupOrderImpl(10, restaurant, new Date(), "Campus");
+        deliveryDate = new Date(1767225600000L);
+        groupOrder = new GroupOrderImpl(10, restaurant, deliveryDate, "Campus");
     }
 
     @Test
     public void testValidateGroupOrder_Success() {
         groupOrderManager.addGroupOrder(10, groupOrder);
         RegisteredUser user1 = new RegisteredUser("User1", 1, "password");
-        Order order1 = new Order(new Date(), "Campus", new Restaurant("Restau"));
+        Order order1 = new Order(new Date(), deliveryDate,"Campus", restaurant);
         groupOrder.addOrUpdateUserOrder(user1, order1);
         groupOrder.setGroupOrderRestaurant(new Restaurant("toto", TypeCuisine.AUTRE, new ArrayList<>(), new ArrayList<>(), DiscountType.LOYALTY));
         groupOrderManager.validateGroupOrder(10);
 
         assertEquals("closed", groupOrder.getStatus());
         groupOrderManager.removeGroupOrderById(10);
+        assertEquals(0, groupOrderManager.getGroupOrders().size());
     }
 
     @Test
@@ -68,7 +71,9 @@ class GroupOrderManagerTest {
         currentId+=1;
         assertEquals(currentId, gid);
         assertEquals(currentNumberOfGroupOrders, groupOrderManager.getGroupOrders().size());
-
+        groupOrderManager.removeGroupOrderById(currentId-1);
+        groupOrderManager.removeGroupOrderById(currentId-2);
+        assertEquals(0, groupOrderManager.getGroupOrders().size());
     }
 
     @Test
@@ -79,6 +84,8 @@ class GroupOrderManagerTest {
         assertEquals("Nono", groupOrderManager.getGroupOrderById(gid).getRestaurant().getName());
         assertEquals("Templiers", groupOrderManager.getGroupOrderById(gid).getGroupOrderDeliveryLocation());
         assertEquals(date, groupOrderManager.getGroupOrderById(gid).getGroupOrderDeliveryDate());
+        groupOrderManager.removeGroupOrderById(gid);
+        assertEquals(0, groupOrderManager.getGroupOrders().size());
     }
 
     @Test

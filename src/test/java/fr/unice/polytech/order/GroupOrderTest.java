@@ -41,9 +41,11 @@ class GroupOrderTest {
         classicMenu = new Menu("Menu Classique", 10.00f);
         classicMenu.addArticleInMenu(fries);
         classicMenu.addArticleInMenu(drink);
+        List<Menu> menus = new ArrayList<>();
+        menus.add(classicMenu);
 
         // Initialisation du restaurant
-        restaurant = new Restaurant("Mcdo", TypeCuisine.FASTFOOD ,articles, List.of(classicMenu));
+        restaurant = new Restaurant("Mcdo", TypeCuisine.FASTFOOD, articles, menus);
 
         // Initialisation des données de test
         Date orderDate = new Date();
@@ -60,7 +62,6 @@ class GroupOrderTest {
 
     @Test
     void testAddOrUpdateUserOrder() {
-        Restaurant restaurant = new Restaurant("Restau");
         restaurant.addMenu(classicMenu);
         Order order = new Order(new Date(), deliveryDate, "123 Street", restaurant);
         order.addMenu(classicMenu);
@@ -72,7 +73,6 @@ class GroupOrderTest {
 
     @Test
     void testGetOrder() {
-        Restaurant restaurant = new Restaurant("Restau");
         restaurant.addMenu(classicMenu);
         Order order = new Order(new Date(), deliveryDate, "123 Street", restaurant);
         order.addMenu(classicMenu);
@@ -85,7 +85,7 @@ class GroupOrderTest {
 
     @Test
     void testRemoveOrder() {
-        Order order = new Order(new Date(), deliveryDate, "123 Street", new Restaurant("Restau"));
+        Order order = new Order(new Date(), deliveryDate, "123 Street", restaurant);
         groupOrder.addOrUpdateUserOrder(user1, order);
 
         assertTrue(groupOrder.getUsersOrders().containsKey(user1));
@@ -102,7 +102,6 @@ class GroupOrderTest {
 
     @Test
     void testGetTotalPreparationTime() {
-        Restaurant restaurant = new Restaurant("Restau");
         restaurant.addMenu(classicMenu);
         restaurant.addArticle(burger);
         Order order1 = new Order(new Date(), deliveryDate, "123 Street", restaurant);
