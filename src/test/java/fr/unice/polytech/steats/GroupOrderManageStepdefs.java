@@ -67,7 +67,7 @@ public class GroupOrderManageStepdefs {
     @Then("{string} creates his individual order for the group order with id {int}")
     public void creates_his_individual_order_for_the_group_order_with_id(String name, Integer int1) {
         // Write code here that turns the phrase above into concrete actions
-        order = new Order(new Date(), deliveryTime, deliveryLocation, new Restaurant("Restau"));
+        order = new Order(new Date(), deliveryTime, deliveryLocation, restaurant);
         groupOrder.addOrUpdateUserOrder(user3, order);
     }
 
@@ -113,7 +113,6 @@ public class GroupOrderManageStepdefs {
         String actualStatus = groupOrder.getStatus();
         assertEquals("The group order status should change to " + expectedStatus, expectedStatus, actualStatus);
         System.out.println("group order closed");
-
     }
 
 

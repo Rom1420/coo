@@ -94,6 +94,7 @@ public class GroupOrderManager {
 
     public void joinGroup(Boolean validate, Integer userId, Integer groupOrderId, ArrayList<Article> articles, ArrayList<Menu> menus) {
         if (validate) {
+            if (!groupOrders.containsKey(groupOrderId)) throw new RuntimeException("Idenrifiant de groupe inexistant !");
             // Récupération de l'utilisateur
             RegisteredUserManager registeredUsers = getRegisteredUserManagerInstance();
             RegisteredUser joiner = registeredUsers.getRegisteredUserById(userId);
@@ -103,7 +104,7 @@ public class GroupOrderManager {
             String deliveryLocation = groupOrder.getGroupOrderDeliveryLocation();
             Restaurant restaurant = groupOrder.getRestaurant();
             // Ajoute de l'utilisateur et de sa commande au groupe
-            if (!groupOrder.getUserList().contains(joiner)) groupOrder.addMember(joiner);
+            //if (!groupOrder.getUserList().contains(joiner)) groupOrder.addMember(joiner); ajout fait dans GroupOrderImpl
             Order userOrder = new Order(new Date(), deliveryDate, deliveryLocation, restaurant);
             userOrder.setOrderArticlesAndMenus(articles, menus); // création de sa commande avec les articles et menus qu'il a sélectionné
             groupOrder.addOrUpdateUserOrder(joiner, userOrder);

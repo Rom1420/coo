@@ -39,10 +39,12 @@ class GroupOrderProxyTest {
         restaurant = new Restaurant("Test Restaurant" ,articles, List.of(classicMenu));
         restaurant.setOpen(true);
 
-        order = new Order(new Date(), new Date(System.currentTimeMillis() + 600000), "123 Street", restaurant); // Delivery in 1 hour
+        Date date = new Date(System.currentTimeMillis() + 600000);
+
+        order = new Order(new Date(), date, "123 Street", restaurant); // Delivery in 1 hour
         order.addArticle(burger);
 
-        groupOrder = new GroupOrderImpl(667, restaurant, new Date(System.currentTimeMillis() + 600000), "123 Street"); // Delivery in 1 hour
+        groupOrder = new GroupOrderImpl(667, restaurant, date, "123 Street"); // Delivery in 1 hour
         groupOrder.addOrUpdateUserOrder(user, order);
 
         groupOrderProxy = new GroupOrderProxy(groupOrder);

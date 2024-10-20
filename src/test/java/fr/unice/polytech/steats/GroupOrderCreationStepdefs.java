@@ -82,7 +82,7 @@ public class GroupOrderCreationStepdefs {
     public void creates_his_order_with_id_for_the_group_order_with_id(String string, Integer int1) {
         assertEquals(string, user.getName());
         groupOrder = groupOrderManager.getGroupOrderById(int1);
-        order = new Order(new Date(), groupOrder.getGroupOrderDeliveryDate(), groupOrder.getGroupOrderDeliveryLocation(), restaurant);
+        order = new Order(new Date(), groupOrder.getGroupOrderDeliveryDate(), groupOrder.getGroupOrderDeliveryLocation(), groupOrder.getRestaurant());
         groupOrder.addOrUpdateUserOrder(user, order);
     }
 
@@ -109,6 +109,7 @@ public class GroupOrderCreationStepdefs {
     public void the_group_order_with_id_is_added_to_the_list_of_group_orders(Integer int1) {
         assertEquals(nbOfGroupOrderBeforeCreation+1, groupOrderManager.getGroupOrders().size());
         assertNotNull(groupOrderManager.getGroupOrderById(int1));
+        groupOrderManager.removeGroupOrderById(123);
     }
 
 
