@@ -1,5 +1,8 @@
 package fr.unice.polytech.restaurant;
 
+import fr.unice.polytech.discount.DiscountEngine;
+import fr.unice.polytech.discount.DiscountType;
+import fr.unice.polytech.order.GroupOrderImpl;
 import fr.unice.polytech.order.Order;
 import fr.unice.polytech.user.RegisteredUser;
 
@@ -21,6 +24,7 @@ public class Restaurant {
     private boolean isOpen;
 
     private TypeCuisine typeCuisine;
+    private DiscountType discountType; // Type de discount choisi pour ce restaurant
 
 
     public Restaurant(String name, TypeCuisine typeCuisine, List<Article> articlesSimples, List<Menu> menusOfRestaurant) {
@@ -57,6 +61,16 @@ public class Restaurant {
         this.weeklySchedules = new HashMap<>();
         this.articlesSimples = new ArrayList<>();
         this.menusOfRestaurant = new ArrayList<>();
+    }
+
+    public Restaurant(String name, TypeCuisine typeCuisine, List<Article> articlesSimples, List<Menu> menusOfRestaurant, DiscountType discountTyp) {
+        this.name = name;
+        this.articlesSimples = articlesSimples;
+        this.menusOfRestaurant = menusOfRestaurant;
+        this.weeklySchedules = new HashMap<>();
+        this.isOpen=false; //arbitraire à voir comment on gère les ouvertures et fermetures du restaurant
+        this.typeCuisine = typeCuisine;
+        this.discountType = discountType;
     }
 
     public void setOpen(boolean open){
@@ -178,6 +192,25 @@ public class Restaurant {
         if (preparationTimeForOneArticle==0){return 0;}
         int nbOfArticle = timeInterval/preparationTimeForOneArticle; //je travaille ici en seconde pour eviter les problèmes de division par 0
         return nbOfArticle;
+    }
+
+    public DiscountType getDiscountType() { return discountType; }
+
+    public void applyDiscount(GroupOrderImpl groupOrder, Map<RegisteredUser, Integer> orderHistory) {
+        DiscountEngine engine = new DiscountEngine();
+        engine.chooseStrategy(this, orderHistory); // Passer le restaurant et l'historique des commandes
+        float discount = engine.applyDiscount(groupOrder);
+        System.out.println("Discount applied: " + discount * 100 + "%");
+        applyDiscountToOrders(groupOrder, discount);
+    }
+
+
+    private void applyDiscountToOrders(GroupOrderImpl groupOrder, float discount) {
+        for (Order order : groupOrder.getUsersOrders().values()) {
+            float newPrice = order.getTotalPrice() * (1 - discount);
+            System.out.println("Old Price: " + order.getTotalPrice() + ", New Price: " + newPrice);
+            order.setTotalPrice(newPrice); // Mettre à jour le prix total avec le discount
+        }
     }
 }
 

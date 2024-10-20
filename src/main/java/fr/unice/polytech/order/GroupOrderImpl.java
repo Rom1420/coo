@@ -63,9 +63,11 @@ public class GroupOrderImpl implements GroupOrderInterface {
     public List<RegisteredUser> getUserList() {
         return userList;
     }
-
     @Override
     public void addOrUpdateUserOrder(RegisteredUser user, Order order) {
+        if (!userList.contains(user)) {
+            userList.add(user);
+        }
         usersOrders.put(user, order);
     }
 
