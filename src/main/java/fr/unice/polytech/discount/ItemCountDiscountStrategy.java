@@ -16,7 +16,7 @@ public class ItemCountDiscountStrategy implements DiscountStrategy {
 
                 order.setTotalPrice(newPrice);
 
-                System.out.println("Un utilisateur a commandé 5 articles ou plus. Réduction de 5% appliquée à sa commande.");
+                //System.out.println("**Un utilisateur a commandé 5 articles ou plus. Réduction de 5% appliquée à sa commande**");
 
                 totalDiscount += discount;
             }
