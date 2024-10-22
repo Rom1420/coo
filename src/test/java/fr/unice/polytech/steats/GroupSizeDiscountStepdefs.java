@@ -32,7 +32,7 @@ public class GroupSizeDiscountStepdefs {
     @Given("restaurant {string} offering a group size discount")
     public void restaurant_offering_a_group_size_discount(String string) {
         restaurant1 = new Restaurant(string, TypeCuisine.AUTRE, new ArrayList<>(), new ArrayList<>(), DiscountType.GROUP_SIZE);
-        restaurant1.addArticle(article); // Ajouter l'article au restaurant
+        restaurant1.addArticle(article);
         restaurantManager.addRestaurant(restaurant1);
     }
 
@@ -41,18 +41,17 @@ public class GroupSizeDiscountStepdefs {
         Restaurant restaurant = restaurantManager.findRestaurantByName(restaurantName);
         groupOrder1 = new GroupOrderImpl(id, restaurant1, deliveryDate, deliveryLocation);
 
-        // Ajout des membres au groupe
         for (int i = 0; i < members; i++) {
             groupOrder1.addMember(new RegisteredUser("NoName", i + 100, "Nopwd"));
         }
 
-        // Créer un utilisateur et l'ajouter au groupe
         user1 = new RegisteredUser(userName, userId, "u1p");
         groupOrder1.addMember(user1);
 
-        // Créer une commande pour cet utilisateur avec un article qui appartient au restaurant
         order = new Order(new Date(), deliveryDate, deliveryLocation, restaurant1);
-        order.addArticle(article); // Utilise l'article du restaurant
+        order.addArticle(article);
+        System.out.println("-- the inital price is : " + order.getTotalPrice() );
+
     }
 
     @When("group order with id {int} is validated by a user")
@@ -63,14 +62,14 @@ public class GroupSizeDiscountStepdefs {
 
     @Then("a {int}% group size discount is applied to all individual orders")
     public void a_group_size_discount_is_applied_to_all_individual_orders(Integer discount) {
-        System.out.println(groupOrder1.getRestaurant().getDiscountType());
+        //System.out.println(groupOrder1.getRestaurant().getDiscountType());
         groupOrder1.applyDiscount();
-        System.out.println(groupOrder1.getUsersOrders().get(user1));
-        // Calcul du prix attendu après la réduction
-        float expectedPrice = (100 - discount) / 100f * 10;  // Si l'article est à 10.0
+        //System.out.println(groupOrder1.getUsersOrders().get(user1));
+        float expectedPrice = (100 - discount) / 100f * 10;
         float actualPrice = groupOrder1.getOrder(user1).getTotalPrice();
 
         assertEquals(expectedPrice, actualPrice, 0.01f);
+        System.out.println("the price after discount is : " + actualPrice );
     }
 
     @Given("a group order with id {int} with restaurant {string} is validated with {int} members with {string} with id {int} in it")
@@ -102,7 +101,10 @@ public class GroupSizeDiscountStepdefs {
     @Then("no group size discount is applied")
     public void no_group_size_discount_is_applied() {
         groupOrder2.applyDiscount();
-        float actualPrice = groupOrder2.getOrder(user1).getTotalPrice(); // Assurez-vous que l'utilisateur a bien une commande
+        float actualPrice = groupOrder2.getOrder(user1).getTotalPrice();
         assertEquals(10, actualPrice, 0.01f); // Prix sans réduction
+        System.out.println("no group size discount is applied");
+        System.out.println("the price still " + actualPrice);
+
     }
 }

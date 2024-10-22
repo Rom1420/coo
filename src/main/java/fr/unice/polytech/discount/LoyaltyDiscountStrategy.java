@@ -30,7 +30,7 @@ public class LoyaltyDiscountStrategy implements DiscountStrategy {
                 float newPrice = originalPrice - discount;
 
                 order.setTotalPrice(newPrice);
-                System.out.println(user.getName() + " bénéficie de 10% de réduction grâce à sa fidélité.");
+                //System.out.println(user.getName() + " bénéficie de 10% de réduction grâce à sa fidélité.");
 
                 totalDiscount += discount;
             }

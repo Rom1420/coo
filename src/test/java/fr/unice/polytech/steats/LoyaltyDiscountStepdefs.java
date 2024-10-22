@@ -47,6 +47,7 @@ public class LoyaltyDiscountStepdefs {
             orderManager.addOrder(userId, new Order(new Date(), deliveryDate, deliveryLocation, restaurantManager.findRestaurantByName(restaurantName)));
 
         }
+        System.out.println(userName + " has already placed " + orders + " orders in " + restaurantName);
     }
 
     @Given("a group order with id {int} with restaurant {string} is validated with {int} members with {string} with id {int} and {string} with id {int} in it")
@@ -70,6 +71,8 @@ public class LoyaltyDiscountStepdefs {
 
         groupOrder4.addOrUpdateUserOrder(user2, order1);
         groupOrder4.addOrUpdateUserOrder(user3, order2);
+        System.out.println(userName1 + " and " + userName2 + " place orders");
+        System.out.println(userName1 + "'s order costs " + order1.getTotalPrice() + " and " + userName2 + "'s order costs " + order2.getTotalPrice());
     }
 
     @Then("group order with id {int} is validate")
@@ -86,6 +89,8 @@ public class LoyaltyDiscountStepdefs {
 
         float expectedPrice = originalPrice * (1 - (discount / 100f));
         assertEquals(expectedPrice, userOrder.getTotalPrice(), 0.01f);
+        System.out.println(discount + "% 'loyalty discount' is applied to " + userName + "'s order");
+        System.out.println(userName + "'s order costs now " + userOrder.getTotalPrice());
     }
 
     @Then("no discount applied to {string}'s order")
@@ -94,5 +99,7 @@ public class LoyaltyDiscountStepdefs {
         Order userOrder = groupOrder4.getOrder(user);
         groupOrder4.applyDiscount();
         assertEquals(userOrder.getTotalPrice(), userOrder.getTotalPrice(), 0.01f);
+        System.out.println("no discount for "+ userName + ", his order still costs " + userOrder.getTotalPrice());
+
     }
 }

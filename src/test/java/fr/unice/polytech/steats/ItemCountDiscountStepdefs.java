@@ -31,7 +31,7 @@ public class ItemCountDiscountStepdefs {
     @Given("restaurant {string} offering an item count discount")
     public void restaurant_offering_an_item_count_discount(String restaurantName) {
         restaurant2 = new Restaurant(restaurantName, TypeCuisine.AUTRE, new ArrayList<>(), new ArrayList<>(), DiscountType.ITEM_COUNT);
-        article = new Article("Poisson", 10, 100); // Exemple d'article
+        article = new Article("Poisson", 10, 100);
         restaurant2.addArticle(article);
         restaurantManager.addRestaurant(restaurant2);
     }
@@ -52,17 +52,19 @@ public class ItemCountDiscountStepdefs {
         // Créer des commandes pour les deux utilisateurs
         Order order1 = new Order(new Date(), deliveryDate, deliveryLocation, restaurant2);
         for (int i = 0; i < items1; i++) {
-            order1.addArticle(article); // Ajouter des articles pour user1
+            order1.addArticle(article);
         }
 
         Order order2 = new Order(new Date(), deliveryDate, deliveryLocation, restaurant2);
         for (int i = 0; i < items2; i++) {
-            order2.addArticle(article); // Ajouter des articles pour user2
+            order2.addArticle(article);
         }
 
         // Ajouter les commandes au groupe
         groupOrder3.addOrUpdateUserOrder(user1, order1);
         groupOrder3.addOrUpdateUserOrder(user2, order2);
+        System.out.println(userName1 + " ordered " + items1 + " items and " + userName2 + " ordered " + items2 + " items ");
+        System.out.println(userName1 + "'s order costs " + order1.getTotalPrice() + " and " + userName2 + "'s order costs " + order2.getTotalPrice());
     }
 
     @Then("group order with id {int} is validated")
@@ -79,6 +81,9 @@ public class ItemCountDiscountStepdefs {
 
         float expectedPrice = originalPrice * (1 - (discount / 100f));
         assertEquals(expectedPrice, userOrder.getTotalPrice(), 0.01f);
+        System.out.println(discount+"%" + " 'item discount' is applied to " + userName + "'s order");
+        System.out.println(userName + "'s order costs now " + userOrder.getTotalPrice());
+
     }
 
     @Then("no discount is applied to {string}'s order")
@@ -86,5 +91,6 @@ public class ItemCountDiscountStepdefs {
         RegisteredUser user = userName.equals(user1.getName()) ? user1 : user2;
         Order userOrder = groupOrder3.getOrder(user);
         assertEquals(userOrder.getTotalPrice(), userOrder.getTotalPrice(), 0.01f);
+        System.out.println("no discount for "+ userName + ", his order still costs " + userOrder.getTotalPrice());
     }
 }
