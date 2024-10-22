@@ -28,23 +28,23 @@ et de se faire livrer à des points spécifiques en un temps précis.</h5>
 <div align="center" style="display: flex; justify-content: space-evenly; flex">
     <div>
         <img style="margin: 20px; border-radius: 20px" src="./doc/assets/teampics/nora.png" width="100" height=auto>
-        <p align="center">Nora KAYMA-KCILAR</p>
+        <p align="center">Nora KAYMA-KCILAR - PO</p>
     </div>
     <div>
-        <img style="margin: 20px; border-radius: 20px" src="./doc/assets/teampics/romain.png" width="100" height=auto>
-        <p align="center">Romain ABBONATO</p>
+        <img style="margin: 20px; border-radius: 20px" src="./doc/assets/teampics/romain.jfif" width="100" height=auto>
+        <p align="center">Romain ABBONATO - OPS</p>
     </div>
     <div>
         <img style="margin: 20px; border-radius: 20px" src="./doc/assets/teampics/matice.png" width="100" height=auto>
-        <p align="center">Matice MARILL</p>
+        <p align="center">Matice MARILL - QA</p>
     </div>
     <div>
         <img style="margin: 20px; border-radius: 20px" src="./doc/assets/teampics/yohan.png" width="100" height=auto>
-        <p align="center">Yohan MAZZI</p>
+        <p align="center">Yohan MAZZI - SA</p>
     </div>
     <div>
         <img style="margin: 20px; border-radius: 20px" src="./doc/assets/teampics/mathias.png" width="100" height=auto>
-        <p align="center">Mathias SANTOS REIS</p>
+        <p align="center">Mathias SANTOS REIS - OPS</p>
     </div>
 </div>
 
