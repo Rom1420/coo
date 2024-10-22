@@ -56,8 +56,8 @@ public class LoyaltyDiscountStrategyTest {
         groupOrder.addOrUpdateUserOrder(user3, order3);
 
         orderHistory = new HashMap<>();
-        orderHistory.put(user1, 6);
-        orderHistory.put(user2, 4);
+        orderHistory.put(user1, 15);
+        orderHistory.put(user2, 7);
         orderHistory.put(user3, 5);
     }
 

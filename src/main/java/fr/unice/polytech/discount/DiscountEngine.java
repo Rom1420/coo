@@ -8,6 +8,8 @@ import java.util.Map;
 
 import static fr.unice.polytech.discount.DiscountType.*;
 
+//Le moteur de réduction est le cœur qui choisit et applique la stratégie :
+
 public class DiscountEngine {
     private DiscountStrategy strategy;
     private GroupSizeDiscountStrategy groupSizeDiscountStrategy = new GroupSizeDiscountStrategy();
@@ -32,4 +34,8 @@ public class DiscountEngine {
             default -> setStrategy(null);
         }
     }
+
+    /*chooseStrategy() sélectionne la stratégie en fonction du type de réduction du restaurant.
+       Une fois que la stratégie est définie avec setStrategy(), elle est appliquée à la commande groupée
+       via applyDiscount().*/
 }

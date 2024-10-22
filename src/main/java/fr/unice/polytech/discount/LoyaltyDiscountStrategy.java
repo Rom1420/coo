@@ -22,9 +22,9 @@ public class LoyaltyDiscountStrategy implements DiscountStrategy {
             RegisteredUser user = entry.getKey();
             Order order = entry.getValue();
 
-            int ordersThisMonth = orderHistory.getOrDefault(user, 0);
+            int ordersInRestaurant = orderHistory.getOrDefault(user, 0);
 
-            if (ordersThisMonth >= 5) {
+            if (ordersInRestaurant % 5 == 0) {
                 float originalPrice = order.getTotalPrice();
                 float discount = originalPrice * 0.10f; // 10%
                 float newPrice = originalPrice - discount;
