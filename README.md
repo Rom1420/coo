@@ -27,27 +27,33 @@ et de se faire livrer à des points spécifiques en un temps précis.</h5>
         <tr>
             <td align="center" style="border: none;">
                 <img src="./doc/assets/teampics/nora.png" width="100" height="auto" style="border-radius: 20px;">
-                <p>Nora KAYMA-KCILAR - PO</p>
+                <p>Nora KAYMA-KCILAR</p>
+                <span style="font-weight: bold;">PO</span>
             </td>
-            <td align="center">
+            <td align="center" style="border: none;">
                 <img src="./doc/assets/teampics/romain.jfif" width="100" height="auto" style="border-radius: 20px;">
-                <p>Romain ABBONATO - OPS</p>
+                <p>Romain ABBONATO</p>
+                <span style="font-weight: bold;">OPS</span>
             </td>
-            <td align="center">
+            <td align="center" style="border: none;">
                 <img src="./doc/assets/teampics/matice.png" width="100" height="auto" style="border-radius: 20px;">
-                <p>Matice MARILL - QA</p>
+                <p>Matice MARILL</p>
+                <span style="font-weight: bold;">QA</span>
             </td>
-            <td align="center">
+            <td align="center" style="border: none;">
                 <img src="./doc/assets/teampics/yohan.png" width="100" height="auto" style="border-radius: 20px;">
-                <p>Yohan MAZZI - SA</p>
+                <p>Yohan MAZZI</p>
+                <span style="font-weight: bold;">SA</span>
             </td>
-            <td align="center">
+            <td align="center" style="border: none;">
                 <img src="./doc/assets/teampics/mathias.png" width="100" height="auto" style="border-radius: 20px;">
-                <p>Mathias SANTOS REIS - OPS</p>
+                <p>Mathias SANTOS REIS</p>
+                <span style="font-weight: bold;">OPS</span>
             </td>
         </tr>
     </table>
 </div>
+
 
 
 
