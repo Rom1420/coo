@@ -92,32 +92,58 @@
 - **O7** : Autoriser la validation d'une commande groupée (`allowGroupOrderValidation`) 
 
 ### 2.2 Diagramme de cas d’utilisation
-&nbsp;&nbsp;*(À insérer ici)*
+<p align="center">
+  <img src="assets/rapport-backend/uc.png" style="max-width: 70%; height: auto;" alt="Diagramme de cas d'utilisation"/>
+</p>
 
 ### 2.3 Diagrammes de classes
 - **Order** :
-&nbsp;&nbsp;*(À insérer ici)*
+<p align="center">
+  <img src="assets/rapport-backend/order-diag.png" style="max-width: 70%; height: auto;" alt="Diagramme de classe Order"/>
+</p>
 
 - **Restaurant** :
-&nbsp;&nbsp;*(À insérer ici)*
+<p align="center">
+  <img src="assets/rapport-backend/rest-diag.png" style="max-width: 70%; height: auto;" alt="Diagramme de classe Restaurant"/>
+</p>
 
 - **Discount** :
-&nbsp;&nbsp;*(À insérer ici)*
+<p align="center">
+  <img src="assets/rapport-backend/discount-diag.png" style="max-width: 70%; height: auto;" alt="Diagramme de classe Discount"/>
+</p>
 
 - **System** :
-&nbsp;&nbsp;*(À insérer ici)*
+<p align="center">
+  <img src="assets/rapport-backend/system-diag.png" style="max-width: 70%; height: auto;" alt="Diagramme de classe System"/>
+</p>
 
 ### 2.4 Design patterns
 - **Singleton** : 
+<p align="center">
+  <img src="assets/rapport-backend/dp-singleton.png" style="max-width: 50%; height: auto;" alt="Design Pattern Singleton"/>
+</p>
+
   Les singletons permettent de centraliser la gestion des instances sauvegardées (commandes, groupes, restaurants existants, utilisateurs) pour l'ensemble du système.
 
 - **Proxy** : 
+<p align="center">
+  <img src="assets/rapport-backend/dp-proxy.png" style="max-width: 50%; height: auto;" alt="Design Pattern Proxy"/>
+</p>
+
   L’utilisation du proxy pour les méthodes liées à la gestion des groupes permet de réaliser diverses vérifications (validité de la commande ajoutée dans le groupe, possibilité d’ajouter un utilisateur au groupe).
 
 - **Façade** : 
+<p align="center">
+  <img src="assets/rapport-backend/dp-facade.png" style="max-width: 70%; height: auto;" alt="Design Pattern Façade"/>
+</p>
+
   La façade permet de séparer la logique métier (contenue dans les managers) de l’accès simplifié aux fonctionnalités (méthodes des façades) de l’application.
 
 - **Stratégie** : 
+<p align="center">
+  <img src="assets/rapport-backend/dp-strategie.png" style="max-width: 70%; height: auto;" alt="Design Pattern Stratégie"/>
+</p>
+
   Le pattern stratégie permet une flexibilité dans l’affectation des stratégies pour les restaurants et facilite l’ajout de nouvelles stratégies.
 
 **Patterns manquants** :
@@ -126,13 +152,16 @@ Pour les managers, l’utilisation d’un pattern “repository” aurait permis
 Nous avions envisagé d'utiliser un “builder”, ce qui aurait facilité la construction d'une commande, car certaines commandes ne spécifient pas forcément de date de livraison (certaines commandes individuelles), d'autres n'ont pas besoin de spécifier le restaurant, la date et le lieu de livraison (sous-commandes dans les groupes de commandes) et d'autres doivent spécifier tous ces éléments (certaines commandes individuelles). Le rapport entre la valeur ajoutée à notre système et le temps que cela aurait pu prendre nous a finalement convaincus de ne pas utiliser ce pattern.
 
 ### 2.5 Diagramme de séquence
-&nbsp;&nbsp;*(À faire)*
+[Lien Lucidchart](https://lucid.app/lucidchart/36cb9c8f-1a42-4272-b629-6f848c2d5656/edit?invitationId=inv_1881387b-d263-49e4-b827-5c061b723c7c&page=0_0#)
+![alt text](assets/rapport-backend/seq-diag.png)
 
 ---
 
 ## III) Maquette
 Maquette pour une prise de commande dans le contexte d’une commande groupée :
-&nbsp;&nbsp;*(À insérer ici)*
+<p align="center">
+  <img src="assets/rapport-backend/maquette.png" style="max-width: 80%; height: auto;" alt="Maquette"/>
+</p>
 
 ---
 
@@ -153,7 +182,9 @@ L’architecture du code a bien été respectée et l’étude de cas (définiti
 Une compréhension précise du sujet est primordiale, définir un glossaire permet de définir les termes principaux et éviter des interprétations différentes au sein d’une équipe. De plus, lorsque l’on conçoit l’architecture, il est important de se baser sur les spécifications détaillées au préalable et de se demander si un design pattern déjà existant peut être utilisé et adapté à notre problème.
 
 ### Les erreurs : 
-Nous n’avons pas suivi un plan.
+Nous n’avons pas suivi un plan bien établi et détaillé en ce qui concerne la livraison de valeur sur une période de temps définie (chaque semaine…).
+En ce qui concerne notre premier rendu, il était incomplet et une grosse partie de l’architecture (diagramme de classe) a été à revoir, ce qui nous a coûté beaucoup de temps pour redéfinir les rendus à effectué et la répartition des tâches au sein de l’équipe.
+
 
 ### Missions remplies par les membres du groupe :
 
