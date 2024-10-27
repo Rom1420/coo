@@ -26,7 +26,7 @@ et de se faire livrer à des points spécifiques en un temps précis.</h5>
     <table style="border: none;">
         <tr>
             <td align="center" style="border: none;">
-                <img src="./doc/assets/teampics/Nora.png" width="100" height="auto" style="border-radius: 20px;">
+                <img src="./doc/assets/teampics/Nora.png" width="auto" height="100" style="border-radius: 20px;">
                 <p>Nora KAYMA-KCILAR</p>
                 <span style="font-weight: bold;">PO</span>
             </td>
@@ -36,7 +36,7 @@ et de se faire livrer à des points spécifiques en un temps précis.</h5>
                 <span style="font-weight: bold;">OPS</span>
             </td>
             <td align="center" style="border: none;">
-                <img src="./doc/assets/teampics/matice.png" width="100" height="auto" style="border-radius: 20px;">
+                <img src="./doc/assets/teampics/matice.png" width="auto" height="100" style="border-radius: 20px;">
                 <p>Matice MARILL</p>
                 <span style="font-weight: bold;">QA</span>
             </td>
