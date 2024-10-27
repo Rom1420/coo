@@ -7,28 +7,27 @@
 
 ## Table des matières
 
-- [Rapport Backend](#rapport-backend)
-  - [Table des matières](#table-des-matières)
-  - [I) Contexte](#i-contexte)
-    - [1.1 Équipe](#11-équipe)
-    - [1.2 Périmètre fonctionnel](#12-périmètre-fonctionnel)
-      - [a) Hypothèses de travail](#a-hypothèses-de-travail)
-      - [b) Limites identifiées](#b-limites-identifiées)
-      - [c) Stratégies choisies et éléments spécifiques](#c-stratégies-choisies-et-éléments-spécifiques)
-  - [II) Conception UML](#ii-conception-uml)
-    - [2.1 Glossaire](#21-glossaire)
-    - [2.2 Diagramme de cas d’utilisation](#22-diagramme-de-cas-dutilisation)
-    - [2.3 Diagrammes de classes](#23-diagrammes-de-classes)
-    - [2.4 Design patterns](#24-design-patterns)
-    - [2.5 Diagramme de séquence](#25-diagramme-de-séquence)
-  - [III) Maquette](#iii-maquette)
-  - [IV) Qualités du code et gestion de projet](#iv-qualités-du-code-et-gestion-de-projet)
-  - [V) Rétrospective et auto-évaluation](#v-rétrospective-et-auto-évaluation)
-    - [Retours sur notre projet :](#retours-sur-notre-projet-)
-    - [Leçons apprises :](#leçons-apprises-)
-    - [Les erreurs :](#les-erreurs-)
-    - [Missions remplies par les membres du groupe :](#missions-remplies-par-les-membres-du-groupe-)
-    - [Auto-évaluation : 500 points à répartir](#auto-évaluation--500-points-à-répartir)
+- [Table des matières](#table-des-matières)
+- [I) Contexte](#i-contexte)
+  - [1.1 Équipe](#11-équipe)
+  - [1.2 Périmètre fonctionnel](#12-périmètre-fonctionnel)
+    - [a) Hypothèses de travail](#a-hypothèses-de-travail)
+    - [b) Limites identifiées](#b-limites-identifiées)
+    - [c) Stratégies choisies et éléments spécifiques](#c-stratégies-choisies-et-éléments-spécifiques)
+- [II) Conception UML](#ii-conception-uml)
+  - [2.1 Glossaire](#21-glossaire)
+  - [2.2 Diagramme de cas d’utilisation](#22-diagramme-de-cas-dutilisation)
+  - [2.3 Diagrammes de classes](#23-diagrammes-de-classes)
+  - [2.4 Design patterns](#24-design-patterns)
+  - [2.5 Diagramme de séquence](#25-diagramme-de-séquence)
+- [III) Maquette](#iii-maquette)
+- [IV) Qualités du code et gestion de projet](#iv-qualités-du-code-et-gestion-de-projet)
+- [V) Rétrospective et auto-évaluation](#v-rétrospective-et-auto-évaluation)
+  - [Retours sur notre projet :](#retours-sur-notre-projet-)
+  - [Leçons apprises :](#leçons-apprises-)
+  - [Les erreurs :](#les-erreurs-)
+  - [Missions remplies par les membres du groupe :](#missions-remplies-par-les-membres-du-groupe-)
+  - [Auto-évaluation : 500 points à répartir](#auto-évaluation--500-points-à-répartir)
 
 ---
 
@@ -252,6 +251,7 @@ restaurants et des menus.
 Dans le cadre de mes responsabilités en tant qu'**OPS**, je me suis assuré de la bonne organisation des différentes issues dans notre système de gestion de projet. J'ai joué un rôle actif dans la gestion de notre dépôt Git.
 
 - **Matice Marill (QA)** :
+  
 En tant que **Quality Assurance** sur ce projet, mon rôle consiste à garantir la qualité et la fiabilité des produits avant leur mise en production. Un **QA** s'assure que le logiciel fonctionne comme prévu, en identifiant les défauts potentiels et en vérifiant que toutes les fonctionnalités répondent aux exigences spécifiées. Je me suis donc concentré sur les **user stories**, en veillant à leur cohérence en collaboration avec mes collègues, sur les différents diagrammes ainsi que sur les **tests unitaires**.
 
 ### Auto-évaluation : 500 points à répartir
