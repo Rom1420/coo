@@ -35,11 +35,38 @@
 ## I) Contexte
 
 ### 1.1 Équipe
-- **Kayma-kcilar Nora** : Product Owner **(PO)**
-- **Mazzi Yohan** : Software Architect **(SA)**
-- **Santos Reis Mathias** : **Ops**
-- **Abbonato Romain** : **Ops**
-- **Marill Matice** : Quality Assurance **(QA)**
+
+<div align="center">
+    <table style="border: none;">
+        <tr>
+            <td align="center" style="border: none;">
+                <img src="assets/teampics/Nora.png" width="auto" height="100" style="border-radius: 20px;">
+                <p>Nora KAYMA-KCILAR</p>
+                <span style="font-weight: bold;">PO</span>
+            </td>
+            <td align="center" style="border: none;">
+                <img src="assets/teampics/romain.jfif" width="100" height="auto" style="border-radius: 20px;">
+                <p>Romain ABBONATO</p>
+                <span style="font-weight: bold;">OPS</span>
+            </td>
+            <td align="center" style="border: none;">
+                <img src="assets/teampics/matice.png" width="auto" height="100" style="border-radius: 20px;">
+                <p>Matice MARILL</p>
+                <span style="font-weight: bold;">QA</span>
+            </td>
+            <td align="center" style="border: none;">
+                <img src="assets/teampics/yohan.png" width="100" height="auto" style="border-radius: 20px;">
+                <p>Yohan MAZZI</p>
+                <span style="font-weight: bold;">SA</span>
+            </td>
+            <td align="center" style="border: none;">
+                <img src="assets/teampics/mathias.png" width="100" height="auto" style="border-radius: 20px;">
+                <p>Mathias SANTOS REIS</p>
+                <span style="font-weight: bold;">OPS</span>
+            </td>
+        </tr>
+    </table>
+</div>
 
 ### 1.2 Périmètre fonctionnel
 
