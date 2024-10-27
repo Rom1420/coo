@@ -1,4 +1,9 @@
-# Rapport Backend
+<h1 align="center">
+  <img src="assets/logo.png">
+  <br>
+  Rapport Backend -Sophia Eats
+  <br>
+</h1>
 
 ## Table des matières
 
