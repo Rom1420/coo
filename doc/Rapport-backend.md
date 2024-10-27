@@ -219,6 +219,9 @@ restaurants et des menus.
 
 Dans le cadre de mes responsabilités en tant qu'**OPS**, je me suis assuré de la bonne organisation des différentes issues dans notre système de gestion de projet. J'ai joué un rôle actif dans la gestion de notre dépôt Git.
 
+- **Matice Marill (QA)** :
+En tant que **Quality Assurance** sur ce projet, mon rôle consiste à garantir la qualité et la fiabilité des produits avant leur mise en production. Un **QA** s'assure que le logiciel fonctionne comme prévu, en identifiant les défauts potentiels et en vérifiant que toutes les fonctionnalités répondent aux exigences spécifiées. Je me suis donc concentré sur les **user stories**, en veillant à leur cohérence en collaboration avec mes collègues, sur les différents diagrammes ainsi que sur les **tests unitaires**.
+
 ### Auto-évaluation : 500 points à répartir
 - Nora Kayma-kcilar : 100
 - Yohan Mazzi : 100
