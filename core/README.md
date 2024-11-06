@@ -129,5 +129,5 @@ Pour voir le prototype interactif, cliquez sur le lien ci-dessous :
 ## doc
 La section `doc/` regroupe tous les rapports et documents détaillant les fonctionnalités et l’avancement du projet, pour fournir une vue d’ensemble exhaustive.
 
--📄[Rendu A2](docenduA2.pdf)
--📄[Rapport Backend](docapport-backend.md)
+-📄[Rendu A2](doc/RenduA2.pdf)
+-📄[Rapport Backend](doc/Rapport-backend.md)
