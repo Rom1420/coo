@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  <img src="docssets/logo.png">
+  <img src="doc/assets/logo.png">
   <br>
   Sophia Eats
   <br>
@@ -26,17 +26,17 @@ et de se faire livrer à des points spécifiques en un temps précis.</h5>
     <table style="border: none;">
         <tr>
             <td align="center" style="border: none;">
-                <img src="docssets/teampics/Nora.png" width="auto" height="100" style="border-radius: 20px;">
+                <img src="doc/assets/teampics/Nora.png" width="auto" height="100" style="border-radius: 20px;">
                 <p>Nora KAYMA-KCILAR</p>
                 <span style="font-weight: bold;">PO</span>
             </td>
             <td align="center" style="border: none;">
-                <img src="docssets/teampics/romain.jfif" width="100" height="auto" style="border-radius: 20px;">
+                <img src="doc/assets/teampics/romain.jfif" width="100" height="auto" style="border-radius: 20px;">
                 <p>Romain ABBONATO</p>
                 <span style="font-weight: bold;">OPS</span>
             </td>
             <td align="center" style="border: none;">
-                <img src="docssets/teampics/matice.png" width="auto" height="100" style="border-radius: 20px;">
+                <img src="doc/assets/teampics/matice.png" width="auto" height="100" style="border-radius: 20px;">
                 <p>Matice MARILL</p>
                 <span style="font-weight: bold;">QA</span>
             </td>
@@ -46,7 +46,7 @@ et de se faire livrer à des points spécifiques en un temps précis.</h5>
                 <span style="font-weight: bold;">SA</span>
             </td>
             <td align="center" style="border: none;">
-                <img src="docssets/teampics/mathias.png" width="100" height="auto" style="border-radius: 20px;">
+                <img src="doc/assets/teampics/mathias.png" width="100" height="auto" style="border-radius: 20px;">
                 <p>Mathias SANTOS REIS</p>
                 <span style="font-weight: bold;">OPS</span>
             </td>
@@ -119,7 +119,7 @@ Voici la maquette de l'interface utilisateur de **Sophia Eats** :
   <br>
   Maquette Sophia Eats
   <br>
-  <img src="docssets/maquette-1.png">
+  <img src="doc/assets/maquette-1.png">
 </h1>
 
 Pour voir le prototype interactif, cliquez sur le lien ci-dessous :
