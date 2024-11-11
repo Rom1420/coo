@@ -2,26 +2,25 @@ package fr.unice.polytech.utility.order;
 
 import fr.unice.polytech.utility.discount.DiscountEngine;
 import fr.unice.polytech.utility.discount.DiscountType;
-import fr.unice.polytech.utility.restaurant.Restaurant;
-import fr.unice.polytech.utility.user.RegisteredUser;
+import fr.unice.polytech.utility.restaurant.RestaurantManager;
+
 
 import java.util.*;
 
 public class GroupOrderImpl implements GroupOrderInterface {
     private int groupId;
-    private Map<RegisteredUser, Order> usersOrders;
+    private Map<Integer, Order> usersOrders;
 
-    private Restaurant restaurant;
+    private String restaurant;
 
     private Date deliveryDate;
     private String deliveryLocation;
 
-    private List<RegisteredUser> userList;
+    private List<Integer> userList;
     private String status;
 
     private DiscountEngine discountEngine;
-  
-    //Default constructor, for testing
+
     public GroupOrderImpl(int groupId) {
         this.groupId = groupId;
         this.usersOrders = new HashMap<>();
@@ -29,38 +28,38 @@ public class GroupOrderImpl implements GroupOrderInterface {
         this.status = "pending";
     }
 
-    public GroupOrderImpl(int groupId, Restaurant restaurant, Date deliveryDate, String deliveryLocation) {
+    public GroupOrderImpl(int groupId, String restaurantName, Date deliveryDate, String deliveryLocation) {
         this.groupId = groupId;
         this.usersOrders = new HashMap<>();
-        this.restaurant = restaurant;
+        this.restaurant = restaurantName;
         this.deliveryDate = deliveryDate;
         this.deliveryLocation = deliveryLocation;
         this.userList = new ArrayList<>();
         this.status = "pending";
     }
 
-    public void setGroupOrderRestaurant(Restaurant restaurant) {this.restaurant = restaurant;}
+    public void setGroupOrderRestaurant(String restaurant) {this.restaurant = restaurant;}
 
     public void setGroupOrderDeliveryDate(Date deliveryDate) {this.deliveryDate = deliveryDate;}
 
     public void setGroupOrderDeliveryLocation(String deliveryLocation) {this.deliveryLocation = deliveryLocation;}
 
     @Override
-    public void addMember(RegisteredUser user) {
+    public void addMember(Integer userId) {
         if (this.getStatus().equals("validated")) {
             throw new IllegalStateException("Impossible d'ajouter un membre car le groupe est fermé");
         }
-        if (!userList.contains(user)) {
-            userList.add(user);
+        if (!userList.contains(userId)) {
+            userList.add(userId);
         }
     }
 
     @Override
-    public Order getOrder(RegisteredUser user) {
-        return usersOrders.get(user);
+    public Order getOrder(Integer userId) {
+        return usersOrders.get(userId);
     }
 
-    public Restaurant getRestaurant() {
+    public String getRestaurant() {
         return restaurant;
     }
 
@@ -69,16 +68,16 @@ public class GroupOrderImpl implements GroupOrderInterface {
         return groupId;
     }
 
-    public List<RegisteredUser> getUserList() {
+    public List<Integer> getUserList() {
         return userList;
     }
     @Override
-    public void addOrUpdateUserOrder(RegisteredUser user, Order order) {
+    public void addOrUpdateUserOrder(Integer user, Order order) {
         if (this.getStatus().equals("validated")) {
             throw new IllegalStateException("Impossible d'ajouter ou de modifier une commande car le groupe est fermé");
         }
 
-        if (this.restaurant != order.getRestaurant() || this.deliveryDate != order.getDeliveryDate() || !Objects.equals(this.deliveryLocation, order.getDeliveryLocation())) {
+        if (RestaurantManager.getRestaurantManagerInstance().findRestaurantByName(this.getRestaurant()) != order.getRestaurant() || this.deliveryDate != order.getDeliveryDate() || !Objects.equals(this.deliveryLocation, order.getDeliveryLocation())) {
             throw new IllegalStateException("Les paramètres de la commande ne correspondent pas à ceux du groupe");
         }
 
@@ -90,12 +89,12 @@ public class GroupOrderImpl implements GroupOrderInterface {
     }
 
     @Override
-    public Map<RegisteredUser, Order> getUsersOrders() {
+    public Map<Integer, Order> getUsersOrders() {
         return usersOrders;
     }
 
     @Override
-    public void removeOrder(RegisteredUser user) {
+    public void removeOrder(Integer user) {
         usersOrders.remove(user);
     }
 
@@ -133,20 +132,19 @@ public class GroupOrderImpl implements GroupOrderInterface {
         this.status = "closed";
     }
 
-    public Map<RegisteredUser, Integer> calculateOrderHistory() {
-        Map<RegisteredUser, Integer> orderHistory = new HashMap<>();
-        Restaurant currentRestaurant = this.getRestaurant();
+    public Map<Integer, Integer> calculateOrderHistory() {
+        Map<Integer, Integer> orderHistory = new HashMap<>();
 
-        for (RegisteredUser user : getUserList()) {
-            List<Order> userOrders = OrderManager.getOrderManagerInstance().getOrders(user.getId());
+        for (Integer userId : getUserList()) {
+            List<Order> userOrders = OrderManager.getOrderManagerInstance().getOrders(userId);
 
             int numberOfOrdersInCurrentRestaurant = (userOrders != null)
                     ? (int) userOrders.stream()
-                    .filter(order -> order.getRestaurant().equals(currentRestaurant))
+                    .filter(order -> order.getRestaurant().equals(RestaurantManager.getRestaurantManagerInstance().findRestaurantByName(this.getRestaurant())))
                     .count()
                     : 0;
 
-            orderHistory.put(user, numberOfOrdersInCurrentRestaurant);
+            orderHistory.put(userId, numberOfOrdersInCurrentRestaurant);
         }
 
         return orderHistory;
@@ -154,9 +152,9 @@ public class GroupOrderImpl implements GroupOrderInterface {
 
 
     public void applyDiscount() {
-        Map<RegisteredUser, Integer> orderHistory = (restaurant.getDiscountType() == DiscountType.LOYALTY) ? calculateOrderHistory() : new HashMap<>();
+        Map<Integer, Integer> orderHistory = (RestaurantManager.getRestaurantManagerInstance().findRestaurantByName(getRestaurant()).getDiscountType() == DiscountType.LOYALTY) ? calculateOrderHistory() : new HashMap<>();
         discountEngine = new DiscountEngine();
-        discountEngine.chooseStrategy(this.getRestaurant(), orderHistory);
+        discountEngine.chooseStrategy(getRestaurant(), orderHistory);
         discountEngine.applyDiscount(this);
     }
 }

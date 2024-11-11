@@ -11,14 +11,14 @@ import java.util.Map;
 
 
 public interface GroupOrderInterface {
-    Order getOrder(RegisteredUser user);
-    Restaurant getRestaurant();
+    Order getOrder(Integer userId);
+    String getRestaurant();
     int getGroupId();
-    List<RegisteredUser> getUserList();
-    void addMember(RegisteredUser user);
-    void addOrUpdateUserOrder(RegisteredUser user, Order order);
-    Map<RegisteredUser, Order> getUsersOrders();
-    void removeOrder(RegisteredUser user);
+    List<Integer> getUserList();
+    void addMember(Integer userId);
+    void addOrUpdateUserOrder(Integer userId, Order order);
+    Map<Integer, Order> getUsersOrders();
+    void removeOrder(Integer userId);
     Date getGroupOrderDeliveryDate();
     String getGroupOrderDeliveryLocation();
     int getTotalPreparationTime();
