@@ -7,9 +7,9 @@ import fr.unice.polytech.utility.user.RegisteredUser;
 import java.util.Map;
 
 public class LoyaltyDiscountStrategy implements DiscountStrategy {
-    private Map<RegisteredUser, Integer> orderHistory;
+    private Map<Integer, Integer> orderHistory;
 
-    public LoyaltyDiscountStrategy(Map<RegisteredUser, Integer> orderHistory) {
+    public LoyaltyDiscountStrategy(Map<Integer, Integer> orderHistory) {
         this.orderHistory = orderHistory;
     }
 
@@ -18,11 +18,11 @@ public class LoyaltyDiscountStrategy implements DiscountStrategy {
         float totalDiscount = 0f;
 
         // Appliquer la réduction en fonction de la fidélité de chaque utilisateur
-        for (Map.Entry<RegisteredUser, Order> entry : groupOrder.getUsersOrders().entrySet()) {
-            RegisteredUser user = entry.getKey();
+        for (Map.Entry<Integer, Order> entry : groupOrder.getUsersOrders().entrySet()) {
+            Integer userId = entry.getKey();
             Order order = entry.getValue();
 
-            int ordersInRestaurant = orderHistory.getOrDefault(user, 0);
+            int ordersInRestaurant = orderHistory.getOrDefault(userId, 0);
 
             if (ordersInRestaurant % 5 == 0) {
                 float originalPrice = order.getTotalPrice();

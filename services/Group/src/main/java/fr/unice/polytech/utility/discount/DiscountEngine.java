@@ -1,8 +1,7 @@
 package fr.unice.polytech.utility.discount;
 
 import fr.unice.polytech.utility.order.GroupOrderImpl;
-import fr.unice.polytech.utility.restaurant.Restaurant;
-import fr.unice.polytech.utility.user.RegisteredUser;
+import fr.unice.polytech.utility.restaurant.RestaurantManager;
 
 import java.util.Map;
 
@@ -26,8 +25,8 @@ public class DiscountEngine {
         return strategy.applyDiscount(groupOrder);
     }
 
-    public void chooseStrategy(Restaurant restaurant, Map<RegisteredUser, Integer> orderHistory) {
-        switch (restaurant.getDiscountType()) {
+    public void chooseStrategy(String restaurant, Map<Integer, Integer> orderHistory) {
+        switch (RestaurantManager.getRestaurantManagerInstance().findRestaurantByName(restaurant).getDiscountType()) {
             case GROUP_SIZE -> setStrategy(groupSizeDiscountStrategy);
             case ITEM_COUNT -> setStrategy(itemCountDiscountStrategy);
             case LOYALTY -> setStrategy(new LoyaltyDiscountStrategy(orderHistory));
