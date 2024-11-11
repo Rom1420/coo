@@ -1,4 +1,4 @@
-package java.fr.unice.polytech;
+package fr.unice.polytech;
 
 public class groupOrderService {
 }
