@@ -85,6 +85,32 @@ public class Restaurant {
         return menusOfRestaurant;
     }
 
+    public List<String> getArticlesSimplesNames() {
+        ArrayList<String> articlesName = new ArrayList<>();
+        for (Article article : articlesSimples) articlesName.add(article.getName());
+        return articlesName;
+    }
+
+    public List<String> getMenusOfRestaurantNames() {
+        ArrayList<String> menusName = new ArrayList<>();
+        for (Menu menu : menusOfRestaurant) menusName.add(menu.getName());
+        return menusName;
+    }
+
+    public Article getArticleByName(String name) {
+        for (Article article : articlesSimples) {
+            if (article.getName().equals(name)) return article;
+        }
+        return null;
+    }
+
+    public Menu getMenuByName(String name) {
+        for (Menu menu : menusOfRestaurant) {
+            if (menu.getName().equals(name)) return menu;
+        }
+        return null;
+    }
+
     public int getNbOfCook() {return nbOfCook;}
     public void setNbOfCook(int nbOfCook) {this.nbOfCook = nbOfCook;}
     public void setTypeCuisine(TypeCuisine typeCuisine) {
