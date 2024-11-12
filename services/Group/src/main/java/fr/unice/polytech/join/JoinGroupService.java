@@ -2,6 +2,7 @@ package fr.unice.polytech.join;
 
 import fr.unice.polytech.GroupOrderService;
 import fr.unice.polytech.utility.order.GroupOrderImpl;
+import fr.unice.polytech.utility.order.GroupOrderProxy;
 import fr.unice.polytech.utility.order.Order;
 
 import java.util.ArrayList;
@@ -10,14 +11,14 @@ import java.util.HashMap;
 
 public class JoinGroupService {
 
-    HashMap<Integer, GroupOrderImpl> groupOrders = GroupOrderService.getGroupOrderServiceInstance().getGroupOrders();
+    HashMap<Integer, GroupOrderProxy> groupOrders = GroupOrderService.getGroupOrderServiceInstance().getGroupOrders();
 
 
     public void joinGroup(Boolean validate, Integer userId, Integer groupOrderId, ArrayList<String> articles, ArrayList<String> menus) {
         if (validate) {
             if (!groupOrders.containsKey(groupOrderId)) throw new RuntimeException("Idenrifiant de groupe inexistant !");
             // Récupération du groupe et des paramètres utiles
-            GroupOrderImpl groupOrder = groupOrders.get(groupOrderId);
+            GroupOrderProxy groupOrder = groupOrders.get(groupOrderId);
             Date deliveryDate = groupOrder.getGroupOrderDeliveryDate();
             String deliveryLocation = groupOrder.getGroupOrderDeliveryLocation();
             String restaurant = groupOrder.getRestaurant();
