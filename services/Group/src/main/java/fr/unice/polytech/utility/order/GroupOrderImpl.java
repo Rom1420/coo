@@ -77,7 +77,7 @@ public class GroupOrderImpl implements GroupOrderInterface {
             throw new IllegalStateException("Impossible d'ajouter ou de modifier une commande car le groupe est fermé");
         }
 
-        if (RestaurantManager.getRestaurantManagerInstance().findRestaurantByName(this.getRestaurant()) != order.getRestaurant() || this.deliveryDate != order.getDeliveryDate() || !Objects.equals(this.deliveryLocation, order.getDeliveryLocation())) {
+        if (getRestaurant().equals(order.getRestaurant()) || this.deliveryDate != order.getDeliveryDate() || !Objects.equals(this.deliveryLocation, order.getDeliveryLocation())) {
             throw new IllegalStateException("Les paramètres de la commande ne correspondent pas à ceux du groupe");
         }
 
