@@ -2,16 +2,16 @@ package fr.unice.polytech.validate;
 
 import fr.unice.polytech.GroupOrderService;
 import fr.unice.polytech.utility.order.GroupOrderImpl;
+import fr.unice.polytech.utility.order.GroupOrderProxy;
 
 import java.util.HashMap;
 
 public class ValidateGroupService {
 
-    private final HashMap<Integer, GroupOrderImpl> groupOrders = GroupOrderService.getGroupOrderServiceInstance().getGroupOrders();
+    private final HashMap<Integer, GroupOrderProxy> groupOrders = GroupOrderService.getGroupOrderServiceInstance().getGroupOrders();
 
     public void validateGroupOrder(int groupOrderId) {
-        GroupOrderImpl groupOrder = groupOrders.get(groupOrderId);
-
+        GroupOrderProxy groupOrder = groupOrders.get(groupOrderId);
         if (groupOrder != null) {
             try {
                 groupOrder.validateOrder();
