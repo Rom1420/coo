@@ -2,6 +2,7 @@ package fr.unice.polytech.create;
 
 import fr.unice.polytech.GroupOrderService;
 import fr.unice.polytech.utility.order.GroupOrderImpl;
+import fr.unice.polytech.utility.order.GroupOrderProxy;
 
 import java.time.ZonedDateTime;
 import java.util.Date;
@@ -11,17 +12,17 @@ import java.util.HashMap;
 public class CreateGroupService {
 
     private static int groupOrderId = 0;
-    HashMap<Integer, GroupOrderImpl> groupOrders = GroupOrderService.getGroupOrderServiceInstance().getGroupOrders();
+    HashMap<Integer, GroupOrderProxy> groupOrders = GroupOrderService.getGroupOrderServiceInstance().getGroupOrders();
 
     public Integer addGroupOrder() {
         int currentGroupId = groupOrderId;
-        groupOrders.put(currentGroupId, new GroupOrderImpl(currentGroupId));
+        groupOrders.put(currentGroupId, new GroupOrderProxy(new GroupOrderImpl(currentGroupId)));
         groupOrderId++;
         return currentGroupId;
     }
 
     public void setGroupOrderAttributes(Integer groupOrderId, String restaurantName, String deliveryLocation, String deliveryDate) {
-        GroupOrderImpl groupOrder = groupOrders.get(groupOrderId);
+        GroupOrderProxy groupOrder = groupOrders.get(groupOrderId);
         groupOrder.setGroupOrderRestaurant(restaurantName);
         groupOrder.setGroupOrderDeliveryLocation(deliveryLocation);
         ZonedDateTime zonedDateTime = ZonedDateTime.parse(deliveryDate);
