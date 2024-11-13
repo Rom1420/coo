@@ -10,10 +10,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -93,7 +90,7 @@ public class RestaurantHttpHandler implements HttpHandler {
         for (Restaurant restaurant : restaurants) {
             List<ScheduleDTO> scheduleDTOs = restaurantManager.convertScheduleToDTO(restaurant.getWeeklySchedules());
 
-            Map<String, Object> restaurantData = new HashMap<>();
+            Map<String, Object> restaurantData = new LinkedHashMap<>();
             restaurantData.put("name", restaurant.getName());
             restaurantData.put("articlesSimples", restaurant.getArticlesSimples());
             restaurantData.put("menusOfRestaurant", restaurant.getMenusOfRestaurant());
@@ -121,7 +118,7 @@ public class RestaurantHttpHandler implements HttpHandler {
         }
         List<ScheduleDTO> scheduleDTOs = restaurantManager.convertScheduleToDTO(restaurant.getWeeklySchedules());
 
-        Map<String, Object> restaurantData = new HashMap<>();
+        Map<String, Object> restaurantData = new LinkedHashMap<>();
         restaurantData.put("name", restaurant.getName());
         restaurantData.put("articlesSimples", restaurant.getArticlesSimples());
         restaurantData.put("menusOfRestaurant", restaurant.getMenusOfRestaurant());
