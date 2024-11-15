@@ -1,4 +1,6 @@
-package fr.unice.polytech.utility.order;
+package fr.unice.polytech;
+
+import fr.unice.polytech.entities.Order;
 
 import java.util.ArrayList;
 import java.util.HashMap;

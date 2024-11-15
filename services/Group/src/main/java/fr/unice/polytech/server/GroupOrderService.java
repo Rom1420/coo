@@ -8,10 +8,10 @@ import java.net.InetSocketAddress;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+
 public class GroupOrderService {
 
     public static final int DEFAULT_PORT4GROUP = 8000;
-
     static Logger logger = java.util.logging.Logger.getLogger("GroupOrderLogger");
 
     public static void main(String[] args)  {

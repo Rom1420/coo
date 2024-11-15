@@ -9,7 +9,6 @@ import fr.unice.polytech.interfaces.DiscountStrategy;
 
 import java.util.Map;
 
-//Le moteur de réduction est le cœur qui choisit et applique la stratégie :
 
 public class DiscountEngine {
     private DiscountStrategy strategy;

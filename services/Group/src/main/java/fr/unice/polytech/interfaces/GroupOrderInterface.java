@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface GroupOrderInterface {
+
     void setGroupName(String groupName);
     String getGroupName();
     void setGroupOrderRestaurant(Restaurant restaurant);
