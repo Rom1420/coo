@@ -8,7 +8,6 @@ import java.net.InetSocketAddress;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 public class CreateGroupService {
 
     public static final int DEFAULT_PORT = 8001;
