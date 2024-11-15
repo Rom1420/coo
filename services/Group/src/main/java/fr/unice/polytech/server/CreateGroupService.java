@@ -7,12 +7,13 @@ import fr.unice.polytech.server.httphandlers.CreateGroupHandler;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CreateGroupService {
 
     public static final int DEFAULT_PORT = 8001;
 
-    static java.util.logging.Logger logger = java.util.logging.Logger.getLogger("createGroupLogger");
+    static Logger logger = java.util.logging.Logger.getLogger("createGroupLogger");
     public static void main(String[] args) {
         try {
             startServer(DEFAULT_PORT);
