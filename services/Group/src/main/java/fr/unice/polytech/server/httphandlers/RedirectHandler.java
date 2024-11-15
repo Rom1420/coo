@@ -7,10 +7,14 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.logging.Logger;
 
 public class RedirectHandler implements HttpHandler {
 
     private final String targetUrl;
+
+    Logger logger = Logger.getLogger("RedirectHandler");
 
     public RedirectHandler(String targetUrl) {
         this.targetUrl = targetUrl;
@@ -18,6 +22,7 @@ public class RedirectHandler implements HttpHandler {
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
+        logger.info("RedirectHandler called");
         URL url = new URL(targetUrl);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod(exchange.getRequestMethod());
