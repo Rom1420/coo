@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import fr.unice.polytech.entities.DiscountType;
 
+
 public class Restaurant {
     private String name;
     private DiscountType discountType; // Type de discount choisi pour ce restaurant

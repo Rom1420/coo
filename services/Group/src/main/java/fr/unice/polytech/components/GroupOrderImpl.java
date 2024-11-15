@@ -1,9 +1,11 @@
 package fr.unice.polytech.components;
 
 
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import fr.unice.polytech.db.OrderManager;
+
 import fr.unice.polytech.entities.DiscountType;
 import fr.unice.polytech.entities.Order;
 import fr.unice.polytech.entities.Restaurant;
@@ -25,6 +27,7 @@ public class GroupOrderImpl implements GroupOrderInterface {
 
     private List<Integer> userList;
     private String status;
+
     private int totalPreparationTime;
 
     private DiscountEngine discountEngine;
@@ -36,6 +39,7 @@ public class GroupOrderImpl implements GroupOrderInterface {
         this.userList = new ArrayList<>();
         this.status = "pending";
     }
+
 
     public GroupOrderImpl() {
         this.usersOrders = new HashMap<>();
@@ -53,6 +57,7 @@ public class GroupOrderImpl implements GroupOrderInterface {
         this.userList = new ArrayList<>();
         this.status = "pending";
     }
+
 
     @JsonCreator
     public GroupOrderImpl(

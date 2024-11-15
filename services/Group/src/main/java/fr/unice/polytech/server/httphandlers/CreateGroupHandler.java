@@ -1,5 +1,4 @@
 package fr.unice.polytech.server.httphandlers;
-
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import fr.unice.polytech.db.GroupOrderManager;
@@ -7,15 +6,14 @@ import fr.unice.polytech.entities.DiscountType;
 import fr.unice.polytech.entities.Restaurant;
 import fr.unice.polytech.server.JaxsonUtils;
 import fr.unice.polytech.server.microservices.CreateGroup;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
+import java.util.Date;
 
 public class CreateGroupHandler implements HttpHandler {
 
@@ -37,7 +35,7 @@ public class CreateGroupHandler implements HttpHandler {
                     askToCreateGroup(exchange);
                     break;
                 case "OPTIONS":
-                    exchange.sendResponseHeaders(fr.unice.polytech.server.httphandlers.HttpUtils.OK_CODE, -1);
+                    exchange.sendResponseHeaders(HttpUtils.OK_CODE, -1);
                     break;
                 default:
                     exchange.sendResponseHeaders(HttpUtils.BAD_REQUEST_CODE, 0);
@@ -90,6 +88,7 @@ public class CreateGroupHandler implements HttpHandler {
 
         Restaurant restaurant = new Restaurant(restaurantRequest.name(), discountType);
         Integer groupId = GroupOrderManager.getGroupOrderManagerInstance().getGroupOrderIdAndIncrease();
+
 
         CreateGroup.createGroup(
                 groupId,
