@@ -15,7 +15,9 @@ public class GroupOrderProxy implements GroupOrderInterface{
     public GroupOrderProxy(GroupOrderInterface groupOrderInterface){
         this.groupOrderInterface = groupOrderInterface;
     }
-
+    public GroupOrderProxy() {
+        this.groupOrderInterface = new GroupOrderImpl();
+    }
     @Override
     public void setGroupOrderRestaurant(Restaurant restaurant) {groupOrderInterface.setGroupOrderRestaurant(restaurant);}
 
