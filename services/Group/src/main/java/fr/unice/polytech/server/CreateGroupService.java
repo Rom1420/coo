@@ -13,7 +13,7 @@ public class CreateGroupService {
 
     public static final int DEFAULT_PORT = 8001;
 
-    static Logger logger = java.util.logging.Logger.getLogger("createGroupLogger");
+    public static Logger logger = java.util.logging.Logger.getLogger("createGroupLogger");
     public static void main(String[] args) {
         try {
             startServer(DEFAULT_PORT);

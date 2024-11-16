@@ -1,7 +1,9 @@
 package fr.unice.polytech.components;
 
 
-import fr.unice.polytech.OrderManager;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import fr.unice.polytech.db.OrderManager;
 import fr.unice.polytech.entities.DiscountType;
 import fr.unice.polytech.entities.Order;
 import fr.unice.polytech.entities.Restaurant;
@@ -20,12 +22,19 @@ public class GroupOrderImpl implements GroupOrderInterface {
 
     private List<Integer> userList;
     private String status;
+    private int totalPreparationTime;
 
     private DiscountEngine discountEngine;
   
     //Default constructor, for testing
     public GroupOrderImpl(int groupId) {
         this.groupId = groupId;
+        this.usersOrders = new HashMap<>();
+        this.userList = new ArrayList<>();
+        this.status = "pending";
+    }
+
+    public GroupOrderImpl() {
         this.usersOrders = new HashMap<>();
         this.userList = new ArrayList<>();
         this.status = "pending";
@@ -39,6 +48,27 @@ public class GroupOrderImpl implements GroupOrderInterface {
         this.deliveryLocation = deliveryLocation;
         this.userList = new ArrayList<>();
         this.status = "pending";
+    }
+
+    @JsonCreator
+    public GroupOrderImpl(
+            @JsonProperty("groupId") int groupId,
+            @JsonProperty("usersOrders") Map<Integer, Order> usersOrders,
+            @JsonProperty("restaurant") Restaurant restaurant,
+            @JsonProperty("groupOrderDeliveryDate") Date deliveryDate,
+            @JsonProperty("groupOrderDeliveryLocation") String deliveryLocation,
+            @JsonProperty("userList") List<Integer> userList,
+            @JsonProperty("status") String status,
+            @JsonProperty("totalPreparationTime") int totalPreparationTime){
+        this.groupId = groupId;
+        this.usersOrders = usersOrders != null ? usersOrders : new HashMap<>();
+        this.restaurant = restaurant;
+        this.deliveryDate = deliveryDate;
+        this.deliveryLocation = deliveryLocation;
+        this.userList = userList != null ? userList : new ArrayList<>();
+        this.status = status;
+        this.discountEngine = new DiscountEngine();
+        this.totalPreparationTime = totalPreparationTime;
     }
 
     public void setGroupOrderRestaurant(Restaurant restaurant) {this.restaurant = restaurant;}
