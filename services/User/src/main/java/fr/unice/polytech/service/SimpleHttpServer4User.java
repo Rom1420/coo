@@ -1,4 +1,4 @@
-package org.example;
+package fr.unice.polytech.service;
 import com.sun.net.httpserver.HttpServer;
 
 import serverUtils.ApiRegistry;
@@ -8,56 +8,20 @@ import java.net.InetSocketAddress;
 
 
 public class SimpleHttpServer4User {
-    public static void main(String[] args) throws IOException {
-        HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
+    public static void main(String[] args) {
+        try {
+            // Enregistrement des routes
+            ApiRegistry.registerRoute("POST", "/api/members", (exchange, id) -> UserHandler.createUser(exchange));
+            ApiRegistry.registerRoute("GET", "/api/members/{memberId}", (exchange, id) -> UserHandler.getUserById(exchange, Integer.parseInt(id)));
 
-        server.createContext("/", exchange -> {
-            try {
-                ApiRegistry.handleRequest(exchange);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-
-        // Register routes
-        ApiRegistry.registerRoute("GET", "/api/members/{memberId}", (exchange1, id1) -> {
-            try {
-                UserHandler.getUserById(exchange1, id1);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
-        ApiRegistry.registerRoute("POST", "/api/members", (exchange, id) -> {
-            try {
-                UserHandler.createUser(exchange);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
-        ApiRegistry.registerRoute("PUT", "/api/members/{memberId}/manager", (exchange, id) -> {
-            try {
-                UserHandler.setUserAsManager(exchange, id);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
-        ApiRegistry.registerRoute("GET", "/api/members/{memberId}/manager", (exchange, id) -> {
-            try {
-                UserHandler.isUserManager(exchange, id);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
-        ApiRegistry.registerRoute("DELETE", "/api/members/{memberId}", (exchange, id) -> {
-            try {
-                UserHandler.deleteUser(exchange, id);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
-
-        server.setExecutor(null); // Use default executor.
-        server.start();
-        System.out.println("Server started on port 8000");
+            // Lancement du serveur
+            HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
+            server.createContext("/api", ApiRegistry::handleRequest);
+            server.setExecutor(null);
+            System.out.println("Server started on port 8000");
+            server.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
