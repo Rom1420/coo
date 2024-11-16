@@ -28,7 +28,6 @@ public class GroupOrderProxy implements GroupOrderInterface{
     public String getGroupName() {return groupOrderInterface.getGroupName();}
 
 
-
     @Override
     public void setGroupOrderRestaurant(Restaurant restaurant) {groupOrderInterface.setGroupOrderRestaurant(restaurant);}
 
