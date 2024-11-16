@@ -13,12 +13,15 @@ html,body {
 @media (min-width: 700px) {
   body {
     width: 400px;  
+    position: relative;
   }
   html{
     display: flex;
     align-items: center;
     justify-content: center;
   }
+
+
 }
 
 code {
@@ -29,5 +32,7 @@ code {
 :root{
   --blue: #36A7E9;
   --grey: #7C7D7E;
+  --light-grey: #F2F2F2;
   --white: #fff;
 }
+
