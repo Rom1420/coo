@@ -2,12 +2,11 @@ package fr.unice.polytech.server.httphandlers;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-import fr.unice.polytech.GroupOrderManager;
+import fr.unice.polytech.db.GroupOrderManager;
 import fr.unice.polytech.entities.DiscountType;
 import fr.unice.polytech.entities.Restaurant;
 import fr.unice.polytech.server.JaxsonUtils;
 import fr.unice.polytech.server.microservices.CreateGroup;
-import fr.unice.polytech.server.serverUtils.ApiRegistry;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,7 +15,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class CreateGroupHandler implements HttpHandler {
@@ -53,6 +51,7 @@ public class CreateGroupHandler implements HttpHandler {
     }
 
     private void answerWithAllGroupsIds(HttpExchange exchange) throws IOException {
+        logger.info(String.valueOf(GroupOrderManager.getGroupOrderManagerInstance().getGroupOrders().size()));
         List<Integer> groupIds = new ArrayList<>();
         groupIds.addAll(GroupOrderManager.getGroupOrderManagerInstance().getGroupOrders().keySet());
         exchange.getResponseHeaders().set("Content-Type", "application/json");

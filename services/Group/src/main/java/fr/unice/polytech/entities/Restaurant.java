@@ -1,5 +1,7 @@
 package fr.unice.polytech.entities;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import fr.unice.polytech.entities.DiscountType;
 
 public class Restaurant {
@@ -11,6 +13,16 @@ public class Restaurant {
     public Restaurant(String name, DiscountType discountType) {
         this.name = name;
         this.discountType = discountType;
+    }
+
+    @JsonCreator
+    public Restaurant(
+            @JsonProperty("name") String name,
+            @JsonProperty("discountType") DiscountType discountType,
+            @JsonProperty("isOpen") boolean isOpen) {
+        this.name = name;
+        this.discountType = discountType;
+        this.isOpen = isOpen;
     }
 
     public String getName(){
