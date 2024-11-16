@@ -35,21 +35,18 @@ public class ValidateGroupService {
 //public class ValidateGroupService {
 
    /* private final HashMap<Integer, GroupOrderProxy> groupOrders = GroupOrderService.getGroupOrderServiceInstance().getGroupOrders();
+=======
+>>>>>>> ce320f5 (Ajouter un package db #51 & Mettre en place le service de groupe #45)
 
-    public void validateGroupOrder(int groupOrderId) {
-        GroupOrderProxy groupOrder = groupOrders.get(groupOrderId);
-        if (groupOrder != null) {
-            try {
-                groupOrder.validateOrder();
-                groupOrder.applyDiscount();
-                groupOrder.closeOrder();
-                System.out.println("Commande de groupe validée, fermée et envoyée en préparation");
-            } catch (IllegalStateException e) {
-                System.out.println("Erreur: " + e.getMessage());
-            }
-        } else {
-            System.out.println("Erreur: Le groupe de commande n'existe pas");
+    static Logger logger = java.util.logging.Logger.getLogger("ValidateGroupLogger");
+
+    public static void main(String[] args) {
+        try {
+            startServer(DEFAULT_PORT);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+<<<<<<< HEAD
     }*/
 
 }

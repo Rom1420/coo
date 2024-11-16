@@ -14,6 +14,7 @@ public class CreateGroup {
     public static void createGroup(Integer groupId, String groupName, Restaurant restaurant, Date deliveryDate, String deliveryLocation) {
         GroupOrderImpl groupOrder = new GroupOrderImpl(groupId, groupName, restaurant, deliveryDate, deliveryLocation);
         addGroupOrder(groupId, groupOrder);
+
     }
 
 }
