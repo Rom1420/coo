@@ -8,6 +8,9 @@ html,body {
   overflow: hidden;
   box-sizing: border-box;
   background-color: var(--white);
+
+  touch-action: manipulation; /* Empêche certains gestes comme le pincement */
+  overscroll-behavior: none;  /* Réduit les comportements indésirables lors du défilement */
 }
 
 @media (min-width: 700px) {
@@ -20,8 +23,6 @@ html,body {
     align-items: center;
     justify-content: center;
   }
-
-
 }
 
 code {
@@ -29,9 +30,15 @@ code {
     monospace;
 }
 
+input, textarea, select {
+  font-size: 16px; /* Empêche le zoom automatique */
+}
+
 :root{
   --blue: #36A7E9;
+  --darker-blue: #025687;
   --grey: #7C7D7E;
+  --grey-2: #c1c1c1;
   --light-grey: #F2F2F2;
   --white: #fff;
 }
