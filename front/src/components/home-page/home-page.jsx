@@ -1,16 +1,28 @@
 import './home-page.css';
 import { ReactComponent as Tmax } from '../../assets/tmax.svg';
-import Button from '../button/button';
-import { useState } from 'react';
-import JoinGroupPopUp from '../join-group-pop-up/join-group-pop-up';
-import CreateGroupPopUp from '../create-group-pop-up/create-group-pop-up';
+import Button from '../tools/button/button';
+import { useEffect, useState } from 'react';
+import JoinGroupPopUp from '../pop-ups/join-group-pop-up/join-group-pop-up';
+import CreateGroupPopUp from '../pop-ups/create-group-pop-up/create-group-pop-up';
+import ValidationJoinPopUp from '../pop-ups/validation-join-pop-up/validation-join-pop-up';
 
 function HomePage() {
 
   const [isJoinGroupPopUpVisible, setJoinGroupPopUpVisible] = useState(false);
+  const [isValidationPopUpVisible, setValidationPopUpVisible] = useState(false);
   const [isCreateGroupPopUpVisible, setCreateGroupPopUpVisible] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
-  const themeColorMetaTag = document.querySelector('meta[name="theme-color"]');
+
+
+  useEffect(() => {
+    const themeColorMetaTag = document.querySelector('meta[name="theme-color"]');
+
+    if (isJoinGroupPopUpVisible || isValidationPopUpVisible || isCreateGroupPopUpVisible) {
+      themeColorMetaTag.setAttribute('content', '#6c6c6c'); // Couleur sombre quand ya le pop up
+    } else {
+      themeColorMetaTag.setAttribute('content', '#ffffff'); // Couleur par défaut
+    }
+  }, [isJoinGroupPopUpVisible, isValidationPopUpVisible, isCreateGroupPopUpVisible]);
 
   const handleJoinGroupeClick = () => {
     if (isJoinGroupPopUpVisible) {
@@ -18,11 +30,9 @@ function HomePage() {
       setTimeout(() => {
         setJoinGroupPopUpVisible(false);
         setIsClosing(false);
-        themeColorMetaTag.setAttribute('content', '#ffffff');
       }, 300);  
     } else {
       setJoinGroupPopUpVisible(true);
-      themeColorMetaTag.setAttribute('content', '#6c6c6c'); 
     }
   };
 
@@ -32,27 +42,26 @@ function HomePage() {
       setTimeout(() => {
         setCreateGroupPopUpVisible(false);
         setIsClosing(false);
-        themeColorMetaTag.setAttribute('content', '#ffffff');
       }, 300);  
     } else {
       setCreateGroupPopUpVisible(true);
-      themeColorMetaTag.setAttribute('content', '#6c6c6c'); 
     }
   };
 
   return (
     <div className="home">
-        {isJoinGroupPopUpVisible && <div className="darker-overlay"></div>}
-        {isCreateGroupPopUpVisible && <div className="darker-overlay"></div>}
+        {( isJoinGroupPopUpVisible || isCreateGroupPopUpVisible || isValidationPopUpVisible ) 
+              && <div className="darker-overlay"></div>}
         <Tmax/>
         <h3 className="small-text">Order your favorite food delivered fast, wherever you are</h3>
-        <div className="buttons-container">
+        {!isValidationPopUpVisible && <div className="buttons-container">
             <Button text="Order Now" />
             <Button text="Create Group Order" onClick={handleCreateGroupeClick}/>
             <Button text="Join Group Order" onClick={handleJoinGroupeClick} />
-        </div>
-        {isJoinGroupPopUpVisible && <JoinGroupPopUp onClose={handleJoinGroupeClick} closing={isClosing}/>}
+        </div>}
+        {isJoinGroupPopUpVisible && <JoinGroupPopUp onClose={handleJoinGroupeClick} closing={isClosing} setValidationPopUpVisible={setValidationPopUpVisible}/>}
         {isCreateGroupPopUpVisible && <CreateGroupPopUp onClose={handleCreateGroupeClick} closing={isClosing}/>}
+        {isValidationPopUpVisible && <ValidationJoinPopUp onClose={() => setValidationPopUpVisible(false)} closing={isClosing}/>}
     </div>
   );
 }

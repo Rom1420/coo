@@ -1,7 +1,7 @@
 import './create-group-pop-up.css';
-import Button from '../button/button';
-import Input from '../input/input';
-import ToggleSwitch from '../toggle-switch/toggle-switch';
+import Button from '../../tools/button/button';
+import Input from '../../tools/input/input';
+import ToggleSwitch from '../../tools/toggle-switch/toggle-switch';
 import { useState } from 'react';
 
 function CreateGroupPopUp({onClose, closing}) {
@@ -15,7 +15,7 @@ function CreateGroupPopUp({onClose, closing}) {
   return (
     <div className={`create-group-container ${closing ? 'closing' : ''} ${isToggleSwitchOn ? 'expanded' : 'collapsed'}`}>
         <div className="popup-content">
-            <i class="fa-solid fa-xmark" onClick={onClose}></i>
+            <i className="fa-solid fa-xmark" onClick={onClose}></i>
             <h4 className='popup-title'>Create Group Order</h4>
             <div className="separation-line"></div>
             <div className={`input-button-container ${isToggleSwitchOn ? 'expanded' : 'collapsed'}`}>
