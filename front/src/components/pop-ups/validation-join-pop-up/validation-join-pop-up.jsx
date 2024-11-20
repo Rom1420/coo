@@ -10,7 +10,7 @@ function ValidationJoinPopUp({onClose, closing, onOrderNowClick}) {
             <h2 className='title-validation'>You have succesfully</h2>
             <h3 className='small-text-validation'>joined the group</h3>
             <h1 className='group-name'>PolyMiamMiam</h1>
-            <Button style={{ width:'50%'}} text="Order Now" onClick={() => {onClose();  onOrderNowClick()}}/>
+            <Button style={{ width:'50%', height: "4vh"}} text="Order Now" onClick={() => {onClose();  onOrderNowClick()}}/>
         </div>
     </div>
   );

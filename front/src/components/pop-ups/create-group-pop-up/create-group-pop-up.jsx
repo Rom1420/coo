@@ -12,6 +12,13 @@ function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible}) {
     setIsToggleSwitchOn((prevState) => !prevState);
   };
 
+  const handleCreateClick = () => {
+    onClose(); 
+    setTimeout(() => {
+      setValidationCreatePopUpVisible(true);
+    }, 300);
+  };
+
   return (
     <div className={`create-group-container ${closing ? 'closing' : ''} ${isToggleSwitchOn ? 'expanded' : 'collapsed'}`}>
         <div className="popup-content">
@@ -36,7 +43,7 @@ function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible}) {
                         </div>
                     }
                 </div>
-                <Button text="Create Group Order" onClick={()=>{onClose(); setValidationCreatePopUpVisible(true);}}/>
+                <Button text="Create Group Order" onClick={handleCreateClick}/>
             </div>
         </div>
     </div>
