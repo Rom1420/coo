@@ -7,7 +7,7 @@ import CreateGroupPopUp from '../pop-ups/create-group-pop-up/create-group-pop-up
 import ValidationJoinPopUp from '../pop-ups/validation-join-pop-up/validation-join-pop-up';
 import ValidationCreatePopUp from "../pop-ups/validation-create-pop-up/validation-create-pop-up";
 
-function HomePage() {
+function HomePage({onOrderNowClick}) {
 
   const [isJoinGroupPopUpVisible, setJoinGroupPopUpVisible] = useState(false);
   const [isValidationPopUpVisible, setValidationPopUpVisible] = useState(false);
@@ -57,14 +57,14 @@ function HomePage() {
         <Tmax/>
         <h3 className="small-text">Order your favorite food delivered fast, wherever you are</h3>
         {!isValidationPopUpVisible && <div className="buttons-container">
-            <Button text="Order Now" />
+            <Button text="Order Now" onClick={onOrderNowClick} />
             <Button text="Create Group Order" onClick={handleCreateGroupeClick}/>
             <Button text="Join Group Order" onClick={handleJoinGroupeClick} />
         </div>}
         {isJoinGroupPopUpVisible && <JoinGroupPopUp onClose={handleJoinGroupeClick} closing={isClosing} setValidationPopUpVisible={setValidationPopUpVisible}/>}
         {isCreateGroupPopUpVisible && <CreateGroupPopUp onClose={handleCreateGroupeClick} closing={isClosing} setValidationCreatePopUpVisible={setValidationCreatePopUpVisible}/>}
-        {isValidationPopUpVisible && <ValidationJoinPopUp onClose={() => setValidationPopUpVisible(false)} closing={isClosing}/>}
         {isValidationCreatePopUpVisible && <ValidationCreatePopUp onClose={()=> setValidationCreatePopUpVisible(false)} closing={isClosing}/>}
+        {isValidationPopUpVisible && <ValidationJoinPopUp onClose={() => setValidationPopUpVisible(false)} closing={isClosing} onOrderNowClick={onOrderNowClick}/>}
     </div>
   );
 }
