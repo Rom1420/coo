@@ -10,7 +10,7 @@ function App() {
   return (
     <div className="App">
       {currentPage === 'home' && <HomePage onOrderNowClick={() => setCurrentPage('chezPippo')} />}
-      {currentPage === 'chezPippo' && <ChezPippo />}
+      {currentPage === 'chezPippo' && <ChezPippo onBackToHomeClick={() => setCurrentPage('home')} />}
     </div>
   );
 }

@@ -5,14 +5,14 @@ import galeriePic from '../../assets/chez-pippo-gallerie.png'
 import Rating from '../rating/rating';
 import Button from '../tools/button/button';
 
-function ChezPippo() {
+function ChezPippo({onBackToHomeClick }) {
     const themeColorMetaTag = document.querySelector('meta[name="theme-color"]');
     themeColorMetaTag.setAttribute('content', '#6c6c6c');
 
     return (
         <div className="restaurant-container">
+            <i className="fa-solid fa-house" onClick={onBackToHomeClick}></i>
             <img className="main-pic" src={mainPic} alt="" />
-            
             <div className="restaurant-content-container">
                 <ChezPippoLogo className='chez-pippo-logo'/>
                 <div className="restaurant-content-scroll">
