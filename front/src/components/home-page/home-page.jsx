@@ -6,7 +6,7 @@ import JoinGroupPopUp from '../pop-ups/join-group-pop-up/join-group-pop-up';
 import CreateGroupPopUp from '../pop-ups/create-group-pop-up/create-group-pop-up';
 import ValidationJoinPopUp from '../pop-ups/validation-join-pop-up/validation-join-pop-up';
 
-function HomePage() {
+function HomePage({onOrderNowClick}) {
 
   const [isJoinGroupPopUpVisible, setJoinGroupPopUpVisible] = useState(false);
   const [isValidationPopUpVisible, setValidationPopUpVisible] = useState(false);
@@ -55,7 +55,7 @@ function HomePage() {
         <Tmax/>
         <h3 className="small-text">Order your favorite food delivered fast, wherever you are</h3>
         {!isValidationPopUpVisible && <div className="buttons-container">
-            <Button text="Order Now" />
+            <Button text="Order Now" onClick={onOrderNowClick} />
             <Button text="Create Group Order" onClick={handleCreateGroupeClick}/>
             <Button text="Join Group Order" onClick={handleJoinGroupeClick} />
         </div>}
