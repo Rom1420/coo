@@ -4,7 +4,7 @@ import Input from '../../tools/input/input';
 import ToggleSwitch from '../../tools/toggle-switch/toggle-switch';
 import { useState } from 'react';
 
-function CreateGroupPopUp({onClose, closing}) {
+function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible}) {
 
   const [isToggleSwitchOn, setIsToggleSwitchOn] = useState(false);
 
@@ -36,7 +36,7 @@ function CreateGroupPopUp({onClose, closing}) {
                         </div>
                     }
                 </div>
-                <Button text="Create Group Order"/>
+                <Button text="Create Group Order" onClick={()=>{onClose(); setValidationCreatePopUpVisible(true);}}/>
             </div>
         </div>
     </div>
