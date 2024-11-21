@@ -6,7 +6,7 @@ import Rating from '../tools/rating/rating';
 import Button from '../tools/button/button';
 import Favorite from '../tools/favorite/favorite';
 
-function ChezPippo({onBackToHomeClick }) {
+function ChezPippo({onBackToHomeClick, onMenuButtonClick }) {
     const themeColorMetaTag = document.querySelector('meta[name="theme-color"]');
     themeColorMetaTag.setAttribute('content', '#6c6c6c');
 
@@ -38,7 +38,7 @@ function ChezPippo({onBackToHomeClick }) {
                         </div>
                     </div>
                     <div className="menu-button-container">
-                        <Button style={{height: "4vh"}}text="Menu"/>
+                        <Button style={{height: "4vh"}}text="Menu" onClick={onMenuButtonClick}/>
                     </div>
                 </div>
             </div>
