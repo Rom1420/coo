@@ -2,8 +2,9 @@ import './chez-pippo.css';
 import mainPic from '../../assets/chez-pippo-main-pic.png'
 import {ReactComponent as ChezPippoLogo} from '../../assets/logo-chez-pippo.svg'
 import galeriePic from '../../assets/chez-pippo-gallerie.png'
-import Rating from '../rating/rating';
+import Rating from '../tools/rating/rating';
 import Button from '../tools/button/button';
+import Favorite from '../tools/favorite/favorite';
 
 function ChezPippo({onBackToHomeClick }) {
     const themeColorMetaTag = document.querySelector('meta[name="theme-color"]');
@@ -15,6 +16,7 @@ function ChezPippo({onBackToHomeClick }) {
             <img className="main-pic" src={mainPic} alt="" />
             <div className="restaurant-content-container">
                 <ChezPippoLogo className='chez-pippo-logo'/>
+                <Favorite/>
                 <div className="restaurant-content-scroll">
                     <div className="restaurant-content">
                         <h2 className='restaurant-name'>Chez Pippo</h2>
