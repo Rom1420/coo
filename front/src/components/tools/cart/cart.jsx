@@ -3,7 +3,7 @@ import './cart.css';
 function Cart() {
     return (
     <div className="cart-container">
-        <i class="fa-solid fa-cart-shopping"></i>
+        <i className="fa-solid fa-cart-shopping"></i>
     </div>
     );
 }
