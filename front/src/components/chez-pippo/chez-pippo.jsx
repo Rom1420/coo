@@ -5,6 +5,7 @@ import galeriePic from '../../assets/chez-pippo-gallerie.png'
 import Rating from '../tools/rating/rating';
 import Button from '../tools/button/button';
 import Favorite from '../tools/favorite/favorite';
+import Cart from '../tools/cart/cart';
 
 function ChezPippo({onBackToHomeClick, onMenuButtonClick }) {
     const themeColorMetaTag = document.querySelector('meta[name="theme-color"]');
@@ -40,6 +41,8 @@ function ChezPippo({onBackToHomeClick, onMenuButtonClick }) {
                     <div className="menu-button-container">
                         <Button style={{height: "4vh"}}text="Menu" onClick={onMenuButtonClick}/>
                     </div>
+
+                    <Cart/>
                 </div>
             </div>
         </div>

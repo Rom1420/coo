@@ -4,6 +4,7 @@ import {ReactComponent as ChezPippoLogo} from '../../assets/logo-chez-pippo.svg'
 import Favorite from '../tools/favorite/favorite';
 import MenuItem from '../tools/menu-item/menu-item';
 import MenuItemElement from '../tools/menu-item-element/menu-item-element';
+import Cart from '../tools/cart/cart';
 import Button from '../tools/button/button';
 import { useState } from 'react';
 
@@ -109,6 +110,7 @@ function Menu({onBackToHomeClick }) {
                         ))
                         )}
                     </div>
+                    <Cart/>
                 </div>
             </div>
         </div>
