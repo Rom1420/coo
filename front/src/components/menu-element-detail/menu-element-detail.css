@@ -118,3 +118,13 @@
     font-weight: bolder;
     margin: 10px;
 }
+
+.portions-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between  ;
+}
+
+.portions-title{
+    white-space: nowrap;
+}

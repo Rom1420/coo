@@ -4,6 +4,7 @@ import {ReactComponent as ChezPippoLogo} from '../../assets/logo-chez-pippo.svg'
 import Rating from '../tools/rating/rating';
 import Favorite from '../tools/favorite/favorite';
 import Cart from '../tools/cart/cart';
+import Counter from '../tools/counter/counter';
 
 function MenuElementDetail({onBackToPrevClick, menuElement}) {
     const themeColorMetaTag = document.querySelector('meta[name="theme-color"]');
@@ -32,6 +33,10 @@ function MenuElementDetail({onBackToPrevClick, menuElement}) {
                             <p className='description-text'>{menuElement?.fullDescription}</p>
                         </div>
                         <div className="separation-line"></div>
+                        <div className="portions-container">
+                            <h5 className="portions-title">Number of portions</h5>
+                            <Counter/>
+                        </div>
                     </div>
                     <Cart/>
                 </div>
