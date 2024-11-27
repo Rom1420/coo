@@ -8,8 +8,12 @@ function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible}) {
 
   const [isToggleSwitchOn, setIsToggleSwitchOn] = useState(false);
   const [selectedRestaurant, setSelectedRestaurant] = useState('');
+  const [groupName, setGroupName] = useState('');
+  const [deliveryLocation, setDeliveryLocation] = useState('');
+  const [deliveryTime, setDeliveryTime] = useState({ hours: '', minutes: '' });
 
-  // Liste des restaurants (à récupérer via l'API des restautants)
+
+    // Liste des restaurants (à récupérer via l'API des restautants)
     const restaurantOptions = [
         'McDonald\'s',
         'KFC',
@@ -26,12 +30,47 @@ function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible}) {
       setSelectedRestaurant(event.target.value);
   }
 
-  const handleCreateClick = () => {
+/*  const handleCreateClick = () => {
     onClose(); 
     setTimeout(() => {
       setValidationCreatePopUpVisible(true);
     }, 300);
-  };
+  };*/
+
+    const handleCreateClick = () => {
+        if (!groupName || !deliveryLocation || !selectedRestaurant) {
+            alert('Fill all the fields before creating the group !');
+            return;
+        }
+
+        const groupData = {
+            name: groupName,
+            location: deliveryLocation,
+            restaurant: selectedRestaurant,
+            deliveryTime: isToggleSwitchOn ? `${deliveryTime.hours}:${deliveryTime.minutes}` : null,
+        };
+        console.log('Group Data to be sent:', groupData);
+
+        onClose();
+        setTimeout(() => {
+            setValidationCreatePopUpVisible(true);
+        }, 300);
+
+        fetch('/api/groups', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(groupData),
+        })
+            .then((response) => {
+                if (response.ok) {
+                    onClose();
+                    setTimeout(() => setValidationCreatePopUpVisible(true), 300);
+                } else {
+                    console.error('Erreur lors de la création du groupe');
+                }
+            })
+            .catch((error) => console.error('Erreur lors de la requête API :', error));
+    };
 
   return (
     <div className={`create-group-container ${closing ? 'closing' : ''} ${isToggleSwitchOn ? 'expanded' : 'collapsed'}`}>
@@ -40,8 +79,9 @@ function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible}) {
             <h4 className='popup-title'>Create Group Order</h4>
             <div className="separation-line"></div>
             <div className={`input-button-container ${isToggleSwitchOn ? 'expanded' : 'collapsed'}`}>
-                <Input placeholder="Group Name"></Input>
-                <Input placeholder="Group Delivery Location"></Input>
+                <Input placeholder="Group Name" value={groupName} onChange={(e) => setGroupName(e.target.value)}
+                />
+                <Input placeholder="Group Delivery Location" value={deliveryLocation} onChange={(e) => setDeliveryLocation(e.target.value)} />
                 <div className="dropdown-container">
                     <label htmlFor="restaurant-select" className="dropdown-label">Group Restaurant: </label>
                     <select
@@ -65,8 +105,8 @@ function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible}) {
                     </div>
                     { isToggleSwitchOn && 
                         <div className="delivery-time-content">
-                            <Input placeholder="Heure"></Input>
-                            <Input placeholder="Minutes"></Input>
+                            <Input placeholder="Heure" value={deliveryTime.hours} onChange={(e) => setDeliveryTime({ ...deliveryTime, hours: e.target.value })} />
+                            <Input placeholder="Minutes" value={deliveryTime.minutes} onChange={(e) => setDeliveryTime({ ...deliveryTime, minutes: e.target.value })} />
                         </div>
                     }
                 </div>
