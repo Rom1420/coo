@@ -1,0 +1,15 @@
+.portions-counter{
+    border: solid 2px var(--blue);
+    padding: 10px 0px;
+    border-radius: 10px;
+    color: var(--blue);
+    width: 20%;
+    text-align: center;
+}
+
+.counter-buttons-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+}
