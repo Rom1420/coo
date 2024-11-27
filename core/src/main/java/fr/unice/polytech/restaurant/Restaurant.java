@@ -1,5 +1,6 @@
 package fr.unice.polytech.restaurant;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import fr.unice.polytech.discount.DiscountEngine;
 import fr.unice.polytech.discount.DiscountType;
 import fr.unice.polytech.order.GroupOrderImpl;
@@ -22,6 +23,7 @@ public class Restaurant {
     private List<Article> articlesSimples; //ensemble des artcile du restaurant
     private List<Menu> menusOfRestaurant; //ensemble des menus du restaurant
 
+    @JsonDeserialize(using = WeeklySchedulesDeserializer.class)
     private Map<DayOfWeek, Map.Entry<LocalTime, LocalTime>> weeklySchedules; // clé -> Jour de la semaine, valeur -> Plage horaire
     private int nbOfCook; //nombre de cuisinier afin de savoir combien peuvent etre produit d'item etc...
     private boolean isOpen;

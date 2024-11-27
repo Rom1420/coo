@@ -27,6 +27,7 @@ class RestaurantManagerTest {
         restaurant1.setTypeCuisine(TypeCuisine.ITALIENNE);
         restaurant1.setSchedules(DayOfWeek.MONDAY, LocalTime.of(10, 0), LocalTime.of(22, 0));
 
+
         restaurant2 = new Restaurant("Restaurant B");
         restaurant2.setTypeCuisine(TypeCuisine.FRANCAISE);
         restaurant2.setSchedules(DayOfWeek.MONDAY, LocalTime.of(12, 0), LocalTime.of(18, 0));
