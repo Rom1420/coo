@@ -3,6 +3,7 @@ package main_service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.sun.net.httpserver.HttpServer;
+import filter.ArticleMenuFilterHandler;
 import filter.RestaurantFilterHandler;
 import fr.unice.polytech.restaurant.Restaurant;
 import fr.unice.polytech.restaurant.RestaurantManager;
@@ -106,6 +107,9 @@ public class RestaurantService {
 
         server.createContext("/api/restaurant", new RestaurantHttpHandler(restaurantManager));
         server.createContext("/api/restaurant/filters", new RestaurantFilterHandler(restaurantManager));
+        server.createContext("/api/restaurant/filters/article", new ArticleMenuFilterHandler(restaurantManager));
+        server.createContext("/api/restaurant/filters/menu", new ArticleMenuFilterHandler(restaurantManager));
+        server.createContext("/api/filters/test", new ArticleMenuFilterHandler(restaurantManager));
         server.setExecutor(null); // Utilisation du gestionnaire par défaut
         server.start();
         servers.put(port, server);
