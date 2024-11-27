@@ -47,6 +47,8 @@ public class Order {
 
     }
 
+
+
     public List<Article> getOrderedArticles() {
         return orderedArticles;
     }

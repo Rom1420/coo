@@ -1,8 +1,5 @@
 package fr.unice.polytech.entities;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 public class Article {
     private String name;
     private float price;
@@ -12,16 +9,11 @@ public class Article {
     // Ajout de la catégorie pour le filtrage
 
     private Categorie categorie;
-    @JsonCreator
-    public Article(
-            @JsonProperty("name") String name,
-            @JsonProperty("price") float price,
-            @JsonProperty("timeRequiredForPreparation") int timeRequiredForPreparation,
-            @JsonProperty("categorie") Categorie categorie
-    ) {
-        this.name = name;
-        this.price = price;
-        this.timeRequiredForPreparation = timeRequiredForPreparation;
+    public Article(String name,float price,int timeRequiredForPreparation, Categorie categorie){
+        this.name=name;
+        this.price=price;
+        this.timeRequiredForPreparation=timeRequiredForPreparation;
+        this.description="none";
         this.categorie = categorie;
     }
     public Article(String name,float price,int timeRequiredForPreparation){
