@@ -106,7 +106,7 @@
 .fa-solid.fa-house{
     position: absolute;
     z-index: 5;
-    color: var(--light-grey);
+    
     left: 20px;
     top: 20px;
     font-size: 3vh;

@@ -6,7 +6,7 @@ import Favorite from '../tools/favorite/favorite';
 import Cart from '../tools/cart/cart';
 import Counter from '../tools/counter/counter';
 
-function MenuElementDetail({onBackToPrevClick, menuElement}) {
+function MenuElementDetail({onBackToPrevClick, menuElement, onCheckCartClick}) {
     const themeColorMetaTag = document.querySelector('meta[name="theme-color"]');
     themeColorMetaTag.setAttribute('content', '#6c6c6c');
 
@@ -38,7 +38,7 @@ function MenuElementDetail({onBackToPrevClick, menuElement}) {
                             <Counter/>
                         </div>
                     </div>
-                    <Cart/>
+                    <Cart onCheckCartClick={onCheckCartClick} />
                 </div>
             </div>
         </div>

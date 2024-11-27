@@ -1,0 +1,17 @@
+.carte-resume-container{
+
+}
+
+.carte-resume-content{
+
+}
+
+.carte-resume-title{
+    margin-left: 60px;
+}
+
+.fa-arrow-left.carte-resume{
+    color: var(--black);
+    filter: none;
+}
+

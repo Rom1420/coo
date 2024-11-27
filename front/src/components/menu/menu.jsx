@@ -7,7 +7,7 @@ import MenuItemElement from '../tools/menu-item-element/menu-item-element';
 import Cart from '../tools/cart/cart';
 import { menuItems } from '../../data/menu-data';
 
-function Menu({onBackToHomeClick, onMenuElementClick, selectedItem, setSelectedItem }) {
+function Menu({onBackToHomeClick, onMenuElementClick, selectedItem, setSelectedItem, onCheckCartClick }) {
 
     const handleMenuItemClick = (item) => {
         setSelectedItem(item);
@@ -61,7 +61,7 @@ function Menu({onBackToHomeClick, onMenuElementClick, selectedItem, setSelectedI
                         ))
                         )}
                     </div>
-                    <Cart/>
+                    <Cart onCheckCartClick={onCheckCartClick} />
                 </div>
             </div>
         </div>

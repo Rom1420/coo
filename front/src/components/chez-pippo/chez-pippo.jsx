@@ -7,7 +7,7 @@ import Button from '../tools/button/button';
 import Favorite from '../tools/favorite/favorite';
 import Cart from '../tools/cart/cart';
 
-function ChezPippo({onBackToHomeClick, onMenuButtonClick }) {
+function ChezPippo({onBackToHomeClick, onMenuButtonClick, onCheckCartClick }) {
     const themeColorMetaTag = document.querySelector('meta[name="theme-color"]');
     themeColorMetaTag.setAttribute('content', '#6c6c6c');
 
@@ -42,7 +42,7 @@ function ChezPippo({onBackToHomeClick, onMenuButtonClick }) {
                         <Button style={{height: "4vh"}}text="Menu" onClick={onMenuButtonClick}/>
                     </div>
 
-                    <Cart/>
+                    <Cart onCheckCartClick={onCheckCartClick} />
                 </div>
             </div>
         </div>
