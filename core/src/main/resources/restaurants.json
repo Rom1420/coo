@@ -1,0 +1,40 @@
+[
+  {
+    "name": "Le Gourmet",
+    "articlesSimples": [
+      {
+        "name": "Salade",
+        "price": 5.5,
+        "timeRequiredForPreparation": 10,
+        "categorie": "ENTREE"
+      },
+      {
+        "name": "Steak",
+        "price": 15.0,
+        "timeRequiredForPreparation": 20,
+        "categorie": "PLAT"
+      },
+      {
+        "name": "Glace",
+        "price": 4.0,
+        "timeRequiredForPreparation": 5,
+        "categorie": "DESSERT"
+      }
+    ],
+    "menusOfRestaurant": [],
+    "weeklySchedules": {
+      "MONDAY": {
+        "opening": "09:00",
+        "closing": "22:00"
+      },
+      "TUESDAY": {
+        "opening": "09:00",
+        "closing": "22:00"
+      }
+    },
+    "nbOfCook": 5,
+    "open": true,
+    "typeCuisine": "FRANCAISE",
+    "discountType": "NONE"
+  }
+]

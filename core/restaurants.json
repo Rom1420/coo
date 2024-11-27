@@ -1,0 +1,40 @@
+[ {
+  "name" : "Restaurant A",
+  "articlesSimples" : [ ],
+  "menusOfRestaurant" : [ ],
+  "weeklySchedules" : {
+    "MONDAY" : {
+      "10:00" : "22:00"
+    }
+  },
+  "nbOfCook" : 0,
+  "typeCuisine" : "ITALIENNE",
+  "discountType" : null,
+  "open" : true
+}, {
+  "name" : "Restaurant B",
+  "articlesSimples" : [ ],
+  "menusOfRestaurant" : [ ],
+  "weeklySchedules" : {
+    "MONDAY" : {
+      "12:00" : "18:00"
+    }
+  },
+  "nbOfCook" : 0,
+  "typeCuisine" : "FRANCAISE",
+  "discountType" : null,
+  "open" : true
+}, {
+  "name" : "Restaurant C",
+  "articlesSimples" : [ ],
+  "menusOfRestaurant" : [ ],
+  "weeklySchedules" : {
+    "MONDAY" : {
+      "12:00" : "15:00"
+    }
+  },
+  "nbOfCook" : 0,
+  "typeCuisine" : "ITALIENNE",
+  "discountType" : null,
+  "open" : true
+} ]
