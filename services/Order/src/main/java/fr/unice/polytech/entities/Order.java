@@ -1,14 +1,13 @@
-package fr.unice.polytech.utility.order;
+package fr.unice.polytech.entities;
 
-import fr.unice.polytech.utility.restaurant.RestaurantManager;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class Order {
-    private List<String> orderedArticles; // Liste d'articles commandés
-    private List<String> orderedMenus; // Liste de menus commandés
+    private List<Article> orderedArticles; // Liste d'articles commandés
+    private List<Menu> orderedMenus; // Liste de menus commandés
 
     private float totalPrice; // Prix total de la commande
 
@@ -21,9 +20,9 @@ public class Order {
     private String deliveryLocation; // Lieu de livraison
 
     private String status; // État de la commande
-    private String restaurant;
+    private Restaurant restaurant;
 
-    public Order(Date orderDate, Date deliveryDate, String deliveryLocation, String restaurant) {
+    public Order(Date orderDate, Date deliveryDate, String deliveryLocation, Restaurant restaurant) {
         this.orderedArticles = new ArrayList<>();
         this.orderedMenus = new ArrayList<>();
         this.totalPrice = 0;
@@ -35,7 +34,7 @@ public class Order {
         this.restaurant = restaurant;
         this.status = "en attente";
     }
-    public Order(Date orderDate, String deliveryLocation, String restaurant) {
+    public Order(Date orderDate, String deliveryLocation, Restaurant restaurant) {
         this.orderedArticles = new ArrayList<>();
         this.orderedMenus = new ArrayList<>();
         this.totalPrice = 0;
@@ -49,11 +48,12 @@ public class Order {
     }
 
 
-    public List<String> getOrderedArticles() {
+
+    public List<Article> getOrderedArticles() {
         return orderedArticles;
     }
 
-    public List<String> getOrderedMenus() {
+    public List<Menu> getOrderedMenus() {
         return orderedMenus;
     }
     public float getTotalPrice() {
@@ -84,45 +84,39 @@ public class Order {
         return estimatedDeliveryDate;
     }
 
-    public String getRestaurant() {
+    public Restaurant getRestaurant() {
         return restaurant;
     }
     public void setTotalPrice(float totalPrice) {this.totalPrice = totalPrice;}
 
-    public void addArticle(String article){
-        if (!RestaurantManager.getRestaurantManagerInstance().findRestaurantByName(getRestaurant()).getArticlesSimplesNames().contains(article)) {
-            throw new RuntimeException("Impossible d'ajouter cette article, il n'appartient pas au restaurant de la commande.");
-        }
+    public void addArticle(Article article){
         if (deliveryDate == null) {
             // Aucune date de livraison choisie, on met à jour la prévision
-            updateEstimatedDeliveryDate(RestaurantManager.getRestaurantManagerInstance().findRestaurantByName(getRestaurant()).getArticleByName(article).getTimeRequiredForPreparation()); // Minutes
+            updateEstimatedDeliveryDate(article.getTimeRequiredForPreparation()); // Minutes
         } else {
             // Vérifier si le menu peut être ajouté sans dépasser la date de livraison
-            if (!canAddArticleOrMenu(RestaurantManager.getRestaurantManagerInstance().findRestaurantByName(getRestaurant()).getArticleByName(article).getTimeRequiredForPreparation())) {
+            if (!canAddArticleOrMenu(article.getTimeRequiredForPreparation())) {
                 throw new RuntimeException("Impossible d'ajouter cette article, cela dépasserait la date de livraison.");
             }
         }
         orderedArticles.add(article);
-        totalPrice += RestaurantManager.getRestaurantManagerInstance().findRestaurantByName(getRestaurant()).getArticleByName(article).getPrice();
-        totalPreparationTime += RestaurantManager.getRestaurantManagerInstance().findRestaurantByName(getRestaurant()).getArticleByName(article).getTimeRequiredForPreparation();
+        totalPrice += article.getPrice();
+        totalPreparationTime += article.getTimeRequiredForPreparation();
     }
 
-    public void addMenu(String menu){
-        if (!RestaurantManager.getRestaurantManagerInstance().findRestaurantByName(getRestaurant()).getMenusOfRestaurantNames().contains(menu)) {
-            throw new RuntimeException("Impossible d'ajouter ce menu, il n'appartient pas au restaurant de la commande.");
-        }
+    public void addMenu(Menu menu){
         if (deliveryDate == null) {
             // Aucune date de livraison choisie, on met à jour la prévision
-            updateEstimatedDeliveryDate(RestaurantManager.getRestaurantManagerInstance().findRestaurantByName(getRestaurant()).getMenuByName(menu).getTotalTimeRequiredForPreparation());
+            updateEstimatedDeliveryDate(menu.getTotalTimeRequiredForPreparation());
         } else {
             // Vérifier si le menu peut être ajouté sans dépasser la date de livraison
-            if (!canAddArticleOrMenu(RestaurantManager.getRestaurantManagerInstance().findRestaurantByName(getRestaurant()).getMenuByName(menu).getTotalTimeRequiredForPreparation())) {
+            if (!canAddArticleOrMenu(menu.getTotalTimeRequiredForPreparation())) {
                 throw new RuntimeException("Impossible d'ajouter ce menu, cela dépasserait la date de livraison.");
             }
         }
         orderedMenus.add(menu);
-        totalPrice += RestaurantManager.getRestaurantManagerInstance().findRestaurantByName(getRestaurant()).getMenuByName(menu).getPrice();
-        totalPreparationTime += RestaurantManager.getRestaurantManagerInstance().findRestaurantByName(getRestaurant()).getMenuByName(menu).getTotalTimeRequiredForPreparation();
+        totalPrice += menu.getPrice();
+        totalPreparationTime += menu.getTotalTimeRequiredForPreparation();
     }
 
     private void updateEstimatedDeliveryDate(int timeRequiredForPreparation) {
@@ -146,9 +140,9 @@ public class Order {
         this.estimatedDeliveryDate = newDate;
     }
 
-    public void setOrderArticlesAndMenus(ArrayList<String> articles, ArrayList<String> menus) {
-        for (String article : articles) addArticle(article);
-        for (String menu : menus) addMenu(menu);
+    public void setOrderArticlesAndMenus(ArrayList<Article> articles, ArrayList<Menu> menus) {
+        for (Article article : articles) addArticle(article);
+        for (Menu menu : menus) addMenu(menu);
     }
 
     @Override
@@ -165,13 +159,13 @@ public class Order {
         sb.append("Estimated Delivery Date: ").append(estimatedDeliveryDate).append("\n");
 
         sb.append("Ordered Articles:\n");
-        for (String article : orderedArticles) {
-            sb.append("- ").append(article).append(": ").append(String.format("%.2f", RestaurantManager.getRestaurantManagerInstance().findRestaurantByName(getRestaurant()).getArticleByName(article).getPrice())).append(" € (Preparation time: ").append(RestaurantManager.getRestaurantManagerInstance().findRestaurantByName(getRestaurant()).getArticleByName(article).getTimeRequiredForPreparation()).append(" minutes)\n");
+        for (Article article : orderedArticles) {
+            sb.append("- ").append(article.getName()).append(": ").append(String.format("%.2f", article.getPrice())).append(" € (Preparation time: ").append(article.getTimeRequiredForPreparation()).append(" minutes)\n");
         }
 
         sb.append("Ordered Menus:\n");
-        for (String menu : orderedMenus) {
-            sb.append("- ").append(menu).append(": ").append(String.format("%.2f", RestaurantManager.getRestaurantManagerInstance().findRestaurantByName(getRestaurant()).getMenuByName(menu).getPrice())).append(" € (Total preparation time: ").append(RestaurantManager.getRestaurantManagerInstance().findRestaurantByName(getRestaurant()).getMenuByName(menu).getTotalTimeRequiredForPreparation()).append(" minutes)\n");
+        for (Menu menu : orderedMenus) {
+            sb.append("- ").append(menu.getName()).append(": ").append(String.format("%.2f", menu.getPrice())).append(" € (Total preparation time: ").append(menu.getTotalTimeRequiredForPreparation()).append(" minutes)\n");
         }
 
         return sb.toString();

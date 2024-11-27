@@ -1,4 +1,4 @@
-package fr.unice.polytech.utility.restaurant;
+package fr.unice.polytech.entities;
 
 public class Article {
     private String name;

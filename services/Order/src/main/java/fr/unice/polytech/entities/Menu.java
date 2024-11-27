@@ -1,4 +1,4 @@
-package fr.unice.polytech.utility.restaurant;
+package fr.unice.polytech.entities;
 
 import java.util.ArrayList;
 import java.util.List;
