@@ -7,7 +7,7 @@ import fr.unice.polytech.entities.Article;
 import fr.unice.polytech.components.OrderImpl;
 
 public class CreateOrder {
-    public static void createOrder(Menu menu, Article article, int groupId, int userId) {
+    public static void createOrder(Menu menu, Article article) {
         OrderImpl order = new OrderImpl();
         if (menu != null) {
             order.addMenu(menu);
@@ -15,8 +15,6 @@ public class CreateOrder {
         if (article != null) {
             order.addArticle(article);
         }
-        order.setGroupId(groupId);
-        order.setUserId(userId);
         OrderManager.getOrderManagerInstance().addOrder(order);
     }
 }
