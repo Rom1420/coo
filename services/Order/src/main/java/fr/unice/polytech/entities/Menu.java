@@ -1,30 +1,16 @@
 package fr.unice.polytech.entities;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class Menu {
     public String name;
+
     public float price;
     public int timeRequiredForPreparation;
+
     public List<Article> articlesInMenu;
 
-
-    @JsonCreator
-    public Menu(
-            @JsonProperty("name") String name,
-            @JsonProperty("price") float price,
-            @JsonProperty("articlesInMenu") List<Article> articlesInMenu
-    ) {
-        this.name = name;
-        this.price = price;
-        this.articlesInMenu = articlesInMenu != null ? articlesInMenu : new ArrayList<>();
-        this.timeRequiredForPreparation = calculateTotalTimeForPreparation();
-    }
     public Menu(String name, float price) {
         this.name = name;
         this.price = price;
@@ -36,6 +22,12 @@ public class Menu {
         this.price = price;
         this.articlesInMenu = new ArrayList<>();
         this.timeRequiredForPreparation = time;
+    }
+    public Menu(String name, float price, List<Article> articlesInMenu) {
+        this.name = name;
+        this.price = price;
+        this.articlesInMenu = articlesInMenu;
+        this.timeRequiredForPreparation = calculateTotalTimeForPreparation();
     }
 
     public float getPrice() {
@@ -51,8 +43,6 @@ public class Menu {
         price += article.getPrice();
         timeRequiredForPreparation += article.getTimeRequiredForPreparation();
     }
-
-    @JsonIgnore
     public int getTotalTimeRequiredForPreparation() {
         return timeRequiredForPreparation;
     }
