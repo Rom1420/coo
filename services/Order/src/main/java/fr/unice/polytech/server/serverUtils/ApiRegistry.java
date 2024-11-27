@@ -1,4 +1,4 @@
-package fr.unice.polytech.utility.serverUtils;
+package fr.unice.polytech.server.serverUtils;
 
 import java.util.ArrayList;
 import java.util.List;

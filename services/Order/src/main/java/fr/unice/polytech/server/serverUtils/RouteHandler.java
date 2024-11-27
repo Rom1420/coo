@@ -1,4 +1,4 @@
-package fr.unice.polytech.utility.serverUtils;
+package fr.unice.polytech.server.serverUtils;
 
 import com.sun.net.httpserver.HttpExchange;
 import java.io.IOException;
