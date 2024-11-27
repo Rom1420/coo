@@ -5,6 +5,7 @@ import Menu from './components/menu/menu';
 import MenuElementDetail from './components/menu-element-detail/menu-element-detail';
 import CartResume from './components/cart-resume/cart-resume';
 import { useState } from 'react';
+import RestaurantList from './components/restaurants-list/restaurants-list';
 
 function App() {
 
@@ -45,6 +46,11 @@ function App() {
       {currentPage === 'cartResume' && (
         <CartResume 
           onBackToPrevClick={() => setCurrentPage('menuElementDetail')} 
+        />
+      )}
+      {currentPage === 'restaurants-list' && (
+        <RestaurantList 
+          onBackToHomeClick={() => setCurrentPage('home')}
         />
       )}
     </div>
