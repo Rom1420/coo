@@ -41,6 +41,7 @@
     display: grid;
     grid-template-columns: 100%;
     gap: 25px;
+    min-height: 55vh;
 }
 
 .input-button-container.expanded{
@@ -91,8 +92,28 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 10px;
+    margin-bottom: 1px;
 }
+
+.dropdown-container {
+    display: flex; /* Aligne les éléments sur une ligne */
+    justify-content: center; /* Centre horizontalement */
+    align-items: center; /* Centre verticalement */
+    gap: 10px; /* Espace entre l'étiquette et le menu */
+    margin: 10px 0; /* Espacement vertical global */
+}
+
+.dropdown-label {
+    font-size: 16px;
+}
+
+.restaurant-dropdown {
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
 
 @keyframes slideInFromBottom {
   0% {

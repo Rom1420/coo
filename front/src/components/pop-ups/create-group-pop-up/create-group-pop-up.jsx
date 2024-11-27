@@ -7,9 +7,23 @@ import { useState } from 'react';
 function CreateGroupPopUp({onClose, closing}) {
 
   const [isToggleSwitchOn, setIsToggleSwitchOn] = useState(false);
+  const [selectedRestaurant, setSelectedRestaurant] = useState('');
+
+  // Liste des restaurants (à récupérer via l'API des restautants)
+    const restaurantOptions = [
+        'McDonald\'s',
+        'KFC',
+        'Pizza Hut',
+        'Subway',
+        'Burger King',
+    ];
 
   const handleToggleSwitch = () => {
     setIsToggleSwitchOn((prevState) => !prevState);
+  };
+
+  const handleRestaurantChange = (event) => {
+      setSelectedRestaurant(event.target.value);
   };
 
   return (
@@ -20,10 +34,23 @@ function CreateGroupPopUp({onClose, closing}) {
             <div className="separation-line"></div>
             <div className={`input-button-container ${isToggleSwitchOn ? 'expanded' : 'collapsed'}`}>
                 <Input placeholder="Group Name"></Input>
-                <Input placeholder="Group Adress"></Input>
-                <Input placeholder="Group Postal Code"></Input>
-                <Input placeholder="City"></Input>
-                <Input placeholder="Restaurant"></Input>
+                <Input placeholder="Group Delivery Location"></Input>
+                <div className="dropdown-container">
+                    <label htmlFor="restaurant-select" className="dropdown-label">Group Restaurant: </label>
+                    <select
+                        id="restaurant-select"
+                        value={selectedRestaurant}
+                        onChange={handleRestaurantChange}
+                        className="restaurant-dropdown"
+                    >
+                        <option value="" disabled>Select a restaurant</option>
+                        {restaurantOptions.map((restaurant, index) => (
+                            <option key={index} value={restaurant}>
+                                {restaurant}
+                            </option>
+                        ))}
+                    </select>
+                </div>
                 <div className="delivery-time-container">
                     <div className="delivery-time-header">
                         <h5 className='delivery-time-text'>Choose Delivery Time</h5>
