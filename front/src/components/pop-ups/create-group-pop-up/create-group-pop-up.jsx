@@ -4,7 +4,7 @@ import Input from '../../tools/input/input';
 import ToggleSwitch from '../../tools/toggle-switch/toggle-switch';
 import { useState } from 'react';
 
-function CreateGroupPopUp({onClose, closing}) {
+function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible}) {
 
   const [isToggleSwitchOn, setIsToggleSwitchOn] = useState(false);
   const [selectedRestaurant, setSelectedRestaurant] = useState('');
@@ -24,6 +24,13 @@ function CreateGroupPopUp({onClose, closing}) {
 
   const handleRestaurantChange = (event) => {
       setSelectedRestaurant(event.target.value);
+  }
+
+  const handleCreateClick = () => {
+    onClose(); 
+    setTimeout(() => {
+      setValidationCreatePopUpVisible(true);
+    }, 300);
   };
 
   return (
@@ -63,7 +70,7 @@ function CreateGroupPopUp({onClose, closing}) {
                         </div>
                     }
                 </div>
-                <Button text="Create Group Order"/>
+                <Button text="Create Group Order" onClick={handleCreateClick}/>
             </div>
         </div>
     </div>
