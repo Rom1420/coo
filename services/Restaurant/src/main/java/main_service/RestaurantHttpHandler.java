@@ -1,10 +1,10 @@
 package main_service;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import fr.unice.polytech.restaurant.Restaurant;
 import fr.unice.polytech.restaurant.RestaurantManager;
-import fr.unice.polytech.restaurant.ScheduleDTO;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -72,9 +72,12 @@ public class RestaurantHttpHandler implements HttpHandler {
     private void deleteRestaurant(HttpExchange exchange, String restaurantNameToDelete) throws IOException {
         boolean success = restaurantManager.deleteRestaurant(restaurantNameToDelete);
         if (success) {
-            String response = "Restaurant deleted";
+            // Sauvegarder les données
+            RestaurantService.saveRestaurantsToJson(restaurantManager.consultRestaurant());
+
+            String response = "Restaurant deleted successfully";
             exchange.getResponseHeaders().set("Content-Type", "text/plain");
-            exchange.sendResponseHeaders(201, response.getBytes().length);
+            exchange.sendResponseHeaders(200, response.getBytes().length);
             OutputStream os = exchange.getResponseBody();
             os.write(response.getBytes());
             os.close();
@@ -85,30 +88,30 @@ public class RestaurantHttpHandler implements HttpHandler {
 
     private void answerWithAllRestaurants(HttpExchange exchange) throws IOException {
         List<Restaurant> restaurants = restaurantManager.consultRestaurant();
+
+        // Préparer la réponse directement avec weeklySchedules converti pour JSON
         List<Map<String, Object>> response = new ArrayList<>();
-
         for (Restaurant restaurant : restaurants) {
-            List<ScheduleDTO> scheduleDTOs = restaurantManager.convertScheduleToDTO(restaurant.getWeeklySchedules());
-
             Map<String, Object> restaurantData = new LinkedHashMap<>();
             restaurantData.put("name", restaurant.getName());
             restaurantData.put("articlesSimples", restaurant.getArticlesSimples());
             restaurantData.put("menusOfRestaurant", restaurant.getMenusOfRestaurant());
-            restaurantData.put("weeklySchedules", scheduleDTOs);
+            restaurantData.put("weeklySchedules", RestaurantService.convertScheduleToJson(restaurant.getWeeklySchedules())); // Utilisation directe
             restaurantData.put("nbOfCook", restaurant.getNbOfCook());
             restaurantData.put("typeCuisine", restaurant.getTypeCuisine() != null ? restaurant.getTypeCuisine().name() : "AUTRE");
             restaurantData.put("discountType", restaurant.getDiscountType() != null ? restaurant.getDiscountType().name() : null);
             restaurantData.put("open", restaurant.isOpen());
+
             response.add(restaurantData);
         }
 
         String jsonResponse = JaxsonUtils.toJson(response);
-
         exchange.getResponseHeaders().set("Content-Type", "application/json");
         exchange.sendResponseHeaders(200, jsonResponse.length());
         exchange.getResponseBody().write(jsonResponse.getBytes());
         exchange.close();
     }
+
 
     private void answerWithRestaurant(HttpExchange exchange, String name) throws IOException {
         Restaurant restaurant = restaurantManager.findRestaurantByName(name);
@@ -116,13 +119,12 @@ public class RestaurantHttpHandler implements HttpHandler {
             sendErrorResponse(exchange, 404, "Restaurant not found");
             return;
         }
-        List<ScheduleDTO> scheduleDTOs = restaurantManager.convertScheduleToDTO(restaurant.getWeeklySchedules());
 
         Map<String, Object> restaurantData = new LinkedHashMap<>();
         restaurantData.put("name", restaurant.getName());
         restaurantData.put("articlesSimples", restaurant.getArticlesSimples());
         restaurantData.put("menusOfRestaurant", restaurant.getMenusOfRestaurant());
-        restaurantData.put("weeklySchedules", scheduleDTOs);  // Ajouter les horaires convertis
+        restaurantData.put("weeklySchedules", RestaurantService.convertScheduleToJson(restaurant.getWeeklySchedules()));
         restaurantData.put("nbOfCook", restaurant.getNbOfCook());
         restaurantData.put("typeCuisine", restaurant.getTypeCuisine() != null ? restaurant.getTypeCuisine().name() : "AUTRE");
         restaurantData.put("discountType", restaurant.getDiscountType() != null ? restaurant.getDiscountType().name() : null);
@@ -142,40 +144,71 @@ public class RestaurantHttpHandler implements HttpHandler {
         String jsonBody = new String(requestBody.readAllBytes(), StandardCharsets.UTF_8);
 
         logger.log(Level.FINE, "Request body: " + jsonBody);
-        Restaurant newRestaurant = JaxsonUtils.fromJson(jsonBody, Restaurant.class);
-        restaurantManager.addRestaurant(newRestaurant);
 
-        String response = "Restaurant created";
-        exchange.getResponseHeaders().set("Content-Type", "text/plain");
-        exchange.sendResponseHeaders(201, response.getBytes().length);
-        OutputStream os = exchange.getResponseBody();
-        os.write(response.getBytes());
-        os.close();
+        try {
+            Restaurant newRestaurant = JaxsonUtils.fromJson(jsonBody, new TypeReference<Restaurant>() {});
+
+            // Validation : Vérifier si le restaurant existe déjà
+            if (restaurantManager.findRestaurantByName(newRestaurant.getName()) != null) {
+                sendErrorResponse(exchange, 409, "Restaurant already exists");
+                return;
+            }
+
+            // Ajouter le restaurant
+            restaurantManager.addRestaurant(newRestaurant);
+
+            // Sauvegarder les données
+            RestaurantService.saveRestaurantsToJson(restaurantManager.consultRestaurant());
+
+            String response = "Restaurant created successfully";
+            exchange.getResponseHeaders().set("Content-Type", "text/plain");
+            exchange.sendResponseHeaders(201, response.getBytes().length);
+            OutputStream os = exchange.getResponseBody();
+            os.write(response.getBytes());
+            os.close();
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Failed to create restaurant", e);
+            sendErrorResponse(exchange, 400, "Invalid restaurant data");
+        }
     }
 
-    private void updateRestaurant(HttpExchange exchange, String nameToUpdate) throws IOException{
+
+
+    private void updateRestaurant(HttpExchange exchange, String nameToUpdate) throws IOException {
         InputStream requestBody = exchange.getRequestBody();
         String jsonBody = new String(requestBody.readAllBytes(), StandardCharsets.UTF_8);
 
         logger.log(Level.FINE, "Request body: " + jsonBody);
-        Restaurant updatedRestaurant = JaxsonUtils.fromJson(jsonBody, Restaurant.class);
 
-        Restaurant existingRestaurant = restaurantManager.findRestaurantByName(nameToUpdate);
-        if (existingRestaurant == null) {
-            sendErrorResponse(exchange, 404, "Restaurant not found");
-            return;
+        try {
+            Restaurant updatedRestaurant = JaxsonUtils.fromJson(jsonBody, new TypeReference<Restaurant>() {});
+
+            // Vérification : Le restaurant à mettre à jour existe-t-il ?
+            Restaurant existingRestaurant = restaurantManager.findRestaurantByName(nameToUpdate);
+            if (existingRestaurant == null) {
+                sendErrorResponse(exchange, 404, "Restaurant not found");
+                return;
+            }
+
+            // Mettre à jour les données
+            restaurantManager.updateRestaurant(updatedRestaurant, nameToUpdate);
+
+            // Sauvegarder les données
+            RestaurantService.saveRestaurantsToJson(restaurantManager.consultRestaurant());
+
+            String response = "Restaurant updated successfully";
+            exchange.getResponseHeaders().set("Content-Type", "text/plain");
+            exchange.sendResponseHeaders(200, response.getBytes().length);
+            OutputStream os = exchange.getResponseBody();
+            os.write(response.getBytes());
+            os.close();
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Failed to update restaurant", e);
+            sendErrorResponse(exchange, 400, "Invalid restaurant data");
         }
-        String oldRestaurantName = existingRestaurant.getName();
-
-        restaurantManager.updateRestaurant(updatedRestaurant, oldRestaurantName);
-
-        String response = "Restaurant updated successfully";
-        exchange.getResponseHeaders().set("Content-Type", "text/plain");
-        exchange.sendResponseHeaders(200, response.getBytes().length);
-        OutputStream os = exchange.getResponseBody();
-        os.write(response.getBytes());
-        os.close();
     }
+
+
 
     private void sendErrorResponse(HttpExchange exchange, int statusCode, String message) throws IOException {
         exchange.getResponseHeaders().set("Content-Type", "text/plain");
