@@ -1,0 +1,31 @@
+.checkout-resume-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    margin: 15px 20px;
+}
+
+.checkout-resume-content{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.checkout-resume-title{
+    margin: 0px;
+}
+
+.checkout-resume-element{
+    margin: 0px;
+    color: var(--blue);
+}
+
+.checkout-resume-total{
+    margin: 0px;
+    color: var(--blue);
+}
+
+.checkout-resume-title-total{
+    margin: 0px;
+}
