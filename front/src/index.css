@@ -32,6 +32,15 @@ code {
 
 input, textarea, select {
   font-size: 16px; /* Empêche le zoom automatique */
+  color: var(--grey);
+}
+
+input:focus, select:focus{
+  outline: solid 2px var(--blue);
+}
+
+input::placeholder{
+  color: var(--grey-2);
 }
 
 :root{
@@ -42,5 +51,8 @@ input, textarea, select {
   --light-grey: #F2F2F2;
   --white: #fff;
   --star-filled: #EE5A30;
+  --arrow-icon-down: url(https://upload.wikimedia.org/wikipedia/commons/9/9d/Caret_down_font_awesome_whitevariation.svg);
+  --arrow-bg: #dddddd71; /* Couleur du fond près de la flèche */
+  --select-bg: #F2F2F2;
 }
 

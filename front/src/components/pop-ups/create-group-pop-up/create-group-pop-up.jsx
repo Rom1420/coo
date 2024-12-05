@@ -3,6 +3,7 @@ import Button from '../../tools/button/button';
 import Input from '../../tools/input/input';
 import ToggleSwitch from '../../tools/toggle-switch/toggle-switch';
 import { useState } from 'react';
+import Dropdown from '../../tools/dropdown/dropdown';
 
 function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible}) {
 
@@ -12,23 +13,9 @@ function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible}) {
   const [deliveryLocation, setDeliveryLocation] = useState('');
   const [deliveryTime, setDeliveryTime] = useState({ hours: '', minutes: '' });
 
-
-    // Liste des restaurants (à récupérer via l'API des restautants)
-    const restaurantOptions = [
-        'McDonald\'s',
-        'KFC',
-        'Pizza Hut',
-        'Subway',
-        'Burger King',
-    ];
-
   const handleToggleSwitch = () => {
     setIsToggleSwitchOn((prevState) => !prevState);
   };
-
-  const handleRestaurantChange = (event) => {
-      setSelectedRestaurant(event.target.value);
-  }
 
 /*  const handleCreateClick = () => {
     onClose(); 
@@ -82,22 +69,10 @@ function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible}) {
                 <Input placeholder="Group Name" value={groupName} onChange={(e) => setGroupName(e.target.value)}
                 />
                 <Input placeholder="Group Delivery Location" value={deliveryLocation} onChange={(e) => setDeliveryLocation(e.target.value)} />
-                <div className="dropdown-container">
-                    <label htmlFor="restaurant-select" className="dropdown-label">Group Restaurant: </label>
-                    <select
-                        id="restaurant-select"
-                        value={selectedRestaurant}
-                        onChange={handleRestaurantChange}
-                        className="restaurant-dropdown"
-                    >
-                        <option value="" disabled>Select a restaurant</option>
-                        {restaurantOptions.map((restaurant, index) => (
-                            <option key={index} value={restaurant}>
-                                {restaurant}
-                            </option>
-                        ))}
-                    </select>
-                </div>
+                <Dropdown 
+                    selectedRestaurant={selectedRestaurant}
+                    onRestaurantChange={(value) => setSelectedRestaurant(value)}
+                />
                 <div className="delivery-time-container">
                     <div className="delivery-time-header">
                         <h5 className='delivery-time-text'>Choose Delivery Time</h5>
