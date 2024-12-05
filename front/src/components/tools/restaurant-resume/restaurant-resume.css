@@ -1,0 +1,41 @@
+.restaurant-resume-container{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin-left: 20px;
+}
+
+.restaurant-resume-logo{
+    width: 30%;
+}
+
+.restaurant-resume-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 5px;
+    margin-left: 20px;
+}
+
+.restaurant-resume-small-text{
+    margin: 0;
+    color: var(--grey);
+    font-size: 12px;
+}
+
+.restaurant-resume-title{
+    margin: 0;
+    font-size: 18px;
+}
+
+.restaurant-address{
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    align-items: center;
+}
+
+.fa-location-dot{
+    color: var(--blue);
+}

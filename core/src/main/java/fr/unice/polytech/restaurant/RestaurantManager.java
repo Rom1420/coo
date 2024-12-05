@@ -1,13 +1,22 @@
 package fr.unice.polytech.restaurant;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
+import java.util.logging.Logger;
 
 public class RestaurantManager {
     private List<Restaurant> restaurants;
+    private static final Logger logger = Logger.getLogger(RestaurantManager.class.getName());
 
     private RestaurantManager() {
         restaurants= new ArrayList<>();
@@ -21,10 +30,23 @@ public class RestaurantManager {
     }
 
     public void addRestaurant(Restaurant restaurant) {
-        restaurants.add(restaurant);
+        if (findRestaurantByName(restaurant.getName()) == null) {
+            restaurants.add(restaurant);
+        } else {
+            logger.warning("Restaurant with name " + restaurant.getName() + " already exists.");
+        }
     }
 
-    public List<Restaurant> consultRestaurant(){
+    public boolean deleteRestaurant(String name) {
+        Restaurant restaurantToDelete = findRestaurantByName(name);
+        if (restaurantToDelete != null) {
+            restaurants.remove(restaurantToDelete);
+            return true;
+        }
+        return false;
+    }
+
+    public List<Restaurant> consultRestaurant() {
         return new ArrayList<>(restaurants);
     }
 
@@ -32,22 +54,23 @@ public class RestaurantManager {
         restaurants.clear();
     }
 
-    public Restaurant findRestaurantByName(String name){
-        for(Restaurant resto : restaurants){
-           if(resto.getName().equals(name)){
-               return resto;
-           }
+    public Restaurant findRestaurantByName(String name) {
+        for (Restaurant resto : restaurants) {
+            if (resto.getName().equals(name)) {
+                return resto;
+            }
         }
         return null;
     }
-    public List<Restaurant> searchOpenRestaurant(DayOfWeek date, LocalTime time){
-        List<Restaurant> OpenRestaurants = new ArrayList<>();
-        for(Restaurant resto : restaurants){
-            if(resto.isOpen(date,time)){
-                OpenRestaurants.add(resto);
+
+    public List<Restaurant> searchOpenRestaurant(DayOfWeek date, LocalTime time) {
+        List<Restaurant> openRestaurants = new ArrayList<>();
+        for (Restaurant resto : restaurants) {
+            if (resto.isOpen(date, time)) {
+                openRestaurants.add(resto);
             }
         }
-        return OpenRestaurants;
+        return openRestaurants;
     }
 
     public List<Restaurant> filterRestaurantsByCuisineType(TypeCuisine type, List<Restaurant> restaurants) {
@@ -59,4 +82,22 @@ public class RestaurantManager {
         }
         return filteredRestaurants;
     }
+
+    public void updateRestaurant(Restaurant updatedRestaurant, String oldRestaurantName) {
+        Restaurant existingRestaurant = this.findRestaurantByName(oldRestaurantName);
+        if (existingRestaurant != null) {
+            existingRestaurant.setName(updatedRestaurant.getName());
+            existingRestaurant.setDiscountType(updatedRestaurant.getDiscountType());
+            existingRestaurant.setOpen(updatedRestaurant.isOpen());
+            existingRestaurant.setTypeCuisine(updatedRestaurant.getTypeCuisine());
+            existingRestaurant.setNbOfCook(updatedRestaurant.getNbOfCook());
+            existingRestaurant.setMenusOfRestaurant(updatedRestaurant.getMenusOfRestaurant());
+            existingRestaurant.setWeeklySchedules(updatedRestaurant.getWeeklySchedules());
+            logger.info("Restaurant updated successfully: " + updatedRestaurant.getName());
+        } else {
+            logger.warning("Restaurant with name " + oldRestaurantName + " not found.");
+        }
+
+    }
+
 }

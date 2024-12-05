@@ -1,0 +1,70 @@
+[
+    {
+        "name": "Le Gourmet",
+        "articlesSimples": [
+            {
+                "name": "Salade",
+                "price": 5.5,
+                "timeRequiredForPreparation": 10,
+                "description": null,
+                "categorie": "ENTREE"
+            },
+            {
+                "name": "Steak",
+                "price": 15.0,
+                "timeRequiredForPreparation": 20,
+                "description": null,
+                "categorie": "PLAT"
+            },
+            {
+                "name": "Glace",
+                "price": 4.0,
+                "timeRequiredForPreparation": 5,
+                "description": null,
+                "categorie": "DESSERT"
+            }
+        ],
+        "menusOfRestaurant": [],
+        "weeklySchedules": {
+            "MONDAY": {
+                "closing": "18:00",
+                "opening": "08:00"
+            },
+            "TUESDAY": {
+                "closing": "17:00",
+                "opening": "09:00"
+            }
+        },
+        "nbOfCook": 5,
+        "typeCuisine": "FRANCAISE",
+        "discountType": "NONE",
+        "open": true
+    },
+    {
+        "name": "La bombe",
+        "articlesSimples": [
+            {
+                "name": "Salade",
+                "price": 5.5,
+                "timeRequiredForPreparation": 10,
+                "description": null,
+                "categorie": "ENTREE"
+            }
+        ],
+        "menusOfRestaurant": [],
+        "weeklySchedules": {
+            "MONDAY": {
+                "closing": "18:00",
+                "opening": "08:00"
+            },
+            "TUESDAY": {
+                "closing": "17:00",
+                "opening": "09:00"
+            }
+        },
+        "nbOfCook": 5,
+        "typeCuisine": "ITALIENNE",
+        "discountType": "NONE",
+        "open": true
+    }
+]
