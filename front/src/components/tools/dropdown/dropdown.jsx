@@ -1,7 +1,7 @@
 import Button from '../button/button';
 import './dropdown.css';
 
-function Dropdown({selectedRestaurant, onRestaurantChange }) {
+function Dropdown({selectedRestaurant, onRestaurantChange, onDetailsClick}) {
 
 
     // Liste des restaurants (à récupérer via l'API des restautants)
@@ -22,7 +22,7 @@ function Dropdown({selectedRestaurant, onRestaurantChange }) {
         onChange={(e) => onRestaurantChange(e.target.value)}
         className={`restaurant-dropdown ${selectedRestaurant === '' ? 'placeholder-active' : 'value-selected'}`}
   >
-        <option value="" disabled className="placeholder-option">Select a restaurant</option>
+        <option value="" disabled className="placeholder-option">Restaurant</option>
         {restaurantOptions.map((restaurant, index) => (
           <option key={index} value={restaurant}>
             {restaurant}
@@ -30,10 +30,13 @@ function Dropdown({selectedRestaurant, onRestaurantChange }) {
         ))}
       </select>
       <Button
-        text="Submit"
+        text="Details"
+        onClick={onDetailsClick}
         style={{
             gridColumn: '2 / 3', // Ensure it occupies the second column
             gridRow: '1 / 2', // Ensure it occupies the first row
+            padding: '0',
+            width: '100%',
         }}
         />
 

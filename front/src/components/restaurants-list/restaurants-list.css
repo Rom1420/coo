@@ -8,3 +8,8 @@ h1.restaurant-title{
     gap: 10px;
     overflow-y: scroll;
 }
+
+.fa-arrow-left.restaurant-list{
+    color: black !important;
+    filter: none !important;
+}

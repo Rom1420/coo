@@ -4,6 +4,7 @@ import Input from '../../tools/input/input';
 import ToggleSwitch from '../../tools/toggle-switch/toggle-switch';
 import { useState } from 'react';
 import Dropdown from '../../tools/dropdown/dropdown';
+import RestaurantList from '../../restaurants-list/restaurants-list';
 
 function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible}) {
 
@@ -12,6 +13,17 @@ function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible}) {
   const [groupName, setGroupName] = useState('');
   const [deliveryLocation, setDeliveryLocation] = useState('');
   const [deliveryTime, setDeliveryTime] = useState({ hours: '', minutes: '' });
+  const [isRestaurantListVisible, setIsRestaurantListVisible] = useState(false);
+  const [isHidden, setIsHidden] = useState(false); // État pour la classe d'animation
+
+    const closeRestaurantList = () => {
+        setIsHidden(true); 
+        setTimeout(() => {
+            setIsRestaurantListVisible(false); 
+            setIsHidden(false); 
+        }, 100); 
+    };
+
 
   const handleToggleSwitch = () => {
     setIsToggleSwitchOn((prevState) => !prevState);
@@ -60,10 +72,15 @@ function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible}) {
     };
 
   return (
+    <>
     <div className={`create-group-container ${closing ? 'closing' : ''} ${isToggleSwitchOn ? 'expanded' : 'collapsed'}`}>
         <div className="popup-content">
-            <i className="fa-solid fa-xmark" onClick={onClose}></i>
-            <h4 className='popup-title'>Create Group Order</h4>
+            {!isRestaurantListVisible &&
+                <i className="fa-solid fa-xmark" onClick={onClose}></i>
+            }
+            <h4 className='popup-title'>
+                {isRestaurantListVisible ? 'Restaurants List' : 'Create Group Order'}
+            </h4>
             <div className="separation-line"></div>
             <div className={`input-button-container ${isToggleSwitchOn ? 'expanded' : 'collapsed'}`}>
                 <Input placeholder="Group Name" value={groupName} onChange={(e) => setGroupName(e.target.value)}
@@ -72,6 +89,7 @@ function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible}) {
                 <Dropdown 
                     selectedRestaurant={selectedRestaurant}
                     onRestaurantChange={(value) => setSelectedRestaurant(value)}
+                    onDetailsClick={() => setIsRestaurantListVisible(true)}
                 />
                 <div className="delivery-time-container">
                     <div className="delivery-time-header">
@@ -89,6 +107,12 @@ function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible}) {
             </div>
         </div>
     </div>
+        {isRestaurantListVisible && (
+            <div className={`restaurants-list-popup ${isHidden ? 'hidden' : ''}`}>
+                <RestaurantList closeRestaurantList={closeRestaurantList} />
+            </div>
+        )}
+    </>
   );
 }
 
