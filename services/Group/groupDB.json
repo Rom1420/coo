@@ -1,0 +1,86 @@
+{
+  "1" : {
+    "groupId" : 1,
+    "usersOrders" : { },
+    "restaurant" : {
+      "name" : "Chez Mario",
+      "discountType" : "GROUP_SIZE",
+      "open" : true
+    },
+    "groupOrderDeliveryDate" : 1732125600000,
+    "groupOrderDeliveryLocation" : "Campus Polytech",
+    "userList" : [ ],
+    "status" : "validated",
+    "totalPreparationTime" : 0
+  },
+  "2" : {
+    "groupId" : 2,
+    "usersOrders" : { },
+    "restaurant" : {
+      "name" : "Chez Mario",
+      "discountType" : "GROUP_SIZE",
+      "open" : false
+    },
+    "groupOrderDeliveryDate" : 1732125600000,
+    "groupOrderDeliveryLocation" : "Campus Polytech",
+    "userList" : [ ],
+    "status" : "validated",
+    "totalPreparationTime" : 0
+  },
+  "3" : {
+    "groupId" : 3,
+    "usersOrders" : { },
+    "restaurant" : {
+      "name" : "Chez Mario",
+      "discountType" : "GROUP_SIZE",
+      "open" : false
+    },
+    "groupOrderDeliveryDate" : 1732125600000,
+    "groupOrderDeliveryLocation" : "Campus Polytech",
+    "userList" : [ ],
+    "status" : "validated",
+    "totalPreparationTime" : 0
+  },
+  "4" : {
+    "groupId" : 4,
+    "usersOrders" : { },
+    "restaurant" : {
+      "name" : "Chez Mario",
+      "discountType" : "GROUP_SIZE",
+      "open" : false
+    },
+    "groupOrderDeliveryDate" : 1732125600000,
+    "groupOrderDeliveryLocation" : "Campus Polytech",
+    "userList" : [ ],
+    "status" : "pending",
+    "totalPreparationTime" : 0
+  },
+  "5" : {
+    "groupId" : 5,
+    "usersOrders" : { },
+    "restaurant" : {
+      "name" : "Chez Mario",
+      "discountType" : "GROUP_SIZE",
+      "open" : false
+    },
+    "groupOrderDeliveryDate" : 1732125600000,
+    "groupOrderDeliveryLocation" : "Campus Polytech",
+    "userList" : [ ],
+    "status" : "validated",
+    "totalPreparationTime" : 0
+  },
+  "6" : {
+    "groupId" : 6,
+    "usersOrders" : { },
+    "restaurant" : {
+      "name" : "Chez Mario",
+      "discountType" : "GROUP_SIZE",
+      "open" : false
+    },
+    "groupOrderDeliveryDate" : 1732125600000,
+    "groupOrderDeliveryLocation" : "Campus Polytech",
+    "userList" : [ ],
+    "status" : "validated",
+    "totalPreparationTime" : 0
+  }
+}
