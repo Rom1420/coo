@@ -4,15 +4,13 @@ import Input from '../../tools/input/input';
 import ToggleSwitch from '../../tools/toggle-switch/toggle-switch';
 import { useState } from 'react';
 
-function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible}) {
+function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible, setGroupId}) {
 
   const [isToggleSwitchOn, setIsToggleSwitchOn] = useState(false);
   const [selectedRestaurant, setSelectedRestaurant] = useState('');
   const [groupName, setGroupName] = useState('');
   const [deliveryLocation, setDeliveryLocation] = useState('');
   const [deliveryTime, setDeliveryTime] = useState({ hours: '', minutes: '' });
-
-
     // Liste des restaurants (à récupérer via l'API des restautants)
     const restaurantOptions = [
         'McDonald\'s',
@@ -51,25 +49,34 @@ function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible}) {
         };
         console.log('Group Data to be sent:', groupData);
 
+        const mockedId = 1234567; // Simulez un ID
+        setGroupId(mockedId); // Appelle la fonction du parent pour définir l'ID
+        console.log('Mocked Group ID set in parent:', mockedId);
+
+
         onClose();
         setTimeout(() => {
             setValidationCreatePopUpVisible(true);
         }, 300);
 
-        fetch('/api/groups', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(groupData),
-        })
-            .then((response) => {
-                if (response.ok) {
-                    onClose();
-                    setTimeout(() => setValidationCreatePopUpVisible(true), 300);
-                } else {
-                    console.error('Erreur lors de la création du groupe');
-                }
-            })
-            .catch((error) => console.error('Erreur lors de la requête API :', error));
+
+
+
+        /*        fetch('/api/groups', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(groupData),
+                })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        if (data.id) {
+                            setGroupId(data.id); // Stocke l'ID du groupe
+                            setValidationCreatePopUpVisible(true); // Ouvre la validation
+                        } else {
+                            console.error('Erreur : ID du groupe non reçu');
+                        }
+                    })
+                    .catch((error) => console.error('Erreur lors de la requête API :', error));*/
     };
 
   return (
