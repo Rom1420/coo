@@ -18,6 +18,13 @@ public class GroupOrderProxy implements GroupOrderInterface{
     public GroupOrderProxy() {
         this.groupOrderInterface = new GroupOrderImpl();
     }
+
+    @Override
+    public void setGroupName(String groupName) {groupOrderInterface.setGroupName(groupName);}
+
+    @Override
+    public String getGroupName() {return groupOrderInterface.getGroupName();}
+
     @Override
     public void setGroupOrderRestaurant(Restaurant restaurant) {groupOrderInterface.setGroupOrderRestaurant(restaurant);}
 

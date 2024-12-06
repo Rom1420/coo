@@ -13,8 +13,8 @@ public class CreateGroup {
         GroupOrderManager.getGroupOrderManagerInstance().addGroup(groupOrderId, groupOrder);
     }
 
-    public static void createGroup(Integer groupId, Restaurant restaurant, Date deliveryDate, String deliveryLocation) {
-        GroupOrderImpl groupOrder = new GroupOrderImpl(groupId, restaurant, deliveryDate, deliveryLocation);
+    public static void createGroup(Integer groupId, String groupName, Restaurant restaurant, Date deliveryDate, String deliveryLocation) {
+        GroupOrderImpl groupOrder = new GroupOrderImpl(groupId, groupName, restaurant, deliveryDate, deliveryLocation);
         addGroupOrder(groupId, groupOrder);
 
     }
