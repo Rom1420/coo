@@ -14,30 +14,49 @@ public class OrderImpl implements OrderInterface {
     private int id;
     private List<Menu> menus;
     private List<Article> articles;
+    private int groupId;
+    private int userId;
 
     @JsonCreator
     public OrderImpl(
             @JsonProperty("menus") List<Menu> menus,
-            @JsonProperty("articles") List<Article> articles) {
+            @JsonProperty("articles") List<Article> articles,
+            @JsonProperty("groupId") int groupId,
+            @JsonProperty("userId") int userId){
         this.menus = menus != null ? menus : new ArrayList<>();
         this.articles = articles != null ? articles : new ArrayList<>();
+        this.groupId = groupId;
+        this.userId = userId;
     }
 
     public OrderImpl() {
         this.menus = new ArrayList<>();
         this.articles = new ArrayList<>();
+        this.groupId = -1;
+        this.userId = 0;
     }
 
-    // Getter et Setter pour `id`
-    public int getId() {
-        return id;
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public int getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(int groupId) {
+        this.groupId = groupId;
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
-    public int getOrderId() {
+    public int getId() {
         return id;
     }
 

@@ -1,7 +1,10 @@
 package fr.unice.polytech.db;
 
 import fr.unice.polytech.components.OrderImpl;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -33,8 +36,16 @@ public class OrderManager {
         saveOrdersToFile();
     }
 
-    public OrderImpl getOrder(int orderId) {
-        return orders.get(orderId);
+    public OrderImpl getOrder(int id) {
+        return orders.get(id);
+    }
+
+    public List<OrderImpl> getOrdersByGroupId(int groupId){
+        ArrayList<OrderImpl> groupOrders = new ArrayList<>();
+        for(OrderImpl order : orders.values()){
+            if(order.getGroupId() == groupId) groupOrders.add(order);
+        }
+        return groupOrders;
     }
 
     private void loadOrdersFromFile() {

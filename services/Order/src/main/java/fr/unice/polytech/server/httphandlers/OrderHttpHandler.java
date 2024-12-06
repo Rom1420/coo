@@ -32,7 +32,7 @@ public class OrderHttpHandler implements HttpHandler {
         OrderImpl order = fr.unice.polytech.utility.server.JaxsonUtils.fromJson(requestBody, OrderImpl.class);
         OrderManager.getOrderManagerInstance().addOrder(order);
 
-        String response = "Order created with ID: " + order.getOrderId();
+        String response = "Order created with ID: " + order.getId();
         exchange.sendResponseHeaders(201, response.getBytes().length);
         exchange.getResponseBody().write(response.getBytes());
         exchange.close();
@@ -40,10 +40,11 @@ public class OrderHttpHandler implements HttpHandler {
 
     private void getOrder(HttpExchange exchange) throws IOException {
         String query = exchange.getRequestURI().getQuery();
-        int orderId = Integer.parseInt(query.split("=")[1]);
+        int id = Integer.parseInt(query.split("id=")[1]);
 
-        OrderImpl order = OrderManager.getOrderManagerInstance().getOrder(orderId);
-        if (order == null) {
+        OrderImpl order = OrderManager.getOrderManagerInstance().getOrder(id);
+
+        if(order == null){
             exchange.sendResponseHeaders(404, -1);
             return;
         }
