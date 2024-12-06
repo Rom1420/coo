@@ -45,7 +45,6 @@ public class GroupOrderImpl implements GroupOrderInterface {
         this.status = "pending";
     }
 
-
     public GroupOrderImpl(int groupId, String groupName, Restaurant restaurant, Date deliveryDate, String deliveryLocation) {
         this.groupId = groupId;
         this.groupName = groupName;
@@ -81,7 +80,6 @@ public class GroupOrderImpl implements GroupOrderInterface {
         this.discountEngine = new DiscountEngine();
         this.totalPreparationTime = totalPreparationTime;
     }
-
 
     public void setGroupName(String groupName) {this.groupName = groupName;}
 
