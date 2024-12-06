@@ -14,6 +14,8 @@ function HomePage({onOrderNowClick}) {
   const [isCreateGroupPopUpVisible, setCreateGroupPopUpVisible] = useState(false);
   const [isValidationCreatePopUpVisible, setValidationCreatePopUpVisible] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
+  const [groupId, setGroupId] = useState(null);
+
 
 
   useEffect(() => {
@@ -61,9 +63,9 @@ function HomePage({onOrderNowClick}) {
             <Button text="Create Group Order" onClick={handleCreateGroupeClick}/>
             <Button text="Join Group Order" onClick={handleJoinGroupeClick} />
         </div>}
-        {isJoinGroupPopUpVisible && <JoinGroupPopUp onClose={handleJoinGroupeClick} closing={isClosing} setValidationPopUpVisible={setValidationPopUpVisible}/>}
-        {isCreateGroupPopUpVisible && <CreateGroupPopUp onClose={handleCreateGroupeClick} closing={isClosing} setValidationCreatePopUpVisible={setValidationCreatePopUpVisible}/>}
-        {isValidationCreatePopUpVisible && <ValidationCreatePopUp onClose={()=> setValidationCreatePopUpVisible(false)} closing={isClosing}/>}
+        {isJoinGroupPopUpVisible && <JoinGroupPopUp onClose={handleJoinGroupeClick} closing={isClosing} setValidationPopUpVisible={setValidationPopUpVisible} setGroupId={setGroupId}/>}
+        {isCreateGroupPopUpVisible && <CreateGroupPopUp onClose={handleCreateGroupeClick} closing={isClosing} setValidationCreatePopUpVisible={setValidationCreatePopUpVisible} setGroupId={setGroupId}/>}
+        {isValidationCreatePopUpVisible && <ValidationCreatePopUp onClose={()=> setValidationCreatePopUpVisible(false)} closing={isClosing} groupId={groupId}/>}
         {isValidationPopUpVisible && <ValidationJoinPopUp onClose={() => setValidationPopUpVisible(false)} closing={isClosing} onOrderNowClick={onOrderNowClick}/>}
     </div>
   );

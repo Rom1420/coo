@@ -2,7 +2,8 @@ import './validation-create-pop-up.css';
 import Button from '../../tools/button/button';
 import { ReactComponent as ValidationPic } from '../../../assets/validation-pic.svg';
 
-function ValidationCreatePopUp({onClose, closing}) {
+function ValidationCreatePopUp({onClose, closing, groupId}) {
+    console.log('Received Group ID in ValidationCreatePopUp:', groupId);
     return (
         <div className={`validation-create-container ${closing ? 'closing' : ''}`}>
             <div className="validation-popup-content">
@@ -10,6 +11,9 @@ function ValidationCreatePopUp({onClose, closing}) {
                 <h2 className='title-validation'>Your Group Order</h2>
                 <h3 className='small-text-validation'>has been successfully created</h3>
                 <h4 className='consigne'>copy the code to share it with your friends and invite them to join your group.</h4>
+                <div className="group-id-container">
+                    <strong>Group ID: {groupId}</strong> {/* Affiche l'ID */}
+                </div>
                 <div className="buttons-container">
                     <Button text="Share code"/>
                     <Button text="Order now" onClick={onClose}/>
