@@ -8,9 +8,9 @@ function Dropdown({selectedRestaurant, onRestaurantChange, onDetailsClick}) {
     const restaurantOptions = [
         'McDonald\'s',
         'KFC',
-        'Pizza Hut',
         'Subway',
         'Burger King',
+        'Chez Pippo'
     ];
 
   return (

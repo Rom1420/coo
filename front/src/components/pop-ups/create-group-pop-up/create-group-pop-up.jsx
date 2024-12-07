@@ -8,13 +8,13 @@ import RestaurantList from '../../restaurants-list/restaurants-list';
 
 function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible}) {
 
-  const [isToggleSwitchOn, setIsToggleSwitchOn] = useState(false);
-  const [selectedRestaurant, setSelectedRestaurant] = useState('');
-  const [groupName, setGroupName] = useState('');
-  const [deliveryLocation, setDeliveryLocation] = useState('');
-  const [deliveryTime, setDeliveryTime] = useState({ hours: '', minutes: '' });
-  const [isRestaurantListVisible, setIsRestaurantListVisible] = useState(false);
-  const [isHidden, setIsHidden] = useState(false); // État pour la classe d'animation
+    const [isToggleSwitchOn, setIsToggleSwitchOn] = useState(false);
+    const [selectedRestaurant, setSelectedRestaurant] = useState('');
+    const [groupName, setGroupName] = useState('');
+    const [deliveryLocation, setDeliveryLocation] = useState('');
+    const [deliveryTime, setDeliveryTime] = useState({ hours: '', minutes: '' });
+    const [isRestaurantListVisible, setIsRestaurantListVisible] = useState(false);
+    const [isHidden, setIsHidden] = useState(false); 
 
     const closeRestaurantList = () => {
         setIsHidden(true); 
@@ -24,10 +24,15 @@ function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible}) {
         }, 100); 
     };
 
+    const handleSelectRestaurant = (restaurantName) => {
+        setSelectedRestaurant(restaurantName); 
+        closeRestaurantList(); 
+    };
 
-  const handleToggleSwitch = () => {
-    setIsToggleSwitchOn((prevState) => !prevState);
-  };
+
+    const handleToggleSwitch = () => {
+        setIsToggleSwitchOn((prevState) => !prevState);
+    };
 
 /*  const handleCreateClick = () => {
     onClose(); 
@@ -109,7 +114,7 @@ function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible}) {
     </div>
         {isRestaurantListVisible && (
             <div className={`restaurants-list-popup ${isHidden ? 'hidden' : ''}`}>
-                <RestaurantList closeRestaurantList={closeRestaurantList} />
+                <RestaurantList closeRestaurantList={closeRestaurantList} onSelectRestaurant={handleSelectRestaurant}/>
             </div>
         )}
     </>

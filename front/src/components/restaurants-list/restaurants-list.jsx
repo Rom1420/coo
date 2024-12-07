@@ -3,7 +3,7 @@ import Restaurant from '../tools/restaurant/restaurant';
 import './restaurants-list.css';
 import Filter from '../tools/filter/filter';
 
-function RestaurantList({ closeRestaurantList }) {
+function RestaurantList({ closeRestaurantList, onSelectRestaurant }) {
     const [restaurants, setRestaurants] = useState([]);
 
     useEffect(() => {
@@ -24,7 +24,12 @@ function RestaurantList({ closeRestaurantList }) {
             <div className="restaurant-list">
                 <Filter text={"Filters"} type={"restaurant"} />
                 {restaurants.map((restaurant, index) => (
-                    <Restaurant key={index} restaurant={restaurant} />
+                    <div
+                        key={index}
+                        onClick={() => onSelectRestaurant(restaurant.name)} // Met à jour le restaurant sélectionné
+                    >
+                        <Restaurant restaurant={restaurant} />
+                    </div>
                 ))}
             </div>
         </div>
