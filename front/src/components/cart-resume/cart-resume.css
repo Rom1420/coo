@@ -1,0 +1,32 @@
+.cart-resume-container{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: 0 0 7rem;
+    justify-content: flex-start;
+    height: calc(100vh - 10rem);
+    box-sizing: border-box;
+}
+
+.carte-resume-title{
+    margin-left: 60px;
+}
+
+.fa-arrow-left.carte-resume{
+    color: var(--black);
+    filter: none;
+}
+
+
+.separation-line-cart-resume{
+    width: 100%;
+    height: 2px;
+    background-color: var(--light-grey);
+    margin: 15px 0px 0px;
+}
+
+.checkout-button-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

@@ -1,0 +1,9 @@
+.article-list-container {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    overflow-y: auto;
+    max-height: 30vh; 
+    box-sizing: border-box;
+    gap: 5px;
+}

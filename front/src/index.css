@@ -1,0 +1,46 @@
+@import url('./assets/font/Metropolis/metropolis.css');
+
+html,body {
+  margin: 0;
+  font-family: 'Metropolis', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+  box-sizing: border-box;
+  background-color: var(--white);
+
+  touch-action: manipulation; /* Empêche certains gestes comme le pincement */
+  overscroll-behavior: none;  /* Réduit les comportements indésirables lors du défilement */
+}
+
+@media (min-width: 700px) {
+  body {
+    width: 400px;  
+    position: relative;
+  }
+  html{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+input, textarea, select {
+  font-size: 16px; /* Empêche le zoom automatique */
+}
+
+:root{
+  --blue: #36A7E9;
+  --darker-blue: #025687;
+  --grey: #7C7D7E;
+  --grey-2: #c1c1c1;
+  --light-grey: #F2F2F2;
+  --white: #fff;
+  --star-filled: #EE5A30;
+}
+
