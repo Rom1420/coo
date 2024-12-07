@@ -42,7 +42,6 @@
     grid-template-columns: 100%;
     gap: 25px;
     min-height: 55vh;
-    margin: 0 auto;
     box-sizing: border-box;
 }
 

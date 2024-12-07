@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Restaurant from '../tools/restaurant/restaurant';
 import './restaurants-list.css';
+import Filter from '../tools/filter/filter';
 
 function RestaurantList({ closeRestaurantList }) {
     const [restaurants, setRestaurants] = useState([]);
@@ -21,6 +22,7 @@ function RestaurantList({ closeRestaurantList }) {
         <div className="restaurant-list-container">
             <i className="fa-solid fa-arrow-left restaurant-list" onClick={closeRestaurantList}></i>
             <div className="restaurant-list">
+                <Filter text={"Filters"} type={"restaurant"} />
                 {restaurants.map((restaurant, index) => (
                     <Restaurant key={index} restaurant={restaurant} />
                 ))}

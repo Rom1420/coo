@@ -1,0 +1,97 @@
+.filter-component-container{
+    display: flex;
+    width: 100%;
+    height: auto;
+    align-items: flex-end;
+    justify-content: flex-end;
+    flex-direction: column;
+}
+
+.filter-button{
+    background-color: var(--blue);
+    text-align: center;
+    padding: 10px 1rem;
+    border-radius: 50px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: var(--white);
+    white-space: nowrap;
+
+    cursor: pointer;
+}
+
+.filter-content{
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    
+    background-color: var(--light-blue); 
+    border-radius: 25px;
+
+    padding: 10px;
+    margin: 10px 0;
+    gap: 15px;
+
+    height: auto;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; 
+    overflow: hidden;
+    opacity: 0;
+}
+
+.filter-content.visible {
+    opacity: 1;
+}
+
+.filter-small-text{
+    margin: 0 10px;
+    white-space: nowrap;
+}
+
+.cuisine-type-filter-container, .date-filter-container, .time-filter-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.cuisine-type-list{
+    display: flex;
+    box-sizing: border-box;
+    background-color: var(--light-blue-2);
+    border-radius: 50px;
+    overflow: hidden;
+    border: solid 2px var(--blue);
+}
+
+.cuisine-type-scroll{
+    scrollbar-width: none; 
+    -ms-overflow-style: none;
+    overflow-x: scroll; 
+    display: flex;
+}
+
+.cuisine-type-scroll:-webkit-scrollbar {
+    display: none; 
+}
+
+.cuisine-type-element{
+    padding: 10px 10px;
+    color: var(--light-grey);
+}
+
+.cuisine-type-element.selected{
+    background-color: var(--blue);
+}
+
+.button.apply-filters{
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+}
