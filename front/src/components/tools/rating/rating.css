@@ -13,3 +13,7 @@
 .fa-star, .fa-star-half-alt {
   color: var(--star-filled);
 }
+
+.fa-star-o{
+  outline: var(--star-filled);
+}

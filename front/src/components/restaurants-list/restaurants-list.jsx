@@ -18,9 +18,8 @@ function RestaurantList({ closeRestaurantList }) {
     themeColorMetaTag.setAttribute('content', '#fff');
 
     return (
-        <div className="restaurant-container">
+        <div className="restaurant-list-container">
             <i className="fa-solid fa-arrow-left restaurant-list" onClick={closeRestaurantList}></i>
-            <h1 className='restaurant-title'>Liste des Restaurants</h1>
             <div className="restaurant-list">
                 {restaurants.map((restaurant, index) => (
                     <Restaurant key={index} restaurant={restaurant} />

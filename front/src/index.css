@@ -43,11 +43,17 @@ input::placeholder{
   color: var(--grey-2);
 }
 
+i{
+  overflow: hidden !important;
+}
+
 :root{
   --blue: #36A7E9;
+  --light-blue: #00000009;
   --darker-blue: #025687;
   --grey: #7C7D7E;
   --grey-2: #c1c1c1;
+  --grey-3: #4c4c4c;
   --light-grey: #F2F2F2;
   --white: #fff;
   --star-filled: #EE5A30;

@@ -1,15 +1,29 @@
-h1.restaurant-title{
-    margin-top: 100px;
+.restaurant-list-container{
+    height: 100%; 
+    overflow: hidden;
 }
 
 .restaurant-list{
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 5px;
     overflow-y: scroll;
+    margin: 0 10px;
+    height: 100%;
 }
 
+.restaurant-list {
+  scrollbar-width: none; 
+  -ms-overflow-style: none; 
+}
+
+.restaurant-list::-webkit-scrollbar {
+  display: none; 
+}
+
+
 .fa-arrow-left.restaurant-list{
-    color: black !important;
+    color: var(--grey) !important;
     filter: none !important;
+    top: -45px !important;
 }
