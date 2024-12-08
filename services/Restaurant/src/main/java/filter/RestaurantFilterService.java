@@ -22,6 +22,9 @@ public class RestaurantFilterService {
     }
 
     public List<Restaurant> applyFilters(List<Restaurant> restaurants, TypeCuisine cuisineType, DayOfWeek day, LocalTime time) {
+        if(cuisineType == null){
+            return filterByOpeningTime(restaurants, day, time);
+        }
         List<Restaurant> filteredByCuisine = filterByCuisineType(restaurants, cuisineType);
         return filterByOpeningTime(filteredByCuisine, day, time);
     }

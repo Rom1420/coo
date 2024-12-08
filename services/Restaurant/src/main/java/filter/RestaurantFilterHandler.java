@@ -28,6 +28,9 @@ public class RestaurantFilterHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
         String method = exchange.getRequestMethod();
+        exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
+        exchange.getResponseHeaders().set("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
+        exchange.getResponseHeaders().set("Access-Control-Allow-Headers", "Content-Type");
         try {
             if (method.equals("GET")) {
                 String path = exchange.getRequestURI().getPath();
@@ -72,12 +75,13 @@ public class RestaurantFilterHandler implements HttpHandler {
 
         List<Restaurant> filteredRestaurants = restaurantFilterService.applyFilters(restaurants, cuisineType, day, time);
 
-        String response = JaxsonUtils.toJson(filteredRestaurants);
+        String jsonResponse = JaxsonUtils.toJson(filteredRestaurants);
+        byte[] responseBytes = jsonResponse.getBytes(StandardCharsets.UTF_8);
+
         exchange.getResponseHeaders().set("Content-Type", "application/json");
-        exchange.sendResponseHeaders(200, response.length());
-        OutputStream os = exchange.getResponseBody();
-        os.write(response.getBytes(StandardCharsets.UTF_8));
-        os.close();
+        exchange.sendResponseHeaders(200, responseBytes.length);
+        exchange.getResponseBody().write(responseBytes);
+        exchange.close();
     }
 
     private void sendErrorResponse(HttpExchange exchange, int statusCode, String message) throws IOException {

@@ -153,30 +153,28 @@ public class Restaurant {
                 LocalTime closingTime = entry.getValue().getValue();
 
                 if (!hour.isBefore(openingTime) && !hour.isAfter(closingTime)) {
-                    this.isOpen = true;
                     return true;
                 }
             }
-            this.isOpen = false;
             return false;
         }
 
         // Vérifie uniquement par jour, sans heure
         if (hour == null && date != null) {
-            this.isOpen = this.weeklySchedules.containsKey(date);
+            return this.weeklySchedules.containsKey(date);
+        }
+
+        if (hour == null && date == null) {
             return this.isOpen;
         }
 
         // Vérifie par jour et heure
         Map.Entry<LocalTime, LocalTime> schedules = this.weeklySchedules.get(date);
         if (schedules == null) {
-            this.isOpen = false;
             return false;
         }
 
-        boolean withinOpeningHours = !hour.isBefore(schedules.getKey()) && !hour.isAfter(schedules.getValue());
-        this.isOpen = withinOpeningHours;
-        return withinOpeningHours;
+        return !hour.isBefore(schedules.getKey()) && !hour.isAfter(schedules.getValue());
     }
 
 

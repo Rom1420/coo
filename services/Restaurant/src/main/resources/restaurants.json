@@ -26,13 +26,29 @@
     ],
     "menusOfRestaurant": [],
     "weeklySchedules": {
-      "MONDAY": {
-        "closing": "22:00",
-        "opening": "07:00"
-      },
       "TUESDAY": {
         "closing": "22:00",
         "opening": "07:00"
+      },
+      "WEDNESDAY": {
+        "closing": "22:00",
+        "opening": "07:00"
+      },
+      "THURSDAY": {
+        "closing": "22:00",
+        "opening": "07:00"
+      },
+      "FRIDAY": {
+        "closing": "23:00",
+        "opening": "07:00"
+      },
+      "SATURDAY": {
+        "closing": "23:00",
+        "opening": "08:00"
+      },
+      "SUNDAY": {
+        "closing": "21:00",
+        "opening": "08:00"
       }
     },
     "nbOfCook": 10,
@@ -61,12 +77,24 @@
     "menusOfRestaurant": [],
     "weeklySchedules": {
       "MONDAY": {
-        "closing": "23:00",
+        "closing": "22:00",
         "opening": "08:00"
       },
       "TUESDAY": {
-        "closing": "23:00",
+        "closing": "22:00",
         "opening": "08:00"
+      },
+      "THURSDAY": {
+        "closing": "23:00",
+        "opening": "09:00"
+      },
+      "FRIDAY": {
+        "closing": "23:00",
+        "opening": "09:00"
+      },
+      "SATURDAY": {
+        "closing": "23:00",
+        "opening": "10:00"
       }
     },
     "nbOfCook": 12,
@@ -101,6 +129,22 @@
       "TUESDAY": {
         "closing": "20:00",
         "opening": "10:00"
+      },
+      "WEDNESDAY": {
+        "closing": "21:00",
+        "opening": "11:00"
+      },
+      "FRIDAY": {
+        "closing": "22:00",
+        "opening": "12:00"
+      },
+      "SATURDAY": {
+        "closing": "23:00",
+        "opening": "10:00"
+      },
+      "SUNDAY": {
+        "closing": "20:00",
+        "opening": "11:00"
       }
     },
     "nbOfCook": 8,
@@ -135,13 +179,25 @@
     ],
     "menusOfRestaurant": [],
     "weeklySchedules": {
-      "MONDAY": {
-        "closing": "21:00",
-        "opening": "09:00"
-      },
       "TUESDAY": {
         "closing": "21:00",
         "opening": "09:00"
+      },
+      "WEDNESDAY": {
+        "closing": "21:00",
+        "opening": "09:00"
+      },
+      "THURSDAY": {
+        "closing": "21:00",
+        "opening": "09:00"
+      },
+      "FRIDAY": {
+        "closing": "22:00",
+        "opening": "09:00"
+      },
+      "SATURDAY": {
+        "closing": "22:00",
+        "opening": "10:00"
       }
     },
     "nbOfCook": 15,
@@ -176,6 +232,22 @@
       "TUESDAY": {
         "closing": "22:00",
         "opening": "11:00"
+      },
+      "THURSDAY": {
+        "closing": "22:00",
+        "opening": "11:00"
+      },
+      "FRIDAY": {
+        "closing": "23:00",
+        "opening": "12:00"
+      },
+      "SATURDAY": {
+        "closing": "23:00",
+        "opening": "12:00"
+      },
+      "SUNDAY": {
+        "closing": "21:00",
+        "opening": "12:00"
       }
     },
     "nbOfCook": 7,
