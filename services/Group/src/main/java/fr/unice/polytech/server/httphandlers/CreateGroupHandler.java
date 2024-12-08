@@ -37,7 +37,7 @@ public class CreateGroupHandler implements HttpHandler {
                     askToCreateGroup(exchange);
                     break;
                 case "OPTIONS":
-                    exchange.sendResponseHeaders(HttpUtils.OK_CODE, -1);
+                    exchange.sendResponseHeaders(fr.unice.polytech.server.httphandlers.HttpUtils.OK_CODE, -1);
                     break;
                 default:
                     exchange.sendResponseHeaders(HttpUtils.BAD_REQUEST_CODE, 0);
@@ -91,12 +91,14 @@ public class CreateGroupHandler implements HttpHandler {
         Restaurant restaurant = new Restaurant(restaurantRequest.name(), discountType);
         Integer groupId = GroupOrderManager.getGroupOrderManagerInstance().getGroupOrderIdAndIncrease();
 
-        CreateGroup.createGroup(groupId,
+        CreateGroup.createGroup(
+                groupId,
+                groupCreationRequest.groupName(),
                 restaurant,
                 groupCreationRequest.deliveryDate(),
                 groupCreationRequest.deliveryLocation());
 
-        String response = "L'identifiant de votre groupe est: "+groupId;
+        String response = ""+groupId;
 
         // Envoyer la réponse au client
         exchange.getResponseHeaders().set("Content-Type", "text/plain");
@@ -115,6 +117,7 @@ public class CreateGroupHandler implements HttpHandler {
     }
 
     public record GroupCreationRequest(
+            String groupName,
             RestaurantRequest restaurant,
             Date deliveryDate,
             String deliveryLocation) {

@@ -11,6 +11,7 @@ import java.util.Map;
 
 import static fr.unice.polytech.entities.DiscountType.*;
 
+
 //Le moteur de réduction est le cœur qui choisit et applique la stratégie :
 
 public class DiscountEngine {
