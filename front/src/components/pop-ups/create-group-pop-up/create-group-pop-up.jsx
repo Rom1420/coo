@@ -134,12 +134,12 @@ function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible}) {
                 <Button text="Create Group Order" onClick={handleCreateClick}/>
             </div>
         </div>
-    </div>
         {isRestaurantListVisible && (
             <div className={`restaurants-list-popup ${isHidden ? 'hidden' : ''}`}>
                 <RestaurantList closeRestaurantList={closeRestaurantList} onSelectRestaurant={handleSelectRestaurant}/>
             </div>
         )}
+    </div>
     </>
   );
 }

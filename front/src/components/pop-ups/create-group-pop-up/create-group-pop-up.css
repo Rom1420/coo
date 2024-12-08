@@ -122,10 +122,10 @@
 
 .restaurants-list-popup{
   position: absolute;
-  bottom: 0;
+  top: 60px;
   left: 0;
   right: 0;
-  height: 55%; 
+  height: 85%; 
   background: white;
   border-radius: 15px 15px 0 0;
   animation: slideInFromBottom 0.3s ease-out forwards;
