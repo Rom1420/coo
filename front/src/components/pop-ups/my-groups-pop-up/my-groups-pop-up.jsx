@@ -3,7 +3,8 @@ import Button from '../../tools/button/button'; // Assurez-vous que Button est b
 import { useState } from 'react';
 
 function MyGroupsPopUp({ onClose, closing }) {
-    const mockJoinedGroups = [
+    // Récupérer les groupes rejoins qui sont en état pending !!!
+    const [joinedGroups, setJoinedGroups] = useState([
         {
             id: 1,
             groupName: "Pizza Lovers",
@@ -22,11 +23,31 @@ function MyGroupsPopUp({ onClose, closing }) {
             deliveryLocation: "789 Sushi Road, Fishburg",
             status: "pending"
         }
-    ];
+    ]);
 
-    const handleValidateGroup = (groupId) => {
-        console.log("Group validated: ", groupId);
-        // Ajoutez votre logique pour valider le groupe ici
+    // Fonction pour valider le groupe
+    const handleValidateGroup = async (groupId) => {
+        try {
+            const response = await fetch(`http://localhost:8003/api/group/validate?groupId=${groupId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (response.ok) {
+                setJoinedGroups(prevGroups =>
+                    prevGroups.map(group =>
+                        group.id === groupId ? { ...group, status: 'validated' } : group
+                    )
+                );
+                console.log("Group validated successfully");
+            } else {
+                console.error("Error validating group:", response.statusText);
+            }
+        } catch (error) {
+            console.error("An error occurred:", error);
+        }
     };
 
     return (
@@ -36,9 +57,9 @@ function MyGroupsPopUp({ onClose, closing }) {
                 <h4 className="popup-title">My Groups</h4>
                 <div className="separation-line"></div>
                 <div className="groups-list-container">
-                    {mockJoinedGroups && mockJoinedGroups.length > 0 ? (
+                    {joinedGroups && joinedGroups.length > 0 ? (
                         <ul className="groups-list">
-                            {mockJoinedGroups.map((group, index) => (
+                            {joinedGroups.map((group, index) => (
                                 <li key={index}>
                                     <div>
                                         <strong>{group.groupName}</strong>
