@@ -30,7 +30,11 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
+            <dependency>
+                <groupId>fr.unice.polytech.core</groupId>
+                <artifactId>Core</artifactId>
+                <version>1.0</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -90,6 +94,11 @@
             <groupId>info.picocli</groupId>
             <artifactId>picocli</artifactId>
             <version>4.7.0</version>
+        </dependency>
+        <dependency>
+            <groupId>fr.unice.polytech.core</groupId>
+            <artifactId>Core</artifactId>
+            <version>1.0</version>
         </dependency>
 
     </dependencies>

@@ -13,6 +13,9 @@ import java.util.*;
 
 public class GroupOrderImpl implements GroupOrderInterface {
     private int groupId;
+
+    private String groupName;
+
     private Map<Integer, Order> usersOrders;
 
     private Restaurant restaurant;
@@ -40,8 +43,9 @@ public class GroupOrderImpl implements GroupOrderInterface {
         this.status = "pending";
     }
 
-    public GroupOrderImpl(int groupId, Restaurant restaurant, Date deliveryDate, String deliveryLocation) {
+    public GroupOrderImpl(int groupId, String groupName, Restaurant restaurant, Date deliveryDate, String deliveryLocation) {
         this.groupId = groupId;
+        this.groupName = groupName;
         this.usersOrders = new HashMap<>();
         this.restaurant = restaurant;
         this.deliveryDate = deliveryDate;
@@ -53,6 +57,7 @@ public class GroupOrderImpl implements GroupOrderInterface {
     @JsonCreator
     public GroupOrderImpl(
             @JsonProperty("groupId") int groupId,
+            @JsonProperty("groupName") String groupName,
             @JsonProperty("usersOrders") Map<Integer, Order> usersOrders,
             @JsonProperty("restaurant") Restaurant restaurant,
             @JsonProperty("groupOrderDeliveryDate") Date deliveryDate,
@@ -61,6 +66,7 @@ public class GroupOrderImpl implements GroupOrderInterface {
             @JsonProperty("status") String status,
             @JsonProperty("totalPreparationTime") int totalPreparationTime){
         this.groupId = groupId;
+        this.groupName = groupName;
         this.usersOrders = usersOrders != null ? usersOrders : new HashMap<>();
         this.restaurant = restaurant;
         this.deliveryDate = deliveryDate;
@@ -70,6 +76,10 @@ public class GroupOrderImpl implements GroupOrderInterface {
         this.discountEngine = new DiscountEngine();
         this.totalPreparationTime = totalPreparationTime;
     }
+
+    public void setGroupName(String groupName) {this.groupName = groupName;}
+
+    public String getGroupName() {return this.groupName;}
 
     public void setGroupOrderRestaurant(Restaurant restaurant) {this.restaurant = restaurant;}
 
