@@ -70,7 +70,7 @@ function HomePage({onOrderNowClick}) {
 
   return (
     <div className="home">
-        {( isJoinGroupPopUpVisible || isCreateGroupPopUpVisible || isValidationPopUpVisible || isValidationCreatePopUpVisible )
+        {( isJoinGroupPopUpVisible || isCreateGroupPopUpVisible || isValidationPopUpVisible || isValidationCreatePopUpVisible || isMyGroupsPopUpVisible)
               && <div className="darker-overlay"></div>}
         <Tmax/>
         <h3 className="small-text">Order your favorite food delivered fast, wherever you are</h3>
