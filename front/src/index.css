@@ -15,7 +15,7 @@ html,body {
 
 @media (min-width: 700px) {
   body {
-    width: 400px;  
+    width: 400px;
     position: relative;
   }
   html{
