@@ -1,0 +1,82 @@
+{
+  "1" : {
+    "menus" : [ {
+      "name" : "Menu 1",
+      "price" : 25.0,
+      "articlesInMenu" : [ {
+        "name" : "Burger",
+        "price" : 10.0,
+        "timeRequiredForPreparation" : 5,
+        "categorie" : "PLAT",
+        "description" : null
+      }, {
+        "name" : "Fries",
+        "price" : 5.0,
+        "timeRequiredForPreparation" : 3,
+        "categorie" : "ACCOMPAGNEMENT",
+        "description" : null
+      } ],
+      "timeRequiredForPreparation" : 15
+    }, {
+      "name" : "Menu 2",
+      "price" : 20.0,
+      "articlesInMenu" : [ {
+        "name" : "Pizza",
+        "price" : 12.0,
+        "timeRequiredForPreparation" : 8,
+        "categorie" : "PLAT",
+        "description" : null
+      }, {
+        "name" : "Milkshake",
+        "price" : 3.0,
+        "timeRequiredForPreparation" : 2,
+        "categorie" : "DESSERT",
+        "description" : null
+      } ],
+      "timeRequiredForPreparation" : 10
+    } ],
+    "articles" : [ ],
+    "id" : 1,
+    "orderId" : 1
+  },
+  "2" : {
+    "menus" : [ {
+      "name" : "Menu 1",
+      "price" : 25.0,
+      "articlesInMenu" : [ {
+        "name" : "Burger",
+        "price" : 10.0,
+        "timeRequiredForPreparation" : 5,
+        "categorie" : "PLAT",
+        "description" : null
+      }, {
+        "name" : "Fries",
+        "price" : 5.0,
+        "timeRequiredForPreparation" : 3,
+        "categorie" : "ACCOMPAGNEMENT",
+        "description" : null
+      } ],
+      "timeRequiredForPreparation" : 15
+    }, {
+      "name" : "Menu 2",
+      "price" : 20.0,
+      "articlesInMenu" : [ {
+        "name" : "Pizza",
+        "price" : 12.0,
+        "timeRequiredForPreparation" : 8,
+        "categorie" : "PLAT",
+        "description" : null
+      }, {
+        "name" : "Milkshake",
+        "price" : 3.0,
+        "timeRequiredForPreparation" : 2,
+        "categorie" : "DESSERT",
+        "description" : null
+      } ],
+      "timeRequiredForPreparation" : 10
+    } ],
+    "articles" : [ ],
+    "id" : 2,
+    "orderId" : 2
+  }
+}
