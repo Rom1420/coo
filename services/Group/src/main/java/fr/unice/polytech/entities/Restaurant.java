@@ -2,7 +2,6 @@ package fr.unice.polytech.entities;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import fr.unice.polytech.entities.DiscountType;
 
 public class Restaurant {
     private String name;
