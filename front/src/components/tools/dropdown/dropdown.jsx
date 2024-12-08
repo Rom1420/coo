@@ -1,7 +1,7 @@
 import Button from '../button/button';
 import './dropdown.css';
 
-function Dropdown({selectedRestaurant, onRestaurantChange, onDetailsClick}) {
+function Dropdown({selectedRestaurant, onRestaurantChange, onDetailsClick, id}) {
 
 
     // Liste des restaurants (à récupérer via l'API des restautants)
@@ -17,7 +17,7 @@ function Dropdown({selectedRestaurant, onRestaurantChange, onDetailsClick}) {
     <div className="dropdown-container">
       {/* <label htmlFor="restaurant-select" className="dropdown-label">Group Restaurant: </label> */}
       <select
-        id="restaurant-select"
+        id={id}
         value={selectedRestaurant}
         onChange={(e) => onRestaurantChange(e.target.value)}
         className={`restaurant-dropdown ${selectedRestaurant === '' ? 'placeholder-active' : 'value-selected'}`}

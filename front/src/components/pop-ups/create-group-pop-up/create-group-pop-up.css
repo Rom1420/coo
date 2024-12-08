@@ -135,3 +135,8 @@
 .restaurants-list-popup.hidden{
   animation: slideOutToBottom 0.3s ease-out forwards;
 }
+
+
+.empty{
+  border: solid 2px red !important;
+}

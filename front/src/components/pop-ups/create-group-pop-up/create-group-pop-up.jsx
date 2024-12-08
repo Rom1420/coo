@@ -41,9 +41,31 @@ function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible}) {
     }, 300);
   };*/
 
+    function emptyInputs() {
+        const inputs = [
+            { id: 'groupName', value: groupName },
+            { id: 'groupDeliveryLocation', value: deliveryLocation },
+            { id: 'selectedRestaurant', value: selectedRestaurant },
+        ];
+
+        inputs.forEach(({ id, value }) => {
+            const element = document.querySelector(`#${id}`);
+            if (element) {
+                if (value) {
+                    element.classList.remove('empty');
+                } else {
+                    element.classList.add('empty');
+                }
+            } else {
+                console.error(`Element with id "${id}" not found`);
+            }
+        });
+    }
+
     const handleCreateClick = () => {
+        emptyInputs();
+
         if (!groupName || !deliveryLocation || !selectedRestaurant) {
-            alert('Fill all the fields before creating the group !');
             return;
         }
 
@@ -88,10 +110,11 @@ function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible}) {
             </h4>
             <div className="separation-line"></div>
             <div className={`input-button-container ${isToggleSwitchOn ? 'expanded' : 'collapsed'}`}>
-                <Input placeholder="Group Name" value={groupName} onChange={(e) => setGroupName(e.target.value)}
+                <Input placeholder="Group Name" id='groupName' value={groupName} onChange={(e) => setGroupName(e.target.value)}
                 />
-                <Input placeholder="Group Delivery Location" value={deliveryLocation} onChange={(e) => setDeliveryLocation(e.target.value)} />
+                <Input placeholder="Group Delivery Location" id='groupDeliveryLocation' value={deliveryLocation} onChange={(e) => setDeliveryLocation(e.target.value)} />
                 <Dropdown 
+                    id="selectedRestaurant"
                     selectedRestaurant={selectedRestaurant}
                     onRestaurantChange={(value) => setSelectedRestaurant(value)}
                     onDetailsClick={() => setIsRestaurantListVisible(true)}
