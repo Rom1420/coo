@@ -28,12 +28,7 @@ function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible, se
       setSelectedRestaurant(event.target.value);
   }
 
-/*  const handleCreateClick = () => {
-    onClose(); 
-    setTimeout(() => {
-      setValidationCreatePopUpVisible(true);
-    }, 300);
-  };*/
+
 
     const handleCreateClick = () => {
         if (!groupName || !deliveryLocation || !selectedRestaurant) {
@@ -41,17 +36,32 @@ function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible, se
             return;
         }
 
-        const groupData = {
-            name: groupName,
-            location: deliveryLocation,
-            restaurant: selectedRestaurant,
-            deliveryTime: isToggleSwitchOn ? `${deliveryTime.hours}:${deliveryTime.minutes}` : null,
-        };
-        console.log('Group Data to be sent:', groupData);
+        let deliveryDate = null;
+        if (isToggleSwitchOn) {
+            const currentDate = new Date();
+            const deliveryHours = parseInt(deliveryTime.hours, 10) || 0;
+            const deliveryMinutes = parseInt(deliveryTime.minutes, 10) || 0;
 
-        const mockedId = 1234567; // Simulez un ID
-        setGroupId(mockedId); // Appelle la fonction du parent pour définir l'ID
-        console.log('Mocked Group ID set in parent:', mockedId);
+            // Créez une date avec les heures et minutes spécifiés
+            currentDate.setHours(deliveryHours);
+            currentDate.setMinutes(deliveryMinutes);
+            currentDate.setSeconds(0);
+            currentDate.setMilliseconds(0);
+
+            deliveryDate = currentDate.getTime(); // en millisecondes
+        }
+
+        const groupData = {
+            groupName: groupName,
+            deliveryLocation: deliveryLocation,
+            restaurant: {
+                name: selectedRestaurant,
+                discountType: "LOYALTY", // Par défaut, ajustez si besoin
+            },
+            deliveryDate: deliveryDate,
+        };
+
+        console.log('Group Data to be sent:', groupData);
 
 
         onClose();
@@ -60,23 +70,30 @@ function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible, se
         }, 300);
 
 
+        fetch('http://localhost:8001/api/group/create', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(groupData),
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then((data) => {
+                if (data.id) {
+                    setGroupId(data.id);
+                    setValidationCreatePopUpVisible(true);
+                } else {
+                    console.error('Error: ID not returned by the API');
+                }
+            })
+            .catch((error) => {
+                console.error('API Request Failed:', error);
+                alert('Failed to create group. Please try again later.');
+            });
 
-
-        /*        fetch('/api/groups', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(groupData),
-                })
-                    .then((response) => response.json())
-                    .then((data) => {
-                        if (data.id) {
-                            setGroupId(data.id); // Stocke l'ID du groupe
-                            setValidationCreatePopUpVisible(true); // Ouvre la validation
-                        } else {
-                            console.error('Erreur : ID du groupe non reçu');
-                        }
-                    })
-                    .catch((error) => console.error('Erreur lors de la requête API :', error));*/
     };
 
   return (

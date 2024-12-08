@@ -1,6 +1,7 @@
 package fr.unice.polytech.server.httphandlers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+import fr.unice.polytech.components.GroupOrderProxy;
 import fr.unice.polytech.db.GroupOrderManager;
 import fr.unice.polytech.entities.DiscountType;
 import fr.unice.polytech.entities.Restaurant;
@@ -10,10 +11,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.logging.Logger;
-import java.util.Date;
 
 public class CreateGroupHandler implements HttpHandler {
 
@@ -21,6 +20,10 @@ public class CreateGroupHandler implements HttpHandler {
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
+        // Configuration des en-têtes CORS
+        exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
+        exchange.getResponseHeaders().set("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
+        exchange.getResponseHeaders().set("Access-Control-Allow-Headers", "Content-Type");
         logger.info("CreateGroupHandler called");
         String method = exchange.getRequestMethod();
         logger.info(exchange.getRequestMethod());
@@ -28,7 +31,7 @@ public class CreateGroupHandler implements HttpHandler {
             switch (method) {
                 case "GET":
                     logger.info("GET method called");
-                    answerWithAllGroupsIds(exchange);
+                    answerWithAllGroups(exchange);
                     break;
                 case "POST":
                     logger.info("POST method called");
@@ -48,18 +51,27 @@ public class CreateGroupHandler implements HttpHandler {
         }
     }
 
-    private void answerWithAllGroupsIds(HttpExchange exchange) throws IOException {
-        logger.info(String.valueOf(GroupOrderManager.getGroupOrderManagerInstance().getGroupOrders().size()));
-        List<Integer> groupIds = new ArrayList<>();
-        groupIds.addAll(GroupOrderManager.getGroupOrderManagerInstance().getGroupOrders().keySet());
+    private void answerWithAllGroups(HttpExchange exchange) throws IOException {
+        // Configuration des en-têtes CORS
+        exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
+        exchange.getResponseHeaders().set("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
+        exchange.getResponseHeaders().set("Access-Control-Allow-Headers", "Content-Type");
+        Map<Integer, GroupOrderProxy> groupOrders = GroupOrderManager.getGroupOrderManagerInstance().getGroupOrders();
+        List<GroupOrderProxy> groupDetailsList = new ArrayList<>(groupOrders.values());
+        String jsonResponse = JaxsonUtils.toJson(groupDetailsList);
         exchange.getResponseHeaders().set("Content-Type", "application/json");
-        String response = JaxsonUtils.toJson(groupIds);
-        exchange.sendResponseHeaders(200, response.length());
-        exchange.getResponseBody().write(response.getBytes());
+        exchange.sendResponseHeaders(200, jsonResponse.getBytes(StandardCharsets.UTF_8).length);
+        exchange.getResponseBody().write(jsonResponse.getBytes(StandardCharsets.UTF_8));
         exchange.close();
     }
 
+
     private void askToCreateGroup(HttpExchange exchange) throws IOException {
+        // Configuration des en-têtes CORS
+        exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
+        exchange.getResponseHeaders().set("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
+        exchange.getResponseHeaders().set("Access-Control-Allow-Headers", "Content-Type");
+
         InputStream is = exchange.getRequestBody();
         String jsonBody = new String(is.readAllBytes(), StandardCharsets.UTF_8);
         logger.info(jsonBody);
@@ -96,17 +108,24 @@ public class CreateGroupHandler implements HttpHandler {
                 groupCreationRequest.deliveryDate(),
                 groupCreationRequest.deliveryLocation());
 
-        String response = ""+groupId;
+        Map<String, Object> responseMap = new HashMap<>();
+        responseMap.put("id", groupId);
+        responseMap.put("groupName", groupCreationRequest.groupName());
 
-        // Envoyer la réponse au client
-        exchange.getResponseHeaders().set("Content-Type", "text/plain");
-        exchange.sendResponseHeaders(201, response.getBytes().length);
+        String jsonResponse = JaxsonUtils.toJson(responseMap);
+
+        exchange.getResponseHeaders().set("Content-Type", "application/json");
+        exchange.sendResponseHeaders(201, jsonResponse.getBytes(StandardCharsets.UTF_8).length);
         OutputStream os = exchange.getResponseBody();
-        os.write(response.getBytes());
+        os.write(jsonResponse.getBytes(StandardCharsets.UTF_8));
         os.close();
     }
 
     private void sendErrorResponse(HttpExchange exchange, int statusCode, String message) throws IOException {
+        // Configuration des en-têtes CORS
+        exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
+        exchange.getResponseHeaders().set("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
+        exchange.getResponseHeaders().set("Access-Control-Allow-Headers", "Content-Type");
         exchange.getResponseHeaders().set("Content-Type", "text/plain");
         String response = "{\"error\": \"" + message + "\"}";
         exchange.sendResponseHeaders(statusCode, response.getBytes().length);
