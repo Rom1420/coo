@@ -8,8 +8,13 @@ function RestaurantList({ closeRestaurantList, onSelectRestaurant }) {
 
     useEffect(() => {
         // Charge les données des restaurants depuis le fichier JSON
-        fetch('/restaurants.json')
-            .then((response) => response.json())
+        fetch('http://localhost:8080/api/restaurant')
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
             .then((data) => setRestaurants(data))
             .catch((error) => console.error('Erreur lors du chargement des données:', error));
     }, []);
