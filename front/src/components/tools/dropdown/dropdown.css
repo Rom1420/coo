@@ -1,0 +1,56 @@
+.dropdown-container{
+    display: grid; 
+    justify-content: start;
+    grid-template-rows: 1fr;
+    grid-template-columns: 65% 1fr;
+    gap: 10px; 
+    margin: 0; 
+
+    align-items: stretch;
+    justify-items: stretch;
+}
+
+.dropdown-label {
+    font-size: 16px;
+}
+
+.restaurant-dropdown {
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: var(--arrow-icon-down) no-repeat right 0.8em center / 1.4em,
+              linear-gradient(to left, var(--arrow-bg) 3em, var(--select-bg) 3em);
+    appearance: none;
+    color: var(--grey-2);
+}
+
+.restaurant-dropdown.placeholder-active {
+  color: var(--grey-2); /* Placeholder */
+}
+
+.restaurant-dropdown.value-selected {
+  color: var(--grey); 
+}
+
+select.restaurant-dropdown{
+    appearance: none;
+    outline: 0;
+    font: inherit;
+    width: 100%;
+    color: var(--grey);
+    background-color: var(--light-grey);
+    height: 100%;
+    padding-left: 30px;
+    border-radius: 50px;
+    border: none;
+}
+
+.restaurant-dropdown:focus {
+  outline: solid 2px var(--blue);
+}
+
+.restaurant-dropdown option {
+  background-color: var(--light-grey);
+  color: var(--grey);
+}

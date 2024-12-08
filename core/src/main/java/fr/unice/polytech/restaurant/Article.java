@@ -9,6 +9,8 @@ public class Article {
     // Ajout de la catégorie pour le filtrage
 
     private Categorie categorie;
+    public Article() {
+    }
     public Article(String name,float price,int timeRequiredForPreparation, Categorie categorie){
         this.name=name;
         this.price=price;

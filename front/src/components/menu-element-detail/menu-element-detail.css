@@ -37,6 +37,7 @@
     padding: 20px;
     z-index: 2;
     overflow-y: scroll;
+    scrollbar-width: none;
 }
 
 .menu-element-content{

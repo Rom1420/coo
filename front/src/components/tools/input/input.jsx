@@ -1,8 +1,9 @@
 import './input.css';
 
-function Input({ placeholder, value, onChange }) {
+function Input({ placeholder, value, onChange, id }) {
   return (
       <input
+          id={id}
           type="text"
           className="input"
           placeholder={placeholder}

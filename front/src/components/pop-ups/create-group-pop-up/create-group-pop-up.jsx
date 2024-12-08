@@ -3,9 +3,12 @@ import Button from '../../tools/button/button';
 import Input from '../../tools/input/input';
 import ToggleSwitch from '../../tools/toggle-switch/toggle-switch';
 import { useState } from 'react';
+import Dropdown from '../../tools/dropdown/dropdown';
+import RestaurantList from '../../restaurants-list/restaurants-list';
 
 function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible, setGroupId}) {
 
+<<<<<<< HEAD
   const [isToggleSwitchOn, setIsToggleSwitchOn] = useState(false);
   const [selectedRestaurant, setSelectedRestaurant] = useState('');
   const [groupName, setGroupName] = useState('');
@@ -27,6 +30,33 @@ function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible, se
   const handleRestaurantChange = (event) => {
       setSelectedRestaurant(event.target.value);
   }
+=======
+    const [isToggleSwitchOn, setIsToggleSwitchOn] = useState(false);
+    const [selectedRestaurant, setSelectedRestaurant] = useState('');
+    const [groupName, setGroupName] = useState('');
+    const [deliveryLocation, setDeliveryLocation] = useState('');
+    const [deliveryTime, setDeliveryTime] = useState({ hours: '', minutes: '' });
+    const [isRestaurantListVisible, setIsRestaurantListVisible] = useState(false);
+    const [isHidden, setIsHidden] = useState(false); 
+
+    const closeRestaurantList = () => {
+        setIsHidden(true); 
+        setTimeout(() => {
+            setIsRestaurantListVisible(false); 
+            setIsHidden(false); 
+        }, 100); 
+    };
+
+    const handleSelectRestaurant = (restaurantName) => {
+        setSelectedRestaurant(restaurantName); 
+        closeRestaurantList(); 
+    };
+
+
+    const handleToggleSwitch = () => {
+        setIsToggleSwitchOn((prevState) => !prevState);
+    };
+>>>>>>> d41345c36846d3d8678874e0d63aa30edfa25653
 
 /*  const handleCreateClick = () => {
     onClose(); 
@@ -35,9 +65,31 @@ function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible, se
     }, 300);
   };*/
 
+    function emptyInputs() {
+        const inputs = [
+            { id: 'groupName', value: groupName },
+            { id: 'groupDeliveryLocation', value: deliveryLocation },
+            { id: 'selectedRestaurant', value: selectedRestaurant },
+        ];
+
+        inputs.forEach(({ id, value }) => {
+            const element = document.querySelector(`#${id}`);
+            if (element) {
+                if (value) {
+                    element.classList.remove('empty');
+                } else {
+                    element.classList.add('empty');
+                }
+            } else {
+                console.error(`Element with id "${id}" not found`);
+            }
+        });
+    }
+
     const handleCreateClick = () => {
+        emptyInputs();
+
         if (!groupName || !deliveryLocation || !selectedRestaurant) {
-            alert('Fill all the fields before creating the group !');
             return;
         }
 
@@ -80,31 +132,26 @@ function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible, se
     };
 
   return (
+    <>
     <div className={`create-group-container ${closing ? 'closing' : ''} ${isToggleSwitchOn ? 'expanded' : 'collapsed'}`}>
         <div className="popup-content">
-            <i className="fa-solid fa-xmark" onClick={onClose}></i>
-            <h4 className='popup-title'>Create Group Order</h4>
+            {!isRestaurantListVisible &&
+                <i className="fa-solid fa-xmark" onClick={onClose}></i>
+            }
+            <h4 className='popup-title'>
+                {isRestaurantListVisible ? 'Restaurants List' : 'Create Group Order'}
+            </h4>
             <div className="separation-line"></div>
             <div className={`input-button-container ${isToggleSwitchOn ? 'expanded' : 'collapsed'}`}>
-                <Input placeholder="Group Name" value={groupName} onChange={(e) => setGroupName(e.target.value)}
+                <Input placeholder="Group Name" id='groupName' value={groupName} onChange={(e) => setGroupName(e.target.value)}
                 />
-                <Input placeholder="Group Delivery Location" value={deliveryLocation} onChange={(e) => setDeliveryLocation(e.target.value)} />
-                <div className="dropdown-container">
-                    <label htmlFor="restaurant-select" className="dropdown-label">Group Restaurant: </label>
-                    <select
-                        id="restaurant-select"
-                        value={selectedRestaurant}
-                        onChange={handleRestaurantChange}
-                        className="restaurant-dropdown"
-                    >
-                        <option value="" disabled>Select a restaurant</option>
-                        {restaurantOptions.map((restaurant, index) => (
-                            <option key={index} value={restaurant}>
-                                {restaurant}
-                            </option>
-                        ))}
-                    </select>
-                </div>
+                <Input placeholder="Group Delivery Location" id='groupDeliveryLocation' value={deliveryLocation} onChange={(e) => setDeliveryLocation(e.target.value)} />
+                <Dropdown 
+                    id="selectedRestaurant"
+                    selectedRestaurant={selectedRestaurant}
+                    onRestaurantChange={(value) => setSelectedRestaurant(value)}
+                    onDetailsClick={() => setIsRestaurantListVisible(true)}
+                />
                 <div className="delivery-time-container">
                     <div className="delivery-time-header">
                         <h5 className='delivery-time-text'>Choose Delivery Time</h5>
@@ -120,7 +167,13 @@ function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible, se
                 <Button text="Create Group Order" onClick={handleCreateClick}/>
             </div>
         </div>
+        {isRestaurantListVisible && (
+            <div className={`restaurants-list-popup ${isHidden ? 'hidden' : ''}`}>
+                <RestaurantList closeRestaurantList={closeRestaurantList} onSelectRestaurant={handleSelectRestaurant}/>
+            </div>
+        )}
     </div>
+    </>
   );
 }
 

@@ -1,19 +1,32 @@
 .restaurant-component-container{
-    background-color: var(--light-grey);
-    padding: 25px;
-    margin: 5px;
     border-radius: 25px;
-    filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.2));
+    display: flex;
+    height: 15vh;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: var(--light-blue);
+    cursor: pointer;
 }
 
 .restaurant-component-image{
-    width: 100%;
-    height: auto;
-    border-radius: 25px;
+    width: 45%;
+    height: 100%;
+    border-radius: 25px 0px 0px 25px; 
+    object-fit: cover;
+}
+
+.restaurant-component-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-left: 15px;
+    gap: 0px;
 }
 
 .restaurant-component-name{
-    color: var(--blue);
+    color: var(--grey-3);
+    margin-bottom: 10px;
 }
 
 .restaurant-component-none{
@@ -21,7 +34,7 @@
 }
 
 p.restaurant-component{
-    margin: 2px 2px 2px 20px;
+    margin: 2px 2px 2px 0px;
 }
 
 h3.restaurant-component{
@@ -31,5 +44,14 @@ h3.restaurant-component{
 ul.restaurant-component {
     list-style: none; 
     padding: 0; 
-    margin: 0 0 0 20px; 
+    margin: 0; 
+}
+
+.restaurant-component.open{
+    color: green;
+    font-weight: bolder;
+}
+
+.restaurant-component.close{
+    color: red;
 }
