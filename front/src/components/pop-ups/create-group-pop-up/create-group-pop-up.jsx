@@ -4,7 +4,7 @@ import Input from '../../tools/input/input';
 import ToggleSwitch from '../../tools/toggle-switch/toggle-switch';
 import { useState } from 'react';
 
-function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible, setGroupId}) {
+function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible, setGroupId, setGroupNameFB}) {
 
   const [isToggleSwitchOn, setIsToggleSwitchOn] = useState(false);
   const [selectedRestaurant, setSelectedRestaurant] = useState('');
@@ -82,8 +82,9 @@ function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible, se
                 return response.json();
             })
             .then((data) => {
-                if (data.id) {
+                if (data.id && data.groupName) {
                     setGroupId(data.id);
+                    setGroupNameFB(data.groupName);
                     setValidationCreatePopUpVisible(true);
                 } else {
                     console.error('Error: ID not returned by the API');
