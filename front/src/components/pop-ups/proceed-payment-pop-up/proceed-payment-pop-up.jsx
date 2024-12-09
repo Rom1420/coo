@@ -4,6 +4,8 @@ import Button from '../../tools/button/button';
 function ProceedPaymentPopUp({onClose, closing}) {
     const logoPaypalUrl = `/logos/logo-paypal.png`
     const logoGooglePayUrl=`/logos/logo-googlepay.png`
+    const logoApplePayUrl=`/logos/logo-applepay.png`
+
     return (
         <div className={`proceed-payment-container ${closing ? 'closing' : ''}`}>
             <div className="popup-content">
@@ -14,14 +16,22 @@ function ProceedPaymentPopUp({onClose, closing}) {
                     <div className={"buttons-container"}>
                         <Button style={{
                             width:'50%', height: "4vh", backgroundColor: 'white',
-                            border: '1px solid black',
+                            border: '2px solid var(--blue)',
                             color: 'black',
+                            filter: 'drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.5))',
                             borderRadius: '4px',}} imageSrc={logoPaypalUrl} text="PayPal" onClick={() => {onClose();}}/>
                         <Button style={{
                             width:'50%', height: "4vh", backgroundColor: 'white',
-                            border: '1px solid black',
+                            border: '2px solid var(--blue)',
                             color: 'black',
+                            filter: 'drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.5))',
                             borderRadius: '4px',}} imageSrc={logoGooglePayUrl} text="GooglePay" onClick={() => {onClose();}}/>
+                        <Button style={{
+                            width:'50%', height: "4vh", backgroundColor: 'white',
+                            border: '2px solid var(--blue)',
+                            color: 'black',
+                            filter: 'drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.5))',
+                            borderRadius: '4px',}} imageSrc={logoApplePayUrl} text="ApplePay" onClick={() => {onClose();}}/>
                     </div>
                 </div>
             </div>
