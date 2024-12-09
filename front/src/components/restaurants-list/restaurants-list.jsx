@@ -3,7 +3,7 @@ import Restaurant from '../tools/restaurant/restaurant';
 import './restaurants-list.css';
 import Filter from '../tools/filter/filter';
 
-function RestaurantList({ closeRestaurantList, onSelectRestaurant }) {
+function RestaurantList({ closeRestaurantList, onSelectRestaurant, onHomePage }) {
     const [restaurants, setRestaurants] = useState([]);
     const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
@@ -34,25 +34,58 @@ function RestaurantList({ closeRestaurantList, onSelectRestaurant }) {
             .catch((error) => console.error('Erreur lors de l\'application des filtres:', error));
     };
 
+    const handleRestaurantClick = (restaurant) => {
+        onSelectRestaurant(restaurant); 
+    };
+
+
     // Mise à jour de la couleur du thème
     const themeColorMetaTag = document.querySelector('meta[name="theme-color"]');
     themeColorMetaTag.setAttribute('content', '#fff');
 
     return (
-        <div className="restaurant-list-container">
-            <i className="fa-solid fa-arrow-left restaurant-list" onClick={closeRestaurantList}></i>
-            <div className="restaurant-list">
-                <Filter text={"Filters"} type={"restaurant"} onApplyFilters={applyFilters}/>
-                {restaurants.map((restaurant, index) => (
-                    <div
-                        key={index}
-                        onClick={() => onSelectRestaurant(restaurant.name)} // Met à jour le restaurant sélectionné
-                    >
-                        <Restaurant restaurant={restaurant} />
+    <>
+        {onHomePage && (
+            <div className="restaurant-list-home-page">
+                <h3 className='restaurant-list-home-page-title'>Restaurants List</h3>
+                <div className="separation-line"></div>
+                <div className="restaurant-list-container">
+                    <i className="fa-solid fa-arrow-left restaurant-list-home-page" onClick={closeRestaurantList}></i>
+                    <div className="restaurant-list">
+                        <Filter text={"Filters"} type={"restaurant"} onApplyFilters={applyFilters} />
+                        {restaurants.map((restaurant, index) => (
+                            <div
+                                key={index}
+                                onClick={() => {
+                                    handleRestaurantClick(restaurant);
+                                }}
+                            >
+                                <Restaurant restaurant={restaurant} />
+                            </div>
+                        ))}
                     </div>
-                ))}
+                </div>
             </div>
-        </div>
+        )}
+        {!onHomePage && (
+            <div className="restaurant-list-container">
+                <i className="fa-solid fa-arrow-left restaurant-list" onClick={closeRestaurantList}></i>
+                <div className="restaurant-list">
+                    <Filter text={"Filters"} type={"restaurant"} onApplyFilters={applyFilters} />
+                    {restaurants.map((restaurant, index) => (
+                        <div
+                            key={index}
+                            onClick={() => {
+                                handleRestaurantClick(restaurant);
+                            }}
+                        >
+                            <Restaurant restaurant={restaurant} />
+                        </div>
+                    ))}
+                </div>
+            </div>
+        )}
+    </>
     );
 }
 

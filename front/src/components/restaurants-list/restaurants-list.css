@@ -31,3 +31,16 @@
     padding: 5px;
     box-sizing: border-box;
 }
+
+.restaurant-list-home-page-title{
+    text-align: center;
+}
+
+.fa-arrow-left.restaurant-list-home-page{
+    color: var(--grey) !important;
+    filter: none !important;
+    top: 10px !important;
+    height: auto;
+    padding: 5px;
+    box-sizing: border-box;
+}

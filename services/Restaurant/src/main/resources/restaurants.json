@@ -39,16 +39,16 @@
         "opening": "07:00"
       },
       "FRIDAY": {
-        "closing": "23:00",
+        "closing": "22:00",
         "opening": "07:00"
       },
       "SATURDAY": {
-        "closing": "23:00",
-        "opening": "08:00"
+        "closing": "22:00",
+        "opening": "07:00"
       },
       "SUNDAY": {
-        "closing": "21:00",
-        "opening": "08:00"
+        "closing": "22:00",
+        "opening": "07:00"
       }
     },
     "nbOfCook": 10,
@@ -85,16 +85,16 @@
         "opening": "08:00"
       },
       "THURSDAY": {
-        "closing": "23:00",
-        "opening": "09:00"
+        "closing": "22:00",
+        "opening": "08:00"
       },
       "FRIDAY": {
-        "closing": "23:00",
-        "opening": "09:00"
+        "closing": "22:00",
+        "opening": "08:00"
       },
       "SATURDAY": {
-        "closing": "23:00",
-        "opening": "10:00"
+        "closing": "22:00",
+        "opening": "08:00"
       }
     },
     "nbOfCook": 12,
@@ -131,20 +131,20 @@
         "opening": "10:00"
       },
       "WEDNESDAY": {
-        "closing": "21:00",
-        "opening": "11:00"
+        "closing": "20:00",
+        "opening": "10:00"
       },
       "FRIDAY": {
-        "closing": "22:00",
-        "opening": "12:00"
+        "closing": "20:00",
+        "opening": "10:00"
       },
       "SATURDAY": {
-        "closing": "23:00",
+        "closing": "20:00",
         "opening": "10:00"
       },
       "SUNDAY": {
         "closing": "20:00",
-        "opening": "11:00"
+        "opening": "10:00"
       }
     },
     "nbOfCook": 8,
@@ -192,12 +192,12 @@
         "opening": "09:00"
       },
       "FRIDAY": {
-        "closing": "22:00",
+        "closing": "21:00",
         "opening": "09:00"
       },
       "SATURDAY": {
-        "closing": "22:00",
-        "opening": "10:00"
+        "closing": "21:00",
+        "opening": "09:00"
       }
     },
     "nbOfCook": 15,
@@ -238,16 +238,16 @@
         "opening": "11:00"
       },
       "FRIDAY": {
-        "closing": "23:00",
-        "opening": "12:00"
+        "closing": "22:00",
+        "opening": "11:00"
       },
       "SATURDAY": {
-        "closing": "23:00",
-        "opening": "12:00"
+        "closing": "22:00",
+        "opening": "11:00"
       },
       "SUNDAY": {
-        "closing": "21:00",
-        "opening": "12:00"
+        "closing": "22:00",
+        "opening": "11:00"
       }
     },
     "nbOfCook": 7,

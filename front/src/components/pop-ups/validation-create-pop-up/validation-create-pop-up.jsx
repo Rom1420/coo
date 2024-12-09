@@ -3,7 +3,6 @@ import Button from '../../tools/button/button';
 import { ReactComponent as ValidationPic } from '../../../assets/validation-pic.svg';
 
 function ValidationCreatePopUp({onClose, closing, groupId}) {
-    console.log('Received Group ID in ValidationCreatePopUp:', groupId);
     return (
         <div className={`validation-create-container ${closing ? 'closing' : ''}`}>
             <div className="validation-popup-content">

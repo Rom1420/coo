@@ -6,31 +6,8 @@ import { useState } from 'react';
 import Dropdown from '../../tools/dropdown/dropdown';
 import RestaurantList from '../../restaurants-list/restaurants-list';
 
-function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible, setGroupId}) {
+function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible, setGroupId, setRestaurant}) {
 
-<<<<<<< HEAD
-  const [isToggleSwitchOn, setIsToggleSwitchOn] = useState(false);
-  const [selectedRestaurant, setSelectedRestaurant] = useState('');
-  const [groupName, setGroupName] = useState('');
-  const [deliveryLocation, setDeliveryLocation] = useState('');
-  const [deliveryTime, setDeliveryTime] = useState({ hours: '', minutes: '' });
-    // Liste des restaurants (à récupérer via l'API des restautants)
-    const restaurantOptions = [
-        'McDonald\'s',
-        'KFC',
-        'Pizza Hut',
-        'Subway',
-        'Burger King',
-    ];
-
-  const handleToggleSwitch = () => {
-    setIsToggleSwitchOn((prevState) => !prevState);
-  };
-
-  const handleRestaurantChange = (event) => {
-      setSelectedRestaurant(event.target.value);
-  }
-=======
     const [isToggleSwitchOn, setIsToggleSwitchOn] = useState(false);
     const [selectedRestaurant, setSelectedRestaurant] = useState('');
     const [groupName, setGroupName] = useState('');
@@ -48,7 +25,8 @@ function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible, se
     };
 
     const handleSelectRestaurant = (restaurantName) => {
-        setSelectedRestaurant(restaurantName); 
+        setSelectedRestaurant(restaurantName.name); 
+        setRestaurant(restaurantName);
         closeRestaurantList(); 
     };
 
@@ -56,7 +34,6 @@ function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible, se
     const handleToggleSwitch = () => {
         setIsToggleSwitchOn((prevState) => !prevState);
     };
->>>>>>> d41345c36846d3d8678874e0d63aa30edfa25653
 
 /*  const handleCreateClick = () => {
     onClose(); 
@@ -99,36 +76,26 @@ function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible, se
             restaurant: selectedRestaurant,
             deliveryTime: isToggleSwitchOn ? `${deliveryTime.hours}:${deliveryTime.minutes}` : null,
         };
-        console.log('Group Data to be sent:', groupData);
-
-        const mockedId = 1234567; // Simulez un ID
-        setGroupId(mockedId); // Appelle la fonction du parent pour définir l'ID
-        console.log('Mocked Group ID set in parent:', mockedId);
-
 
         onClose();
         setTimeout(() => {
             setValidationCreatePopUpVisible(true);
         }, 300);
 
-
-
-
-        /*        fetch('/api/groups', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(groupData),
-                })
-                    .then((response) => response.json())
-                    .then((data) => {
-                        if (data.id) {
-                            setGroupId(data.id); // Stocke l'ID du groupe
-                            setValidationCreatePopUpVisible(true); // Ouvre la validation
-                        } else {
-                            console.error('Erreur : ID du groupe non reçu');
-                        }
-                    })
-                    .catch((error) => console.error('Erreur lors de la requête API :', error));*/
+        fetch('/api/groups', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(groupData),
+        })
+            .then((response) => {
+                if (response.ok) {
+                    onClose();
+                    setTimeout(() => setValidationCreatePopUpVisible(true), 300);
+                } else {
+                    console.error('Erreur lors de la création du groupe');
+                }
+            })
+            .catch((error) => console.error('Erreur lors de la requête API :', error));
     };
 
   return (
@@ -169,7 +136,7 @@ function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible, se
         </div>
         {isRestaurantListVisible && (
             <div className={`restaurants-list-popup ${isHidden ? 'hidden' : ''}`}>
-                <RestaurantList closeRestaurantList={closeRestaurantList} onSelectRestaurant={handleSelectRestaurant}/>
+                <RestaurantList closeRestaurantList={closeRestaurantList} onSelectRestaurant={handleSelectRestaurant} onHomePage={false}/>
             </div>
         )}
     </div>
