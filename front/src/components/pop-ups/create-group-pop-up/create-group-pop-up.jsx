@@ -2,11 +2,11 @@ import './create-group-pop-up.css';
 import Button from '../../tools/button/button';
 import Input from '../../tools/input/input';
 import ToggleSwitch from '../../tools/toggle-switch/toggle-switch';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Dropdown from '../../tools/dropdown/dropdown';
 import RestaurantList from '../../restaurants-list/restaurants-list';
 
-function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible, setGroupId, setGroupNameFB}) {
+function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible, setGroupId, setGroupNameFB, setRestaurant}) {
 
     const [isToggleSwitchOn, setIsToggleSwitchOn] = useState(false);
     const [selectedRestaurant, setSelectedRestaurant] = useState('');
@@ -15,6 +15,22 @@ function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible, se
     const [deliveryTime, setDeliveryTime] = useState({ hours: '', minutes: '' });
     const [isRestaurantListVisible, setIsRestaurantListVisible] = useState(false);
     const [isHidden, setIsHidden] = useState(false); 
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
+    useEffect(() => {
+        if (selectedRestaurant) {
+            fetch(`${API_BASE_URL}/api/restaurant/${selectedRestaurant}`)
+            // fetch(`http://localhost:8080/api/restaurant/${selectedRestaurant}`)
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then((data) => setRestaurant(data))
+                .catch((error) => console.error('Erreur lors du chargement des données:', error));
+            }
+    }, [API_BASE_URL, selectedRestaurant, setRestaurant]);
 
     const closeRestaurantList = () => {
         setIsHidden(true); 
@@ -29,7 +45,6 @@ function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible, se
         setRestaurant(restaurantName);
         closeRestaurantList(); 
     };
-
 
     const handleToggleSwitch = () => {
         setIsToggleSwitchOn((prevState) => !prevState);
