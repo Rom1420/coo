@@ -2,12 +2,24 @@ import React, { useState } from 'react';
 import CounterButton from '../counter-button/counter-button';
 import "./counter.css"
 
-function Counter() {
+function Counter({onCountChange}) {
   const [count, setCount] = useState(0);
 
-  const handleIncrement = () => setCount(prevCount => prevCount + 1);
-  const handleDecrement = () => setCount(prevCount => (prevCount > 0 ? prevCount - 1 : 0)); // Évite les valeurs négatives
+  const handleIncrement = () => {
+    setCount((prevCount) => {
+      const newCount = prevCount + 1;
+      onCountChange(newCount); 
+      return newCount;
+    });
+  };
 
+  const handleDecrement = () => {
+    setCount((prevCount) => {
+      const newCount = prevCount > 1 ? prevCount - 1 : 0;
+      onCountChange(newCount); 
+      return newCount;
+    });
+  };
   return (
     <div className="counter-buttons-container">
       <CounterButton text="-" onClick={handleDecrement} />

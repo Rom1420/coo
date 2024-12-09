@@ -5,10 +5,13 @@ import Rating from '../tools/rating/rating';
 import Favorite from '../tools/favorite/favorite';
 import Cart from '../tools/cart/cart';
 import Counter from '../tools/counter/counter';
+import React, { useState } from 'react';
 
-function MenuElementDetail({onBackToPrevClick, menuElement, onCheckCartClick}) {
+function MenuElementDetail({onBackToPrevClick, menuElement, onCheckCartClick, onAddArticle}) {
     const themeColorMetaTag = document.querySelector('meta[name="theme-color"]');
     themeColorMetaTag.setAttribute('content', '#6c6c6c');
+
+    const [portions, setPortions] = useState(0);
 
     return (
         <div className="menu-element-container">
@@ -35,10 +38,19 @@ function MenuElementDetail({onBackToPrevClick, menuElement, onCheckCartClick}) {
                         <div className="separation-line"></div>
                         <div className="portions-container">
                             <h5 className="portions-title">Number of portions</h5>
-                            <Counter/>
+                            <Counter onCountChange={setPortions}/>
                         </div>
                     </div>
-                    <Cart onCheckCartClick={onCheckCartClick} />
+                    <Cart onCheckCartClick={onCheckCartClick} 
+                            onArticlePage={true} 
+                            onAddArticle={() =>
+                                onAddArticle({
+                                    name: menuElement?.title,
+                                    price: menuElement?.price || 10, 
+                                    image: menuElement?.image,
+                                    quantity: portions,
+                                })
+                        }/>
                 </div>
             </div>
         </div>

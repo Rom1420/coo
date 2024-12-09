@@ -61,7 +61,7 @@ function Menu({onBackToHomeClick, onMenuElementClick, selectedItem, setSelectedI
                         ))
                         )}
                     </div>
-                    <Cart onCheckCartClick={onCheckCartClick} />
+                    <Cart onCheckCartClick={onCheckCartClick} onArticlePage={false}/>
                 </div>
             </div>
         </div>
