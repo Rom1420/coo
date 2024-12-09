@@ -11,7 +11,7 @@ function ValidationPaymentPopUp({onClose, closing, backToHomeClick, paymentStatu
                         <img src={'/images/validation-payment.png'} alt={''} style={{ height: '30vh', width: 'auto', margin: '20px' }} />
                         <h1 className='title-validation'>Thank You!</h1>
                         <h2 className='small-text-validation'>for your order</h2>
-                        <h3 className='small-text'>Your order is now being processed. Check the status of your order.</h3>
+                        <h3 className='small-text-validation-2'>Your order is now being processed. Check the status of your order.</h3>
                         <Button style={{ width:'50%', height: "4vh"}} text="Track my order" onClick={onClose}/>
                         <Button style={{ width:'50%', height: "4vh", backgroundColor: 'white', color: 'black'}} text="Back to home" onClick={backToHomeClick}/>
                     </>

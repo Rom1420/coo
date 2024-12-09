@@ -33,8 +33,8 @@ function Dropdown({selectedRestaurant, onRestaurantChange, onDetailsClick, id}) 
         text="Details"
         onClick={onDetailsClick}
         style={{
-            gridColumn: '2 / 3', // Ensure it occupies the second column
-            gridRow: '1 / 2', // Ensure it occupies the first row
+            gridColumn: '2 / 3', 
+            gridRow: '1 / 2',
             padding: '0',
             width: '100%',
         }}

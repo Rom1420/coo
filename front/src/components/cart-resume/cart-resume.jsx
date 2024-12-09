@@ -21,9 +21,9 @@ function CartResume({ onBackToPrevClick, onBackToHomeClick }) {
         const themeColorMetaTag = document.querySelector('meta[name="theme-color"]');
 
         if (isProceedPaymentPopUpVisible || isValidationPaymentPopUpVisible) {
-            themeColorMetaTag.setAttribute('content', '#6c6c6c'); // Couleur sombre quand ya le pop up
+            themeColorMetaTag.setAttribute('content', '#6c6c6c'); 
         } else {
-            themeColorMetaTag.setAttribute('content', '#ffffff'); // Couleur par défaut
+            themeColorMetaTag.setAttribute('content', '#ffffff'); 
         }
     }, [isProceedPaymentPopUpVisible, isValidationPaymentPopUpVisible]);
 
@@ -69,7 +69,7 @@ function CartResume({ onBackToPrevClick, onBackToHomeClick }) {
 
     return (
     <div className="cart-resume-container">
-        {(isProceedPaymentPopUpVisible) && isValidationPaymentPopUpVisible && <div className="darker-overlay"></div>}
+        {(isProceedPaymentPopUpVisible || isValidationPaymentPopUpVisible) && <div className="darker-overlay cart"></div>}
         <i className="fa-solid fa-arrow-left carte-resume" onClick={onBackToPrevClick}></i>
         <div className="cart-resume-content">
             <h2 className='carte-resume-title'>My Order</h2>

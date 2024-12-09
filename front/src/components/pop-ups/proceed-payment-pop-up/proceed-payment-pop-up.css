@@ -9,6 +9,7 @@
     border-top-right-radius: 20px;
     animation: slideInFromBottom 0.3s ease-out forwards;
     padding: 20px;
+    z-index: 11;
 }
 
 .proceed-payment-container.closing {

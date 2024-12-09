@@ -12,6 +12,7 @@
     justify-content: center;
     animation: slideInFromBottom 0.3s ease-out forwards;
     padding: 20px;
+    z-index: 11;
 }
 
 .validation-payment-container.closing {
@@ -33,7 +34,7 @@
     margin: 0;
 }
 
-.small-text{
+.small-text-validation-2{
     margin: 15px;
     color: var(--blue);
 }
