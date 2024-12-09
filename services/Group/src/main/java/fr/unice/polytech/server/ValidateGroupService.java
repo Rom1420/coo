@@ -2,7 +2,6 @@ package fr.unice.polytech.server;
 
 import com.sun.net.httpserver.HttpServer;
 import fr.unice.polytech.server.httphandlers.ValidateGroupHandler;
-
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.logging.Level;
@@ -30,4 +29,24 @@ public class ValidateGroupService {
         logger.log(Level.INFO, "Validate Group Server started on port " + port);
         return server;
     }
+
+
+
+//public class ValidateGroupService {
+
+   /* private final HashMap<Integer, GroupOrderProxy> groupOrders = GroupOrderService.getGroupOrderServiceInstance().getGroupOrders();
+=======
+>>>>>>> ce320f5 (Ajouter un package db #51 & Mettre en place le service de groupe #45)
+
+    static Logger logger = java.util.logging.Logger.getLogger("ValidateGroupLogger");
+
+    public static void main(String[] args) {
+        try {
+            startServer(DEFAULT_PORT);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+<<<<<<< HEAD
+    }*/
+
 }

@@ -4,15 +4,13 @@ import Input from '../../tools/input/input';
 import ToggleSwitch from '../../tools/toggle-switch/toggle-switch';
 import { useState } from 'react';
 
-function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible}) {
+function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible, setGroupId, setGroupNameFB}) {
 
   const [isToggleSwitchOn, setIsToggleSwitchOn] = useState(false);
   const [selectedRestaurant, setSelectedRestaurant] = useState('');
   const [groupName, setGroupName] = useState('');
   const [deliveryLocation, setDeliveryLocation] = useState('');
   const [deliveryTime, setDeliveryTime] = useState({ hours: '', minutes: '' });
-
-
     // Liste des restaurants (à récupérer via l'API des restautants)
     const restaurantOptions = [
         'McDonald\'s',
@@ -30,12 +28,7 @@ function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible}) {
       setSelectedRestaurant(event.target.value);
   }
 
-/*  const handleCreateClick = () => {
-    onClose(); 
-    setTimeout(() => {
-      setValidationCreatePopUpVisible(true);
-    }, 300);
-  };*/
+
 
     const handleCreateClick = () => {
         if (!groupName || !deliveryLocation || !selectedRestaurant) {
@@ -43,33 +36,65 @@ function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible}) {
             return;
         }
 
+        let deliveryDate = null;
+        if (isToggleSwitchOn) {
+            const currentDate = new Date();
+            const deliveryHours = parseInt(deliveryTime.hours, 10) || 0;
+            const deliveryMinutes = parseInt(deliveryTime.minutes, 10) || 0;
+
+            // Créez une date avec les heures et minutes spécifiés
+            currentDate.setHours(deliveryHours);
+            currentDate.setMinutes(deliveryMinutes);
+            currentDate.setSeconds(0);
+            currentDate.setMilliseconds(0);
+
+            deliveryDate = currentDate.getTime(); // en millisecondes
+        }
+
         const groupData = {
-            name: groupName,
-            location: deliveryLocation,
-            restaurant: selectedRestaurant,
-            deliveryTime: isToggleSwitchOn ? `${deliveryTime.hours}:${deliveryTime.minutes}` : null,
+            groupName: groupName,
+            deliveryLocation: deliveryLocation,
+            restaurant: {
+                name: selectedRestaurant,
+                discountType: "LOYALTY", // Par défaut, ajustez si besoin
+            },
+            deliveryDate: deliveryDate,
         };
+
         console.log('Group Data to be sent:', groupData);
+
 
         onClose();
         setTimeout(() => {
             setValidationCreatePopUpVisible(true);
         }, 300);
 
-        fetch('/api/groups', {
+
+        fetch('http://localhost:8001/api/group/create', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(groupData),
         })
             .then((response) => {
-                if (response.ok) {
-                    onClose();
-                    setTimeout(() => setValidationCreatePopUpVisible(true), 300);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then((data) => {
+                if (data.id && data.groupName) {
+                    setGroupId(data.id);
+                    setGroupNameFB(data.groupName);
+                    setValidationCreatePopUpVisible(true);
                 } else {
-                    console.error('Erreur lors de la création du groupe');
+                    console.error('Error: ID not returned by the API');
                 }
             })
-            .catch((error) => console.error('Erreur lors de la requête API :', error));
+            .catch((error) => {
+                console.error('API Request Failed:', error);
+                alert('Failed to create group. Please try again later.');
+            });
+
     };
 
   return (

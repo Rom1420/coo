@@ -25,6 +25,14 @@
     align-items: center;
 }
 
+.validation-popup-content i {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
 .popup-title{
     margin: 15px 10px 0px;
     font-weight: bold;
@@ -36,15 +44,21 @@
     background-color: var(--light-grey);
     margin: 15px 0px 20px;
 }
-.buttons-container{
-    margin-top: 20px;
 
-    display: grid;
-    grid-template-rows: repeat(3, 7vh);
-    gap: 15px;
-}
 h4 {
     text-align: center;
+}
+
+.group-id-container {
+    margin-top: 15px;
+    padding: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--blue);
+    text-align: center;
+    background-color: var(--light-grey);
+    border-radius: 10px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 

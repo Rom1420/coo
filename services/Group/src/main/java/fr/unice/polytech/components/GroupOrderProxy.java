@@ -11,10 +11,12 @@ import java.util.Objects;
 
 
 public class GroupOrderProxy implements GroupOrderInterface{
+
     private final GroupOrderInterface groupOrderInterface;
     public GroupOrderProxy(GroupOrderInterface groupOrderInterface){
         this.groupOrderInterface = groupOrderInterface;
     }
+
     public GroupOrderProxy() {
         this.groupOrderInterface = new GroupOrderImpl();
     }

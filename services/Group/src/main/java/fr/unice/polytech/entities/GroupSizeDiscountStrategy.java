@@ -1,8 +1,6 @@
 package fr.unice.polytech.entities;
 
 import fr.unice.polytech.components.GroupOrderImpl;
-
-import fr.unice.polytech.entities.Order;
 import fr.unice.polytech.interfaces.DiscountStrategy;
 
 public class GroupSizeDiscountStrategy implements DiscountStrategy {
