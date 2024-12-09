@@ -8,8 +8,8 @@ function RestaurantList({ closeRestaurantList, onSelectRestaurant, onHomePage })
     const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
     useEffect(() => {
-        fetch(`${API_BASE_URL}/api/restaurant`)
-        // fetch(`http://localhost:8080/api/restaurant`)
+        // fetch(`${API_BASE_URL}/api/restaurant`)
+        fetch(`http://localhost:8080/api/restaurant`)
             .then((response) => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
@@ -27,8 +27,8 @@ function RestaurantList({ closeRestaurantList, onSelectRestaurant, onHomePage })
         if (filters.day) params.append('day', filters.day.toUpperCase());
         if (filters.time) params.append('time', filters.time);
 
-        fetch(`${API_BASE_URL}/api/restaurant/filters?${params.toString()}`)
-        // fetch(`http://localhost:8080/api/restaurant/filters?${params.toString()}`)
+        // fetch(`${API_BASE_URL}/api/restaurant/filters?${params.toString()}`)
+        fetch(`http://localhost:8080/api/restaurant/filters?${params.toString()}`)
             .then((response) => response.json())
             .then((data) => setRestaurants(data))
             .catch((error) => console.error('Erreur lors de l\'application des filtres:', error));
