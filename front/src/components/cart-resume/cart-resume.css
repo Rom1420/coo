@@ -28,5 +28,14 @@
 .checkout-button-container{
     display: flex;
     align-items: center;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-between;
+
+}
+.darker-overlay{
+    position: absolute;
+    width: 100%;
+    height: 200vh;
+    top: -20%;
+    background-color: #00000093;
 }
