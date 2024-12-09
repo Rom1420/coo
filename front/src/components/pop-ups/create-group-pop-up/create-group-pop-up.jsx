@@ -19,8 +19,8 @@ function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible, se
 
     useEffect(() => {
         if (selectedRestaurant) {
-            fetch(`${API_BASE_URL}/api/restaurant/${selectedRestaurant}`)
-            // fetch(`http://localhost:8080/api/restaurant/${selectedRestaurant}`)
+            // fetch(`${API_BASE_URL}/api/restaurant/${selectedRestaurant}`)
+            fetch(`http://localhost:8080/api/restaurant/${selectedRestaurant}`)
                 .then((response) => {
                     if (!response.ok) {
                         throw new Error(`HTTP error! status: ${response.status}`);
@@ -104,8 +104,6 @@ function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible, se
             },
             deliveryDate: deliveryDate,
         };
-
-        console.log('Group Data to be sent:', groupData);
 
 
         onClose();

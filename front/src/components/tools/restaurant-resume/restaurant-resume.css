@@ -5,10 +5,6 @@
     margin-left: 20px;
 }
 
-.restaurant-resume-logo{
-    width: 30%;
-}
-
 .restaurant-resume-content{
     display: flex;
     flex-direction: column;

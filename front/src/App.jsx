@@ -13,15 +13,53 @@ function App() {
   const [selectedRestaurant, setRestaurant] = useState(null);
   const [selectedMenuElement, setSelectedMenuElement] = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [cart, setCart] = useState([]);
+
+  const [groupIdForApp, setGroupIdForApp] = useState(null);
+
+  const addArticleToCart = (article) => {
+    setCart((prevCart) => {
+      const existingArticleIndex = prevCart.findIndex((item) => item.name === article.name);
+      
+      if (existingArticleIndex !== -1) {
+        const updatedCart = [...prevCart];
+        updatedCart[existingArticleIndex].quantity += Number(article.quantity);
+        return updatedCart;
+      } else {
+        return [...prevCart, { ...article, quantity: Number(article.quantity) }];
+      }
+    });
+    console.log(cart, article)
+  };
+
+  const removeArticleFromCart = (index) => {
+    setCart((prevCart) => {
+      const updatedCart = [...prevCart];
+      if (updatedCart[index].quantity > 1) {
+        updatedCart[index].quantity -= 1;
+      } else {
+        updatedCart.splice(index, 1); 
+      }
+      return updatedCart;
+    });
+  };
 
   return (
     <div className="App">
-      {currentPage === 'home' && <HomePage onOrderNowClick={() => setCurrentPage('restaurantPage')} setRestaurant={setRestaurant} setCurrentPage={setCurrentPage}/>}
+      {currentPage === 'home' && <HomePage onOrderNowClick={() => setCurrentPage('restaurantPage')} setRestaurant={setRestaurant} setCurrentPage={setCurrentPage} setGroupIdForApp={setGroupIdForApp} groupIdForApp={groupIdForApp}/ >}
       {currentPage === 'restaurantPage' && (
           selectedRestaurant 
           ? (
               <RestaurantPage 
-                onBackToHomeClick={() => {setCurrentPage('home'); setRestaurant(null)}} 
+                onBackToHomeClick={() => {
+                  console.log(groupIdForApp)
+                  if(!groupIdForApp){
+                    setCurrentPage('home'); setRestaurant(null)
+                  } else{
+                    console.log('hahahaha')
+                    setCurrentPage('home');
+                  }
+                }}
                 onMenuButtonClick={() => setCurrentPage('menu')} 
                 onCheckCartClick={() => setCurrentPage('cartResume')}
                 restaurant={selectedRestaurant}
@@ -31,14 +69,15 @@ function App() {
       )}
       {currentPage === 'menu' && (
         <Menu
-          onBackToHomeClick={() => setCurrentPage('home')}
+          onBackToRestaurantClick={() => setCurrentPage('restaurantPage')}
           onMenuElementClick={(menuElement) => {
-            setSelectedMenuElement(menuElement); // Stocke l'élément sélectionné
-            setCurrentPage('menuElementDetail'); // Change la page
+            setSelectedMenuElement(menuElement); 
+            setCurrentPage('menuElementDetail'); 
           }}
           selectedItem={selectedItem} 
           setSelectedItem={setSelectedItem}
           onCheckCartClick={() =>  setCurrentPage('cartResume')}
+          restaurant={selectedRestaurant}
         />
       )}
       {currentPage === 'menuElementDetail' && (
@@ -46,11 +85,25 @@ function App() {
           onBackToPrevClick={() => setCurrentPage('menu')}
           menuElement={selectedMenuElement}
           onCheckCartClick={() =>  setCurrentPage('cartResume')}
+          onAddArticle={addArticleToCart}
+          restaurant={selectedRestaurant}
       />
       )}
       {currentPage === 'cartResume' && (
         <CartResume 
-          onBackToPrevClick={() => setCurrentPage('menuElementDetail')} 
+          onBackToPrevClick={() => {
+            if (selectedMenuElement && !selectedItem) {
+              setCurrentPage('menuElementDetail'); 
+            } else if(selectedItem){
+              setCurrentPage('menu'); 
+            } else{
+              setCurrentPage('restaurantPage'); 
+            }
+          }}
+          onBackToHomeClick={() => setCurrentPage('home')}
+          cart={cart} 
+          removeArticleFromCart={removeArticleFromCart}
+          restaurant={selectedRestaurant}
         />
       )}
       {currentPage === 'restaurants-list' && (

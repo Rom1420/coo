@@ -55,8 +55,8 @@
 
 .right-container{
     position: absolute;
-    right: 0px;
-    top: 30px;
+    right: 20px;
+    top: 0px;
 }
 
 .rating-container{
@@ -128,4 +128,12 @@
 
 .portions-title{
     white-space: nowrap;
+}
+
+.menu-element-name-detail{
+    margin-top: 35px;
+}
+
+.menu-element-price-detail{
+    color: var(--blue);
 }

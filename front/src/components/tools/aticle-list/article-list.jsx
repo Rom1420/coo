@@ -1,21 +1,12 @@
 import './article-list.css';
-import React, { useEffect, useState } from 'react';
 import Article from '../article/article';
 
-function ArticleList() {
-    const [cart, setCart] = useState([]);
-
-    useEffect(() => {
-        fetch('/cart.json')
-            .then((response) => response.json())
-            .then((data) => setCart(data))
-            .catch((error) => console.error('Erreur lors du chargement des données:', error));
-    }, []);
+function ArticleList({cart, removeArticleFromCart}) {
 
     return (
         <div className="article-list-container">
             {cart.map((item, index) => (
-                <Article key={index} name={item.name} price={item.price} quantity={item.quantity} />
+                <Article key={index} name={item.name} price={item.price} quantity={item.quantity} onRemove={() => removeArticleFromCart(index)}/>
             ))}
         </div>
     );

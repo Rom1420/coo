@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './cart.css';
 
-function Cart({ onCheckCartClick }) {
+function Cart({ onCheckCartClick, onArticlePage, onAddArticle, article }) {
   const [showPopup, setShowPopup] = useState(false);
 
   const togglePopup = () => {
@@ -18,10 +18,11 @@ function Cart({ onCheckCartClick }) {
                 }}>
                 Check cart
                 </button>
-
-          <button className="popup-option" onClick={() => alert('Add article')}>
-            Add Article
-          </button>
+          {onArticlePage && (  
+            <button className="popup-option" onClick={() => onAddArticle(article)}>
+              Add Article
+            </button>
+          )}  
         </div>
       )}
     </div>
