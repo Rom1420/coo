@@ -8,7 +8,7 @@ import ValidationJoinPopUp from '../pop-ups/validation-join-pop-up/validation-jo
 import ValidationCreatePopUp from "../pop-ups/validation-create-pop-up/validation-create-pop-up";
 import MyGroupsPopUp from "../pop-ups/my-groups-pop-up/my-groups-pop-up";
 
-function HomePage({onOrderNowClick, setRestaurant, setCurrentPage}) {
+function HomePage({onOrderNowClick, setRestaurant, setCurrentPage, setGroupIdForApp, groupIdForApp}) {
 
   const [isJoinGroupPopUpVisible, setJoinGroupPopUpVisible] = useState(false);
   const [isValidationPopUpVisible, setValidationPopUpVisible] = useState(false);
@@ -24,13 +24,16 @@ function HomePage({onOrderNowClick, setRestaurant, setCurrentPage}) {
 
   useEffect(() => {
     const themeColorMetaTag = document.querySelector('meta[name="theme-color"]');
+    if (!groupIdForApp || groupId) {
+      setGroupIdForApp(groupId);
+    } 
 
     if (isJoinGroupPopUpVisible || isValidationPopUpVisible || isCreateGroupPopUpVisible || isValidationCreatePopUpVisible) {
       themeColorMetaTag.setAttribute('content', '#6c6c6c'); // Couleur sombre quand ya le pop up
     } else {
       themeColorMetaTag.setAttribute('content', '#ffffff'); // Couleur par défaut
     }
-  }, [isJoinGroupPopUpVisible, isValidationPopUpVisible, isCreateGroupPopUpVisible, isValidationCreatePopUpVisible]);
+  }, [isJoinGroupPopUpVisible, isValidationPopUpVisible, isCreateGroupPopUpVisible, isValidationCreatePopUpVisible, setGroupIdForApp, groupId, groupIdForApp]);
 
   const handleJoinGroupeClick = () => {
     if (isJoinGroupPopUpVisible) {

@@ -3,7 +3,7 @@ import HomePage from './components/home-page/home-page';
 import Menu from './components/menu/menu';
 import MenuElementDetail from './components/menu-element-detail/menu-element-detail';
 import CartResume from './components/cart-resume/cart-resume';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import RestaurantList from './components/restaurants-list/restaurants-list';
 import RestaurantPage from './components/restaurant-page/restaurant-page';
 
@@ -14,6 +14,8 @@ function App() {
   const [selectedMenuElement, setSelectedMenuElement] = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
   const [cart, setCart] = useState([]);
+
+  const [groupIdForApp, setGroupIdForApp] = useState(null);
 
   const addArticleToCart = (article) => {
     setCart((prevCart) => {
@@ -27,6 +29,7 @@ function App() {
         return [...prevCart, { ...article, quantity: Number(article.quantity) }];
       }
     });
+    console.log(cart, article)
   };
 
   const removeArticleFromCart = (index) => {
@@ -43,12 +46,20 @@ function App() {
 
   return (
     <div className="App">
-      {currentPage === 'home' && <HomePage onOrderNowClick={() => setCurrentPage('restaurantPage')} setRestaurant={setRestaurant} setCurrentPage={setCurrentPage}/>}
+      {currentPage === 'home' && <HomePage onOrderNowClick={() => setCurrentPage('restaurantPage')} setRestaurant={setRestaurant} setCurrentPage={setCurrentPage} setGroupIdForApp={setGroupIdForApp} groupIdForApp={groupIdForApp}/ >}
       {currentPage === 'restaurantPage' && (
           selectedRestaurant 
           ? (
               <RestaurantPage 
-                onBackToHomeClick={() => {setCurrentPage('home'); setRestaurant(null)}} 
+                onBackToHomeClick={() => {
+                  console.log(groupIdForApp)
+                  if(!groupIdForApp){
+                    setCurrentPage('home'); setRestaurant(null)
+                  } else{
+                    console.log('hahahaha')
+                    setCurrentPage('home');
+                  }
+                }}
                 onMenuButtonClick={() => setCurrentPage('menu')} 
                 onCheckCartClick={() => setCurrentPage('cartResume')}
                 restaurant={selectedRestaurant}
@@ -58,7 +69,7 @@ function App() {
       )}
       {currentPage === 'menu' && (
         <Menu
-          onBackToHomeClick={() => setCurrentPage('home')}
+          onBackToRestaurantClick={() => setCurrentPage('restaurantPage')}
           onMenuElementClick={(menuElement) => {
             setSelectedMenuElement(menuElement); 
             setCurrentPage('menuElementDetail'); 
@@ -66,6 +77,7 @@ function App() {
           selectedItem={selectedItem} 
           setSelectedItem={setSelectedItem}
           onCheckCartClick={() =>  setCurrentPage('cartResume')}
+          restaurant={selectedRestaurant}
         />
       )}
       {currentPage === 'menuElementDetail' && (
@@ -74,11 +86,20 @@ function App() {
           menuElement={selectedMenuElement}
           onCheckCartClick={() =>  setCurrentPage('cartResume')}
           onAddArticle={addArticleToCart}
+          restaurant={selectedRestaurant}
       />
       )}
       {currentPage === 'cartResume' && (
         <CartResume 
-          onBackToPrevClick={() => setCurrentPage('menuElementDetail')}
+          onBackToPrevClick={() => {
+            if (selectedMenuElement && !selectedItem) {
+              setCurrentPage('menuElementDetail'); 
+            } else if(selectedItem){
+              setCurrentPage('menu'); 
+            } else{
+              setCurrentPage('restaurantPage'); 
+            }
+          }}
           cart={cart} 
           removeArticleFromCart={removeArticleFromCart}
           restaurant={selectedRestaurant}

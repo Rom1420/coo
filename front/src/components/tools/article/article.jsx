@@ -11,7 +11,7 @@ function Article({ name, price, quantity, onRemove }) {
                 <p>x {quantity}</p>   
             </div>
                 <div className="price-and-delete" >
-                    <p className='article-price'>{price}</p>
+                    <p className='article-price'>{price} €</p>
                     <i className="fa-solid fa-trash" onClick={handleRemoveClick}></i>
                 </div>
         </div>

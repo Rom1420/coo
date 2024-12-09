@@ -8,7 +8,7 @@ function CheckoutResume({cart}) {
     const deliveryCost = 2;
 
     const subTotal = cart.reduce((sum, item) => {
-        const price = parseFloat(item.price.replace('€', '').trim()); 
+        const price = parseFloat(item.price); 
         return sum + (price * item.quantity);
     }, 0);
 
