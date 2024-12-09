@@ -44,13 +44,7 @@
     background-color: var(--light-grey);
     margin: 15px 0px 20px;
 }
-.buttons-container{
-    margin-top: 20px;
 
-    display: grid;
-    grid-template-rows: repeat(3, 7vh);
-    gap: 15px;
-}
 h4 {
     text-align: center;
 }
