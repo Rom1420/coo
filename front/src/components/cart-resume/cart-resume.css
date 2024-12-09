@@ -28,7 +28,12 @@
 .checkout-button-container{
     display: flex;
     align-items: center;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.darker-overlay.cart{
+    z-index: 10 !important;
 }
 
 .restaurant-resume-logo{

@@ -5,7 +5,6 @@ import Favorite from '../tools/favorite/favorite';
 import Cart from '../tools/cart/cart';
 
 function RestaurantPage({onBackToHomeClick, onMenuButtonClick, onCheckCartClick, restaurant}) {
-    console.log(restaurant)
     const themeColorMetaTag = document.querySelector('meta[name="theme-color"]');
     const logoUrl = `/logos/logo-${restaurant.name.toLowerCase().replace(/ /g, '-')}.png`;
     const imageUrl = `/images/${restaurant.name.toLowerCase().replace(/ /g, '-')}.png`;
@@ -74,7 +73,7 @@ function RestaurantPage({onBackToHomeClick, onMenuButtonClick, onCheckCartClick,
                         <Button style={{height: "4vh"}}text="Menu" onClick={onMenuButtonClick}/>
                     </div>
 
-                    <Cart onCheckCartClick={onCheckCartClick} />
+                    <Cart onCheckCartClick={onCheckCartClick} onArticlePage={false}/>
                 </div>
             </div>
         </div>

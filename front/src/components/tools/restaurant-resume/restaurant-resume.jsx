@@ -5,9 +5,9 @@ import './restaurant-resume.css';
 const restaurantAddresses = [
   { name: "Chez Pippo", address: "13 Rue Bavastro, 06300 Nice" },
   { name: "KFC", address: "64 Av. Jean Médecin, 06000 Nice" },
-  { name: "McDonald's", address: "20 Boulevard Gambetta, 06000 Nice" },
-  { name: "Burger King", address: "41 Av. Jean Médecin, 06000 Nice" },
-  { name: "Subway", address: "20 Boulevard Gambetta, 06000 Nice" },
+  { name: "McDonald's", address: "20 Bd Gambetta, 06000 Nice" },
+  { name: "Burger King", address: "41 Av Jean Médecin, 06000 Nice" },
+  { name: "Subway", address: "20 Bd Gambetta, 06000 Nice" },
 ];
 
 function getAddressByName(restaurantName) {

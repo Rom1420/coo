@@ -100,6 +100,7 @@ function App() {
               setCurrentPage('restaurantPage'); 
             }
           }}
+          onBackToHomeClick={() => setCurrentPage('home')}
           cart={cart} 
           removeArticleFromCart={removeArticleFromCart}
           restaurant={selectedRestaurant}

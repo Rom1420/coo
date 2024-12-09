@@ -105,8 +105,6 @@ function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible, se
             deliveryDate: deliveryDate,
         };
 
-        console.log('Group Data to be sent:', groupData);
-
 
         onClose();
         setTimeout(() => {
