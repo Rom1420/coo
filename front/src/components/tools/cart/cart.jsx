@@ -14,7 +14,6 @@ function Cart({ onCheckCartClick }) {
       {showPopup && (
         <div className="cart-popup">
           <button className="popup-option" onClick={() => {
-                console.log('Check cart clicked'); // Vérifiez si ce log s’affiche
                 onCheckCartClick();
                 }}>
                 Check cart

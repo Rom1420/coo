@@ -26,6 +26,9 @@ public class RestaurantHttpHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
         String method = exchange.getRequestMethod();
+        exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
+        exchange.getResponseHeaders().set("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
+        exchange.getResponseHeaders().set("Access-Control-Allow-Headers", "Content-Type");
         try {
             switch (method) {
                 case "GET":
@@ -106,9 +109,11 @@ public class RestaurantHttpHandler implements HttpHandler {
         }
 
         String jsonResponse = JaxsonUtils.toJson(response);
+        byte[] responseBytes = jsonResponse.getBytes(StandardCharsets.UTF_8);
+
         exchange.getResponseHeaders().set("Content-Type", "application/json");
-        exchange.sendResponseHeaders(200, jsonResponse.length());
-        exchange.getResponseBody().write(jsonResponse.getBytes());
+        exchange.sendResponseHeaders(200, responseBytes.length);
+        exchange.getResponseBody().write(responseBytes);
         exchange.close();
     }
 
@@ -130,13 +135,12 @@ public class RestaurantHttpHandler implements HttpHandler {
         restaurantData.put("discountType", restaurant.getDiscountType() != null ? restaurant.getDiscountType().name() : null);
         restaurantData.put("open", restaurant.isOpen());
 
-        String response = JaxsonUtils.toJson(restaurantData);
-
-        logger.log(Level.FINE, "Response: " + response);
+        String jsonResponse = JaxsonUtils.toJson(restaurantData);
+        byte[] responseBytes = jsonResponse.getBytes(StandardCharsets.UTF_8);
 
         exchange.getResponseHeaders().set("Content-Type", "application/json");
-        exchange.sendResponseHeaders(200, response.length());
-        exchange.getResponseBody().write(response.getBytes());
+        exchange.sendResponseHeaders(200, responseBytes.length);
+        exchange.getResponseBody().write(responseBytes);
         exchange.close();
     }
     private void createRestaurant(HttpExchange exchange) throws IOException {

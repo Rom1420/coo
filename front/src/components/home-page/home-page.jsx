@@ -8,7 +8,7 @@ import ValidationJoinPopUp from '../pop-ups/validation-join-pop-up/validation-jo
 import ValidationCreatePopUp from "../pop-ups/validation-create-pop-up/validation-create-pop-up";
 import MyGroupsPopUp from "../pop-ups/my-groups-pop-up/my-groups-pop-up";
 
-function HomePage({onOrderNowClick}) {
+function HomePage({onOrderNowClick, setRestaurant, setCurrentPage}) {
 
   const [isJoinGroupPopUpVisible, setJoinGroupPopUpVisible] = useState(false);
   const [isValidationPopUpVisible, setValidationPopUpVisible] = useState(false);
@@ -82,9 +82,9 @@ function HomePage({onOrderNowClick}) {
             <Button text="My Groups" onClick={handleMyGroupsClick} />
         </div>}
         {isJoinGroupPopUpVisible && <JoinGroupPopUp onClose={handleJoinGroupeClick} closing={isClosing} setValidationPopUpVisible={setValidationPopUpVisible} setGroupId={setGroupId}/>}
-        {isCreateGroupPopUpVisible && <CreateGroupPopUp onClose={handleCreateGroupeClick} closing={isClosing} setValidationCreatePopUpVisible={setValidationCreatePopUpVisible} setGroupId={setGroupId} setGroupNameFB={setGroupNameFB}/>}
-        {isValidationCreatePopUpVisible && <ValidationCreatePopUp onClose={()=> setValidationCreatePopUpVisible(false)} closing={isClosing} groupId={groupId} groupNameFB={groupNameFB}/>}
-        {isValidationPopUpVisible && <ValidationJoinPopUp onClose={() => setValidationPopUpVisible(false)} closing={isClosing} onOrderNowClick={onOrderNowClick}/>}
+        {isCreateGroupPopUpVisible && <CreateGroupPopUp onClose={handleCreateGroupeClick} closing={isClosing} setValidationCreatePopUpVisible={setValidationCreatePopUpVisible} setGroupId={setGroupId} setGroupNameFB={setGroupNameFB} setRestaurant={setRestaurant} />}
+        {isValidationCreatePopUpVisible && <ValidationCreatePopUp onClose={()=> {setValidationCreatePopUpVisible(false); setCurrentPage('restaurantPage')}} closing={isClosing} groupId={groupId} groupNameFB={groupNameFB}/>}
+        {isValidationPopUpVisible && <ValidationJoinPopUp onClose={() => {setValidationPopUpVisible(false)}} closing={isClosing} onOrderNowClick={onOrderNowClick}/>}
         {isMyGroupsPopUpVisible && <MyGroupsPopUp onClose={handleMyGroupsClick} closing={isClosing} joinedGroups={joinedGroups} />}
     </div>
   );

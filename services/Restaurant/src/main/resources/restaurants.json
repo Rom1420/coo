@@ -1,1 +1,258 @@
-[{"nbOfCook":5,"menusOfRestaurant":[],"name":"Le Gourmet","articlesSimples":[{"name":"Salade","price":5.5,"timeRequiredForPreparation":10,"description":null,"categorie":"ENTREE"},{"name":"Steak","price":15.0,"timeRequiredForPreparation":20,"description":null,"categorie":"PLAT"},{"name":"Glace","price":4.0,"timeRequiredForPreparation":5,"description":null,"categorie":"DESSERT"}],"discountType":"NONE","weeklySchedules":{"MONDAY":{"closing":"18:00","opening":"08:00"},"TUESDAY":{"closing":"17:00","opening":"09:00"}},"typeCuisine":"FRANCAISE","open":true},{"nbOfCook":5,"menusOfRestaurant":[],"name":"La bombe","articlesSimples":[{"name":"Salade","price":5.5,"timeRequiredForPreparation":10,"description":null,"categorie":"ENTREE"}],"discountType":"NONE","weeklySchedules":{"MONDAY":{"closing":"18:00","opening":"08:00"},"TUESDAY":{"closing":"17:00","opening":"09:00"}},"typeCuisine":"ITALIENNE","open":true}]
+[
+  {
+    "name": "McDonald's",
+    "articlesSimples": [
+      {
+        "name": "Big Mac",
+        "price": 7.5,
+        "timeRequiredForPreparation": 5,
+        "description": "Double steak haché avec sauce spéciale",
+        "categorie": "PLAT"
+      },
+      {
+        "name": "Nuggets",
+        "price": 4.5,
+        "timeRequiredForPreparation": 3,
+        "description": "Délicieux morceaux de poulet panés",
+        "categorie": "ENTREE"
+      },
+      {
+        "name": "Sundae",
+        "price": 3.0,
+        "timeRequiredForPreparation": 2,
+        "description": "Glace à la vanille avec topping au choix",
+        "categorie": "DESSERT"
+      }
+    ],
+    "menusOfRestaurant": [],
+    "weeklySchedules": {
+      "TUESDAY": {
+        "closing": "22:00",
+        "opening": "07:00"
+      },
+      "WEDNESDAY": {
+        "closing": "22:00",
+        "opening": "07:00"
+      },
+      "THURSDAY": {
+        "closing": "22:00",
+        "opening": "07:00"
+      },
+      "FRIDAY": {
+        "closing": "22:00",
+        "opening": "07:00"
+      },
+      "SATURDAY": {
+        "closing": "22:00",
+        "opening": "07:00"
+      },
+      "SUNDAY": {
+        "closing": "22:00",
+        "opening": "07:00"
+      }
+    },
+    "nbOfCook": 10,
+    "typeCuisine": "FASTFOOD",
+    "discountType": "NONE",
+    "open": true
+  },
+  {
+    "name": "KFC",
+    "articlesSimples": [
+      {
+        "name": "Bucket Original",
+        "price": 20.0,
+        "timeRequiredForPreparation": 10,
+        "description": "Sélection de morceaux de poulet croustillants",
+        "categorie": "PLAT"
+      },
+      {
+        "name": "Popcorn Chicken",
+        "price": 6.5,
+        "timeRequiredForPreparation": 4,
+        "description": "Petites bouchées de poulet panées",
+        "categorie": "ENTREE"
+      }
+    ],
+    "menusOfRestaurant": [],
+    "weeklySchedules": {
+      "MONDAY": {
+        "closing": "22:00",
+        "opening": "08:00"
+      },
+      "TUESDAY": {
+        "closing": "22:00",
+        "opening": "08:00"
+      },
+      "THURSDAY": {
+        "closing": "22:00",
+        "opening": "08:00"
+      },
+      "FRIDAY": {
+        "closing": "22:00",
+        "opening": "08:00"
+      },
+      "SATURDAY": {
+        "closing": "22:00",
+        "opening": "08:00"
+      }
+    },
+    "nbOfCook": 12,
+    "typeCuisine": "FASTFOOD",
+    "discountType": "NONE",
+    "open": true
+  },
+  {
+    "name": "Subway",
+    "articlesSimples": [
+      {
+        "name": "Sub 30cm Poulet",
+        "price": 8.5,
+        "timeRequiredForPreparation": 7,
+        "description": "Sandwich personnalisé au poulet",
+        "categorie": "PLAT"
+      },
+      {
+        "name": "Cookie",
+        "price": 2.0,
+        "timeRequiredForPreparation": 1,
+        "description": "Cookie moelleux avec pépites de chocolat",
+        "categorie": "DESSERT"
+      }
+    ],
+    "menusOfRestaurant": [],
+    "weeklySchedules": {
+      "MONDAY": {
+        "closing": "20:00",
+        "opening": "10:00"
+      },
+      "TUESDAY": {
+        "closing": "20:00",
+        "opening": "10:00"
+      },
+      "WEDNESDAY": {
+        "closing": "20:00",
+        "opening": "10:00"
+      },
+      "FRIDAY": {
+        "closing": "20:00",
+        "opening": "10:00"
+      },
+      "SATURDAY": {
+        "closing": "20:00",
+        "opening": "10:00"
+      },
+      "SUNDAY": {
+        "closing": "20:00",
+        "opening": "10:00"
+      }
+    },
+    "nbOfCook": 8,
+    "typeCuisine": "FASTFOOD",
+    "discountType": "LOYALTY",
+    "open": true
+  },
+  {
+    "name": "Burger King",
+    "articlesSimples": [
+      {
+        "name": "Whopper",
+        "price": 6.5,
+        "timeRequiredForPreparation": 6,
+        "description": "Burger emblématique avec légumes frais",
+        "categorie": "PLAT"
+      },
+      {
+        "name": "Frites",
+        "price": 2.5,
+        "timeRequiredForPreparation": 2,
+        "description": "Frites croustillantes",
+        "categorie": "ENTREE"
+      },
+      {
+        "name": "Milkshake",
+        "price": 4.0,
+        "timeRequiredForPreparation": 3,
+        "description": "Milkshake onctueux avec différents parfums",
+        "categorie": "DESSERT"
+      }
+    ],
+    "menusOfRestaurant": [],
+    "weeklySchedules": {
+      "TUESDAY": {
+        "closing": "21:00",
+        "opening": "09:00"
+      },
+      "WEDNESDAY": {
+        "closing": "21:00",
+        "opening": "09:00"
+      },
+      "THURSDAY": {
+        "closing": "21:00",
+        "opening": "09:00"
+      },
+      "FRIDAY": {
+        "closing": "21:00",
+        "opening": "09:00"
+      },
+      "SATURDAY": {
+        "closing": "21:00",
+        "opening": "09:00"
+      }
+    },
+    "nbOfCook": 15,
+    "typeCuisine": "FASTFOOD",
+    "discountType": "NONE",
+    "open": true
+  },
+  {
+    "name": "Chez Pippo",
+    "articlesSimples": [
+      {
+        "name": "Pizza Margherita",
+        "price": 12.0,
+        "timeRequiredForPreparation": 15,
+        "description": "Pizza classique avec tomate, mozzarella et basilic",
+        "categorie": "PLAT"
+      },
+      {
+        "name": "Tiramisu",
+        "price": 5.0,
+        "timeRequiredForPreparation": 5,
+        "description": "Dessert italien au café et mascarpone",
+        "categorie": "DESSERT"
+      }
+    ],
+    "menusOfRestaurant": [],
+    "weeklySchedules": {
+      "MONDAY": {
+        "closing": "22:00",
+        "opening": "11:00"
+      },
+      "TUESDAY": {
+        "closing": "22:00",
+        "opening": "11:00"
+      },
+      "THURSDAY": {
+        "closing": "22:00",
+        "opening": "11:00"
+      },
+      "FRIDAY": {
+        "closing": "22:00",
+        "opening": "11:00"
+      },
+      "SATURDAY": {
+        "closing": "22:00",
+        "opening": "11:00"
+      },
+      "SUNDAY": {
+        "closing": "22:00",
+        "opening": "11:00"
+      }
+    },
+    "nbOfCook": 7,
+    "typeCuisine": "FRANCAISE",
+    "discountType": "LOYALTY",
+    "open": true
+  }
+]

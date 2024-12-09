@@ -103,7 +103,7 @@ public class RestaurantService {
 
 
     public static HttpServer startServer(int port, RestaurantManager restaurantManager) throws IOException {
-        HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
+        HttpServer server = HttpServer.create(new InetSocketAddress("0.0.0.0", port), 0);
 
         server.createContext("/api/restaurant", new RestaurantHttpHandler(restaurantManager));
         server.createContext("/api/restaurant/filters", new RestaurantFilterHandler(restaurantManager));

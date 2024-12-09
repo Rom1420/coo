@@ -2,37 +2,81 @@ import './create-group-pop-up.css';
 import Button from '../../tools/button/button';
 import Input from '../../tools/input/input';
 import ToggleSwitch from '../../tools/toggle-switch/toggle-switch';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import Dropdown from '../../tools/dropdown/dropdown';
+import RestaurantList from '../../restaurants-list/restaurants-list';
 
-function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible, setGroupId, setGroupNameFB}) {
+function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible, setGroupId, setGroupNameFB, setRestaurant}) {
 
-  const [isToggleSwitchOn, setIsToggleSwitchOn] = useState(false);
-  const [selectedRestaurant, setSelectedRestaurant] = useState('');
-  const [groupName, setGroupName] = useState('');
-  const [deliveryLocation, setDeliveryLocation] = useState('');
-  const [deliveryTime, setDeliveryTime] = useState({ hours: '', minutes: '' });
-    // Liste des restaurants (à récupérer via l'API des restautants)
-    const restaurantOptions = [
-        'McDonald\'s',
-        'KFC',
-        'Pizza Hut',
-        'Subway',
-        'Burger King',
-    ];
+    const [isToggleSwitchOn, setIsToggleSwitchOn] = useState(false);
+    const [selectedRestaurant, setSelectedRestaurant] = useState('');
+    const [groupName, setGroupName] = useState('');
+    const [deliveryLocation, setDeliveryLocation] = useState('');
+    const [deliveryTime, setDeliveryTime] = useState({ hours: '', minutes: '' });
+    const [isRestaurantListVisible, setIsRestaurantListVisible] = useState(false);
+    const [isHidden, setIsHidden] = useState(false); 
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
-  const handleToggleSwitch = () => {
-    setIsToggleSwitchOn((prevState) => !prevState);
-  };
+    useEffect(() => {
+        if (selectedRestaurant) {
+            fetch(`${API_BASE_URL}/api/restaurant/${selectedRestaurant}`)
+            // fetch(`http://localhost:8080/api/restaurant/${selectedRestaurant}`)
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then((data) => setRestaurant(data))
+                .catch((error) => console.error('Erreur lors du chargement des données:', error));
+            }
+    }, [API_BASE_URL, selectedRestaurant, setRestaurant]);
 
-  const handleRestaurantChange = (event) => {
-      setSelectedRestaurant(event.target.value);
-  }
+    const closeRestaurantList = () => {
+        setIsHidden(true); 
+        setTimeout(() => {
+            setIsRestaurantListVisible(false); 
+            setIsHidden(false); 
+        }, 100); 
+    };
+
+    const handleSelectRestaurant = (restaurantName) => {
+        setSelectedRestaurant(restaurantName.name); 
+        setRestaurant(restaurantName);
+        closeRestaurantList(); 
+    };
+
+    const handleToggleSwitch = () => {
+        setIsToggleSwitchOn((prevState) => !prevState);
+    };
 
 
+
+    function emptyInputs() {
+        const inputs = [
+            { id: 'groupName', value: groupName },
+            { id: 'groupDeliveryLocation', value: deliveryLocation },
+            { id: 'selectedRestaurant', value: selectedRestaurant },
+        ];
+
+        inputs.forEach(({ id, value }) => {
+            const element = document.querySelector(`#${id}`);
+            if (element) {
+                if (value) {
+                    element.classList.remove('empty');
+                } else {
+                    element.classList.add('empty');
+                }
+            } else {
+                console.error(`Element with id "${id}" not found`);
+            }
+        });
+    }
 
     const handleCreateClick = () => {
+        emptyInputs();
+
         if (!groupName || !deliveryLocation || !selectedRestaurant) {
-            alert('Fill all the fields before creating the group !');
             return;
         }
 
@@ -98,31 +142,26 @@ function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible, se
     };
 
   return (
+    <>
     <div className={`create-group-container ${closing ? 'closing' : ''} ${isToggleSwitchOn ? 'expanded' : 'collapsed'}`}>
         <div className="popup-content">
-            <i className="fa-solid fa-xmark" onClick={onClose}></i>
-            <h4 className='popup-title'>Create Group Order</h4>
+            {!isRestaurantListVisible &&
+                <i className="fa-solid fa-xmark" onClick={onClose}></i>
+            }
+            <h4 className='popup-title'>
+                {isRestaurantListVisible ? 'Restaurants List' : 'Create Group Order'}
+            </h4>
             <div className="separation-line"></div>
             <div className={`input-button-container ${isToggleSwitchOn ? 'expanded' : 'collapsed'}`}>
-                <Input placeholder="Group Name" value={groupName} onChange={(e) => setGroupName(e.target.value)}
+                <Input placeholder="Group Name" id='groupName' value={groupName} onChange={(e) => setGroupName(e.target.value)}
                 />
-                <Input placeholder="Group Delivery Location" value={deliveryLocation} onChange={(e) => setDeliveryLocation(e.target.value)} />
-                <div className="dropdown-container">
-                    <label htmlFor="restaurant-select" className="dropdown-label">Group Restaurant: </label>
-                    <select
-                        id="restaurant-select"
-                        value={selectedRestaurant}
-                        onChange={handleRestaurantChange}
-                        className="restaurant-dropdown"
-                    >
-                        <option value="" disabled>Select a restaurant</option>
-                        {restaurantOptions.map((restaurant, index) => (
-                            <option key={index} value={restaurant}>
-                                {restaurant}
-                            </option>
-                        ))}
-                    </select>
-                </div>
+                <Input placeholder="Group Delivery Location" id='groupDeliveryLocation' value={deliveryLocation} onChange={(e) => setDeliveryLocation(e.target.value)} />
+                <Dropdown 
+                    id="selectedRestaurant"
+                    selectedRestaurant={selectedRestaurant}
+                    onRestaurantChange={(value) => setSelectedRestaurant(value)}
+                    onDetailsClick={() => setIsRestaurantListVisible(true)}
+                />
                 <div className="delivery-time-container">
                     <div className="delivery-time-header">
                         <h5 className='delivery-time-text'>Choose Delivery Time</h5>
@@ -138,7 +177,13 @@ function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible, se
                 <Button text="Create Group Order" onClick={handleCreateClick}/>
             </div>
         </div>
+        {isRestaurantListVisible && (
+            <div className={`restaurants-list-popup ${isHidden ? 'hidden' : ''}`}>
+                <RestaurantList closeRestaurantList={closeRestaurantList} onSelectRestaurant={handleSelectRestaurant} onHomePage={false}/>
+            </div>
+        )}
     </div>
+    </>
   );
 }
 
