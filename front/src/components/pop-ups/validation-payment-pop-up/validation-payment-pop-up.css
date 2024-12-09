@@ -1,0 +1,61 @@
+.validation-payment-container{
+    background-color: var(--white);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 67%;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: slideInFromBottom 0.3s ease-out forwards;
+    padding: 20px;
+}
+
+.validation-payment-container.closing {
+    animation: slideOutToBottom 0.3s ease-in forwards;
+}
+
+.validation-popup-content{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title-validation{
+    margin: 10px;
+}
+
+.small-text-validation{
+    margin: 0;
+}
+
+.small-text{
+    margin: 15px;
+    color: var(--blue);
+}
+
+@keyframes slideInFromBottom {
+    0% {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutToBottom {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+}

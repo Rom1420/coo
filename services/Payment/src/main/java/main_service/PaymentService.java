@@ -21,6 +21,9 @@ public class PaymentService {
     static class PaymentHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange exchange) throws IOException {
+            exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
+            exchange.getResponseHeaders().set("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
+            exchange.getResponseHeaders().set("Access-Control-Allow-Headers", "Content-Type");
             if ("GET".equals(exchange.getRequestMethod())) {
 
                 String response = getRandomPaymentStatus();

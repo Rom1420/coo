@@ -50,7 +50,8 @@ function App() {
       )}
       {currentPage === 'cartResume' && (
         <CartResume 
-          onBackToPrevClick={() => setCurrentPage('menuElementDetail')} 
+          onBackToPrevClick={() => setCurrentPage('menuElementDetail')}
+          onBackToHomeClick={() => setCurrentPage('home')}
         />
       )}
       {currentPage === 'restaurants-list' && (
