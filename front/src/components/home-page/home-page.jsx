@@ -6,6 +6,7 @@ import JoinGroupPopUp from '../pop-ups/join-group-pop-up/join-group-pop-up';
 import CreateGroupPopUp from '../pop-ups/create-group-pop-up/create-group-pop-up';
 import ValidationJoinPopUp from '../pop-ups/validation-join-pop-up/validation-join-pop-up';
 import ValidationCreatePopUp from "../pop-ups/validation-create-pop-up/validation-create-pop-up";
+import MyGroupsPopUp from "../pop-ups/my-groups-pop-up/my-groups-pop-up";
 
 function HomePage({onOrderNowClick, setRestaurant, setCurrentPage}) {
 
@@ -13,8 +14,11 @@ function HomePage({onOrderNowClick, setRestaurant, setCurrentPage}) {
   const [isValidationPopUpVisible, setValidationPopUpVisible] = useState(false);
   const [isCreateGroupPopUpVisible, setCreateGroupPopUpVisible] = useState(false);
   const [isValidationCreatePopUpVisible, setValidationCreatePopUpVisible] = useState(false);
+  const [isMyGroupsPopUpVisible, setMyGroupsPopUpVisible] = useState(false)
   const [isClosing, setIsClosing] = useState(false);
   const [groupId, setGroupId] = useState(null);
+  const [groupNameFB, setGroupNameFB] = useState('');
+  const [joinedGroups, setJoinedGroups] = useState([]);
 
 
 
@@ -52,9 +56,22 @@ function HomePage({onOrderNowClick, setRestaurant, setCurrentPage}) {
     }
   };
 
+  const handleMyGroupsClick = () => {
+    if (isMyGroupsPopUpVisible) {
+      setIsClosing(true);
+      setTimeout(() => {
+        setMyGroupsPopUpVisible(false);
+        setIsClosing(false);
+      }, 300);
+    } else {
+      setMyGroupsPopUpVisible(true);
+    }
+  };
+
+
   return (
     <div className="home">
-        {( isJoinGroupPopUpVisible || isCreateGroupPopUpVisible || isValidationPopUpVisible || isValidationCreatePopUpVisible )
+        {( isJoinGroupPopUpVisible || isCreateGroupPopUpVisible || isValidationPopUpVisible || isValidationCreatePopUpVisible || isMyGroupsPopUpVisible)
               && <div className="darker-overlay"></div>}
         <Tmax/>
         <h3 className="small-text">Order your favorite food delivered fast, wherever you are</h3>
@@ -62,11 +79,13 @@ function HomePage({onOrderNowClick, setRestaurant, setCurrentPage}) {
             <Button text="Order Now" onClick={onOrderNowClick} />
             <Button text="Create Group Order" onClick={handleCreateGroupeClick}/>
             <Button text="Join Group Order" onClick={handleJoinGroupeClick} />
+            <Button text="My Groups" onClick={handleMyGroupsClick} />
         </div>}
         {isJoinGroupPopUpVisible && <JoinGroupPopUp onClose={handleJoinGroupeClick} closing={isClosing} setValidationPopUpVisible={setValidationPopUpVisible} setGroupId={setGroupId}/>}
-        {isCreateGroupPopUpVisible && <CreateGroupPopUp onClose={handleCreateGroupeClick} closing={isClosing} setValidationCreatePopUpVisible={setValidationCreatePopUpVisible} setGroupId={setGroupId} setRestaurant={setRestaurant} />}
-        {isValidationCreatePopUpVisible && <ValidationCreatePopUp onClose={()=> {setValidationCreatePopUpVisible(false); setCurrentPage('restaurantPage')}} closing={isClosing} groupId={groupId}/>}
+        {isCreateGroupPopUpVisible && <CreateGroupPopUp onClose={handleCreateGroupeClick} closing={isClosing} setValidationCreatePopUpVisible={setValidationCreatePopUpVisible} setGroupId={setGroupId} setGroupNameFB={setGroupNameFB} setRestaurant={setRestaurant} />}
+        {isValidationCreatePopUpVisible && <ValidationCreatePopUp onClose={()=> {setValidationCreatePopUpVisible(false); setCurrentPage('restaurantPage')}} closing={isClosing} groupId={groupId} groupNameFB={groupNameFB}/>}
         {isValidationPopUpVisible && <ValidationJoinPopUp onClose={() => {setValidationPopUpVisible(false)}} closing={isClosing} onOrderNowClick={onOrderNowClick}/>}
+        {isMyGroupsPopUpVisible && <MyGroupsPopUp onClose={handleMyGroupsClick} closing={isClosing} joinedGroups={joinedGroups} />}
     </div>
   );
 }

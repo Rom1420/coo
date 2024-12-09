@@ -1,6 +1,8 @@
 package fr.unice.polytech.components;
 
 
+
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import fr.unice.polytech.db.OrderManager;
@@ -53,6 +55,8 @@ public class GroupOrderImpl implements GroupOrderInterface {
         this.userList = new ArrayList<>();
         this.status = "pending";
     }
+
+
 
     @JsonCreator
     public GroupOrderImpl(
