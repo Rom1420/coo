@@ -85,7 +85,7 @@ public class GroupOrderManager {
         }
     }
 
-    private Map<Integer, GroupOrderImpl> getRawGroupOrders() {
+    public Map<Integer, GroupOrderImpl> getRawGroupOrders() {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             File file = new File(GROUP_DB_PATH);
@@ -122,7 +122,24 @@ public class GroupOrderManager {
                 e.printStackTrace();
             }
         } else {
-            System.out.println("Group ID " + groupId + " not found in the database.");
+            System.out.println("In updateStatus, Group ID " + groupId + " not found in the database.");
+        }
+    }
+
+    public void addOrderToExistingGroup(int groupId, int orderId, int preparationTime) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map<Integer, GroupOrderImpl> existingGroups = getRawGroupOrders();
+
+        GroupOrderImpl groupOrder = existingGroups.get(groupId);
+        if (groupOrder != null) {
+            groupOrder.addOrUpdateUserOrder(orderId, preparationTime);
+            try {
+                objectMapper.writerWithDefaultPrettyPrinter().writeValue(new File(GROUP_DB_PATH), existingGroups);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            throw new IllegalArgumentException("In add, Group ID " + groupId + " not found in the database.");
         }
     }
 

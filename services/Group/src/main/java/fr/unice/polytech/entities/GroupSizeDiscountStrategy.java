@@ -4,10 +4,10 @@ import fr.unice.polytech.components.GroupOrderImpl;
 import fr.unice.polytech.interfaces.DiscountStrategy;
 
 public class GroupSizeDiscountStrategy implements DiscountStrategy {
-    @Override
+   /* @Override
     public float applyDiscount(GroupOrderImpl groupOrder) {
         if (groupOrder.getUserList().size() >= 10) {
-            for (Order order : groupOrder.getUsersOrders().values()) {
+            for (Order order : groupOrder.getUsersOrders().values()) { // récupérer les order depuis le service order
                 float originalPrice = order.getTotalPrice();
                 float discount = originalPrice * 0.1f;
                 float newPrice = originalPrice - discount;
@@ -18,4 +18,10 @@ public class GroupSizeDiscountStrategy implements DiscountStrategy {
         }
         return 0f;
     }
+*/
+    @Override
+    public float applyDiscount(GroupOrderImpl groupOrder) {
+        return 0f;
+    }
 }
+
