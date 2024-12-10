@@ -37,10 +37,6 @@ public class OrderImpl implements OrderInterface {
         this.id = id;
     }
 
-    public int getOrderId() {
-        return id;
-    }
-
     @Override
     public void addMenu(Menu menu) {
         menus.add(menu);

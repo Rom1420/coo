@@ -38,14 +38,48 @@ function CartResume({ onBackToPrevClick, onBackToHomeClick,cart, removeArticleFr
         }
     };
 
+    const handlePostRequest = async () => {
+        const data = { articles: []};
+        for(let i = 0; i < cart.length; i++){
+            for(let j = 0; j < cart[i].quantity; j++){
+                const article = {
+                    name: cart[i].name,
+                    price: cart[i].price
+                }
+                data.articles.push(article);
+            }
+        }
+        try {
+            const response = await fetch("http://localhost:8002/api/order", {
+                method: "POST", // Type de requête
+                headers: {
+                    "Content-Type": "application/json", // Type de contenu
+                },
+                body: JSON.stringify(data), // Transformation des données en JSON
+            });
+            console.log(response);
+
+            if (response.ok) {
+                const result = await response.json();
+                console.log("Réponse du serveur :", result);
+            } else {
+                console.error("Erreur dans la requête :", response.status);
+            }
+        } catch (error) {
+            console.error("Erreur réseau :", error);
+        }
+    };
+
     const handleValidationPaymentClick = async () => {
         setPaymentStatus(null);
         try {
             const response = await fetch('http://localhost:8050/api/payment');
             if (response.ok) {
                 const result = await response.text();
+                console.log(result);
                 if (result === "valid payment") {
                     setPaymentStatus('success');
+                    await handlePostRequest();
                 } else {
                     setPaymentStatus('failure');
                 }
