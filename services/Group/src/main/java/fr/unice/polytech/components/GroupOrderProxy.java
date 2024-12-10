@@ -45,8 +45,8 @@ public class GroupOrderProxy implements GroupOrderInterface{
     }
 
     @Override
-    public Order getOrder(Integer user) {
-        return groupOrderInterface.getOrder(user);
+    public Integer getOrder(Integer id) {
+        return groupOrderInterface.getOrder(id);
     }
 
     @Override
@@ -66,21 +66,21 @@ public class GroupOrderProxy implements GroupOrderInterface{
 
 
     @Override
-    public void addOrUpdateUserOrder(Integer user, Order order) {
+    public void addOrUpdateUserOrder(Integer id, Integer orderPreparationTime) {
         Restaurant restaurant = groupOrderInterface.getRestaurant();
         Date groupDeliveryDate = groupOrderInterface.getGroupOrderDeliveryDate();
         int currentTotalPrepTime = groupOrderInterface.getTotalPreparationTime();
 
-        int newTotalPrepTime = currentTotalPrepTime + order.getTotalPreparationTime(); // Minutes
+        int newTotalPrepTime = currentTotalPrepTime + orderPreparationTime; // Minutes
         long currentTime = System.currentTimeMillis();
 
         if (getStatus().equals("validated")) {
             throw new IllegalStateException("Impossible d'ajouter ou de modifier une commande car le groupe est fermé");
         }
 
-        if (getRestaurant() != order.getRestaurant() || getGroupOrderDeliveryDate() != order.getDeliveryDate() || !Objects.equals(getGroupOrderDeliveryLocation(), order.getDeliveryLocation())) {
+        /*if (getRestaurant() != order.getRestaurant() || getGroupOrderDeliveryDate() != order.getDeliveryDate() || !Objects.equals(getGroupOrderDeliveryLocation(), order.getDeliveryLocation())) {
             throw new IllegalStateException("Les paramètres de la commande ne correspondent pas à ceux du groupe");
-        }
+        }*/
 
         if (!restaurant.isOpen()) {
             throw new RuntimeException("Restaurant fermé");
@@ -94,15 +94,15 @@ public class GroupOrderProxy implements GroupOrderInterface{
                 throw new RuntimeException("Impossible d'ajouter cette commande, elle dépasserait la date de livraison du groupe.");
             }
             else{
-                order.updateEstimatedDeliveryDate(estimatedTimeWithNewOrder);
-                groupOrderInterface.addOrUpdateUserOrder(user, order);
+                //order.updateEstimatedDeliveryDate(estimatedTimeWithNewOrder);
+                groupOrderInterface.addOrUpdateUserOrder(id, orderPreparationTime);
             }
         }
 
     }
 
     @Override
-    public Map<Integer, Order> getUsersOrders() {
+    public List<Integer> getUsersOrders() {
         return groupOrderInterface.getUsersOrders();
     }
 

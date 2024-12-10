@@ -12,7 +12,7 @@ public class LoyaltyDiscountStrategy implements DiscountStrategy {
         this.orderHistory = orderHistory;
     }
 
-    @Override
+    /*@Override
     public float applyDiscount(GroupOrderImpl groupOrder) {
         float totalDiscount = 0f;
 
@@ -35,6 +35,11 @@ public class LoyaltyDiscountStrategy implements DiscountStrategy {
             }
         }
 
+        return totalDiscount;
+    }
+*/
+    public float applyDiscount(GroupOrderImpl groupOrder) {
+        float totalDiscount = 0f;
         return totalDiscount;
     }
 }
