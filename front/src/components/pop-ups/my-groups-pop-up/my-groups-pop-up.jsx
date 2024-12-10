@@ -1,31 +1,39 @@
 import './my-groups-pop-up.css';
 import Button from '../../tools/button/button'; // Assurez-vous que Button est bien importé
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function MyGroupsPopUp({ onClose, closing }) {
-    // Récupérer les groupes rejoins qui sont en état pending !!!
-    const [joinedGroups, setJoinedGroups] = useState([
-        {
-            id: 1,
-            groupName: "Pizza Lovers",
-            deliveryLocation: "123 Main Street, Cityville",
-            status: "pending"
-        },
-        {
-            id: 2,
-            groupName: "Burger Bunch",
-            deliveryLocation: "456 Burger Avenue, Foodtown",
-            status: "pending"
-        },
-        {
-            id: 3,
-            groupName: "Sushi Squad",
-            deliveryLocation: "789 Sushi Road, Fishburg",
-            status: "pending"
-        }
-    ]);
+    const [joinedGroups, setJoinedGroups] = useState([]);
+    const [loading, setLoading] = useState(true); // Pour afficher un indicateur de chargement
+    const [error, setError] = useState(null); // Pour gérer les erreurs
 
-    // Fonction pour valider le groupe
+
+    useEffect(() => {
+        const fetchGroups = async () => {
+            try {
+                const response = await fetch('http://localhost:8001/api/group/create', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                if (response.ok) {
+                    const groups = await response.json();
+                    setJoinedGroups(groups);
+                } else {
+                    throw new Error(`Error: ${response.status} - ${response.statusText}`);
+                }
+            } catch (error) {
+                setError(error.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchGroups();
+    }, []);
+
     const handleValidateGroup = async (groupId) => {
         try {
             const response = await fetch(`http://localhost:8003/api/group/validate?groupId=${groupId}`, {
@@ -38,7 +46,7 @@ function MyGroupsPopUp({ onClose, closing }) {
             if (response.ok) {
                 setJoinedGroups(prevGroups =>
                     prevGroups.map(group =>
-                        group.id === groupId ? { ...group, status: 'validated' } : group
+                        group.groupId === groupId ? { ...group, status: 'validated' } : group
                     )
                 );
                 console.log("Group validated successfully");
@@ -50,6 +58,7 @@ function MyGroupsPopUp({ onClose, closing }) {
         }
     };
 
+    // Rendu du composant
     return (
         <div className={`my-groups-container ${closing ? 'closing' : ''}`}>
             <div className="popup-content">
@@ -57,20 +66,26 @@ function MyGroupsPopUp({ onClose, closing }) {
                 <h4 className="popup-title">My Groups</h4>
                 <div className="separation-line"></div>
                 <div className="groups-list-container">
-                    {joinedGroups && joinedGroups.length > 0 ? (
+                    {loading ? (
+                        <p>Loading groups...</p>
+                    ) : error ? (
+                        <p>Error loading groups: {error}</p>
+                    ) : joinedGroups && joinedGroups.length > 0 ? (
                         <ul className="groups-list">
                             {joinedGroups.map((group, index) => (
                                 <li key={index}>
                                     <div>
                                         <strong>{group.groupName}</strong>
-                                        <p>ID: {group.id}</p>
-                                        <p>Delivery Location: {group.deliveryLocation}</p>
+                                        <p>ID: {group.groupId}</p>
+                                        <p>Delivery Location: {group.groupOrderDeliveryLocation}</p>
                                         <p>Status: {group.status}</p>
                                     </div>
-                                    <Button
-                                        text="Validate Group"
-                                        onClick={() => handleValidateGroup(group.id)}
-                                    />
+                                    {group.status !== "validated" && (
+                                        <Button
+                                            text="Validate Group"
+                                            onClick={() => handleValidateGroup(group.groupId)}
+                                        />
+                                    )}
                                 </li>
                             ))}
                         </ul>
