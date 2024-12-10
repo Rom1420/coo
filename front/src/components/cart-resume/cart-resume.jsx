@@ -51,11 +51,10 @@ function CartResume({ onBackToPrevClick, onBackToHomeClick,cart, removeArticleFr
         }
         try {
             const response = await fetch("http://localhost:8002/api/order", {
-                method: "POST", // Type de requête
-                headers: {
-                    "Content-Type": "application/json", // Type de contenu
-                },
+                method: 'POST', // Type de requête
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data), // Transformation des données en JSON
+                mode: 'cors'
             });
             console.log(response);
 
