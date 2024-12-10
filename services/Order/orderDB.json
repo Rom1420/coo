@@ -8,5 +8,33 @@
     "menus" : [ ],
     "articles" : [ ],
     "id" : 2
+  },
+  "3" : {
+    "menus" : [ ],
+    "articles" : [ {
+      "name" : "Big Mac",
+      "price" : 7.5,
+      "timeRequiredForPreparation" : 0,
+      "categorie" : null,
+      "description" : null
+    } ],
+    "id" : 3
+  },
+  "4" : {
+    "menus" : [ ],
+    "articles" : [ {
+      "name" : "Big Mac",
+      "price" : 7.5,
+      "timeRequiredForPreparation" : 0,
+      "categorie" : null,
+      "description" : null
+    }, {
+      "name" : "Bucket Original",
+      "price" : 20.0,
+      "timeRequiredForPreparation" : 0,
+      "categorie" : null,
+      "description" : null
+    } ],
+    "id" : 4
   }
 }
