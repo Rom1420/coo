@@ -49,6 +49,7 @@ function CartResume({ onBackToPrevClick, onBackToHomeClick,cart, removeArticleFr
                 data.articles.push(article);
             }
         }
+        console.log(JSON.stringify(data));
         try {
             const response = await fetch("http://localhost:8002/api/order", {
                 method: 'POST', // Type de requête
@@ -56,7 +57,6 @@ function CartResume({ onBackToPrevClick, onBackToHomeClick,cart, removeArticleFr
                 body: JSON.stringify(data), // Transformation des données en JSON
                 mode: 'cors'
             });
-            console.log(response);
 
             if (response.ok) {
                 const result = await response.json();
