@@ -5,8 +5,6 @@ import { ReactComponent as ValidationPic } from '../../../assets/validation-pic.
 
 
 function ValidationCreatePopUp({onClose, closing, groupId, groupNameFB}) {
-    console.log('Received Group ID in ValidationCreatePopUp:', groupId );
-    console.log('Received Group Name in ValidationCreatePopUp:', groupNameFB );
 
     const handleShareCode = () => {
         alert(`The ID "${groupId}" has been shared with your friends.`);
