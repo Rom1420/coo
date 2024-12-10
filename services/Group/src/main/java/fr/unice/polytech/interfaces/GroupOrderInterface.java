@@ -13,12 +13,12 @@ public interface GroupOrderInterface {
     void setGroupOrderDeliveryDate(Date deliveryDate);
     void setGroupOrderDeliveryLocation(String deliveryLocation);
     void addMember(Integer user);
-    Order getOrder(Integer user);
+    Integer getOrder(Integer id);
     Restaurant getRestaurant();
     int getGroupId();
     List<Integer> getUserList();
-    void addOrUpdateUserOrder(Integer user, Order order);
-    Map<Integer, Order> getUsersOrders();
+    void addOrUpdateUserOrder(Integer id, Integer orderPreparationTime);
+    List<Integer> getUsersOrders();
     void removeOrder(Integer user);
     int getTotalPreparationTime();
     Date getGroupOrderDeliveryDate();

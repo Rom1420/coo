@@ -4,7 +4,8 @@ import fr.unice.polytech.components.GroupOrderImpl;
 import fr.unice.polytech.interfaces.DiscountStrategy;
 
 public class ItemCountDiscountStrategy implements DiscountStrategy {
-    @Override
+
+    /*@Override
     public float applyDiscount(GroupOrderImpl groupOrder) {
         float totalDiscount = 0f;
 
@@ -22,5 +23,11 @@ public class ItemCountDiscountStrategy implements DiscountStrategy {
             }
         }
         return totalDiscount;
+    }
+*/
+    @Override
+    public float applyDiscount(GroupOrderImpl groupOrder) {
+        return 0f;
+
     }
 }
