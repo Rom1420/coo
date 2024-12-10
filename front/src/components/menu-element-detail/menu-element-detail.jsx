@@ -1,5 +1,4 @@
 import './menu-element-detail.css';
-import Rating from '../tools/rating/rating';
 import Favorite from '../tools/favorite/favorite';
 import Cart from '../tools/cart/cart';
 import Counter from '../tools/counter/counter';
@@ -12,7 +11,6 @@ function MenuElementDetail({onBackToPrevClick, menuElement, onCheckCartClick, on
     const [portions, setPortions] = useState(0);
 
     const logoUrl = `/logos/logo-${restaurant.name.toLowerCase().replace(/ /g, '-')}.png`;
-    const imageUrl = `/images/${restaurant.name.toLowerCase().replace(/ /g, '-')}.png`;
 
     const getCategoryImageUrl = () =>
     `/menu/${restaurant.name.toLowerCase().replace(/ /g, '-')}/categories/${menuElement?.categorie.toLowerCase()}-${restaurant.name.toLowerCase().replace(/ /g, '-')}.png`;

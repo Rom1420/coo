@@ -29,7 +29,6 @@ function App() {
         return [...prevCart, { ...article, quantity: Number(article.quantity) }];
       }
     });
-    console.log(cart, article)
   };
 
   const removeArticleFromCart = (index) => {
@@ -52,11 +51,9 @@ function App() {
           ? (
               <RestaurantPage 
                 onBackToHomeClick={() => {
-                  console.log(groupIdForApp)
                   if(!groupIdForApp){
                     setCurrentPage('home'); setRestaurant(null)
                   } else{
-                    console.log('hahahaha')
                     setCurrentPage('home');
                   }
                 }}

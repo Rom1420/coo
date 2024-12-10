@@ -49,8 +49,12 @@ function CartResume({ onBackToPrevClick, onBackToHomeClick,cart, removeArticleFr
                 data.articles.push(article);
             }
         }
-        console.log(JSON.stringify(data));
         try {
+            console.log("\n\n***********************************APPEL API ORDER***********************************\n\n")
+            console.log(`Appel au service externe Order qui crée une commande après qu'elle soit validée\nA l'adresse : POST http://localhost:8002/api/order`);
+            console.log("Données envoyées :", data);
+            console.log("\n\n**************************************************************************************\n\n")
+            
             const response = await fetch("http://localhost:8002/api/order", {
                 method: 'POST', // Type de requête
                 headers: { 'Content-Type': 'application/json' },
@@ -59,8 +63,7 @@ function CartResume({ onBackToPrevClick, onBackToHomeClick,cart, removeArticleFr
             });
 
             if (response.ok) {
-                const result = await response.json();
-                console.log("Réponse du serveur :", result);
+                await response.json();
             } else {
                 console.error("Erreur dans la requête :", response.status);
             }
@@ -72,10 +75,13 @@ function CartResume({ onBackToPrevClick, onBackToHomeClick,cart, removeArticleFr
     const handleValidationPaymentClick = async () => {
         setPaymentStatus(null);
         try {
+            console.log("\n\n***********************************APPEL API PAYMENT***********************************\n\n")
+            console.log(`Appel au service externe Payment qui valid ou non le payement\nA l'adresse : GET http://localhost:8050/api/payment`);
+            console.log("\n\n****************************************************************************************\n\n")
+
             const response = await fetch('http://localhost:8050/api/payment');
             if (response.ok) {
                 const result = await response.text();
-                console.log(result);
                 if (result === "valid payment") {
                     setPaymentStatus('success');
                     await handlePostRequest();

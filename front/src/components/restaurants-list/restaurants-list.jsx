@@ -9,6 +9,10 @@ function RestaurantList({ closeRestaurantList, onSelectRestaurant, onHomePage })
 
     useEffect(() => {
         // fetch(`${API_BASE_URL}/api/restaurant`)
+        console.log("\n\n***********************************APPEL API RESTAURANT***********************************\n\n")
+        console.log(`Appel au service externe Restaurant pour récupérer la liste des restaurants \nA l'adresse : GET http://localhost:8080/api/restaurant`);
+        console.log("\n\n******************************************************************************************\n\n")
+        
         fetch(`http://localhost:8080/api/restaurant`)
             .then((response) => {
                 if (!response.ok) {
@@ -28,6 +32,16 @@ function RestaurantList({ closeRestaurantList, onSelectRestaurant, onHomePage })
         if (filters.time) params.append('time', filters.time);
 
         // fetch(`${API_BASE_URL}/api/restaurant/filters?${params.toString()}`)
+        
+        console.log("\n\n***********************************APPEL API RESTAURANT***********************************\n\n")
+        console.log(`Appel au service externe Restaurant pour récupérer la liste des restaurants en fonction du ou des filtres :`)
+        console.log(`Filtres appliqués :`);
+        console.log(`- Type de cuisine : ${filters.cuisineType || 'Non spécifié'}`);
+        console.log(`- Jour : ${filters.day || 'Non spécifié'}`);
+        console.log(`- Heure : ${filters.time || 'Non spécifié'}`);
+        console.log(`A l'adresse : GET http://localhost:8080/api/restaurant/filters?${params.toString()}`);
+        console.log("\n\n******************************************************************************************\n\n")
+        
         fetch(`http://localhost:8080/api/restaurant/filters?${params.toString()}`)
             .then((response) => response.json())
             .then((data) => setRestaurants(data))
