@@ -33,8 +33,8 @@ public class OrderManager {
         saveOrdersToFile();
     }
 
-    public OrderImpl getOrder(int orderId) {
-        return orders.get(orderId);
+    public OrderImpl getOrder(int id) {
+        return orders.get(id);
     }
 
     private void loadOrdersFromFile() {

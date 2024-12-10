@@ -10,10 +10,10 @@
         "categorie": "PLAT"
       },
       {
-        "name": "Nuggets",
+        "name": "Wrap",
         "price": 4.5,
         "timeRequiredForPreparation": 3,
-        "description": "Délicieux morceaux de poulet panés",
+        "description": "Wrap avec délicieux morceaux de poulet panés",
         "categorie": "ENTREE"
       },
       {
@@ -67,10 +67,10 @@
         "categorie": "PLAT"
       },
       {
-        "name": "Popcorn Chicken",
+        "name": "Épi de maïs",
         "price": 6.5,
         "timeRequiredForPreparation": 4,
-        "description": "Petites bouchées de poulet panées",
+        "description": "Trop bon",
         "categorie": "ENTREE"
       }
     ],
@@ -209,18 +209,18 @@
     "name": "Chez Pippo",
     "articlesSimples": [
       {
-        "name": "Pizza Margherita",
-        "price": 12.0,
+        "name": "Socca",
+        "price": 3.0,
         "timeRequiredForPreparation": 15,
-        "description": "Pizza classique avec tomate, mozzarella et basilic",
+        "description": "Spécialité nicoise à la farine de pois chiche",
         "categorie": "PLAT"
       },
       {
-        "name": "Tiramisu",
-        "price": 5.0,
+        "name": "Bière du compté",
+        "price": 2.0,
         "timeRequiredForPreparation": 5,
-        "description": "Dessert italien au café et mascarpone",
-        "categorie": "DESSERT"
+        "description": "Bière du compté trop booonne",
+        "categorie": "BOISSON"
       }
     ],
     "menusOfRestaurant": [],

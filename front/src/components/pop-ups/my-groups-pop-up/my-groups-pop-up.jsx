@@ -49,7 +49,6 @@ function MyGroupsPopUp({ onClose, closing }) {
                         group.groupId === groupId ? { ...group, status: 'validated' } : group
                     )
                 );
-                console.log("Group validated successfully");
             } else {
                 console.error("Error validating group:", response.statusText);
             }

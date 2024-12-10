@@ -38,14 +38,53 @@ function CartResume({ onBackToPrevClick, onBackToHomeClick,cart, removeArticleFr
         }
     };
 
+    const handlePostRequest = async () => {
+        const data = { articles: []};
+        for(const element of cart) {
+            for (let j = 0; j < element.quantity; j++) {
+                const article = {
+                    name: element.name,
+                    price: element.price
+                }
+                data.articles.push(article);
+            }
+        }
+        try {
+            console.log("\n\n***********************************APPEL API ORDER***********************************\n\n")
+            console.log(`Appel au service externe Order qui crée une commande après qu'elle soit validée\nA l'adresse : POST http://localhost:8002/api/order`);
+            console.log("Données envoyées :", data);
+            console.log("\n\n**************************************************************************************\n\n")
+            
+            const response = await fetch("http://localhost:8002/api/order", {
+                method: 'POST', // Type de requête
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data), // Transformation des données en JSON
+                mode: 'cors'
+            });
+
+            if (response.ok) {
+                await response.json();
+            } else {
+                console.error("Erreur dans la requête :", response.status);
+            }
+        } catch (error) {
+            console.error("Erreur réseau :", error);
+        }
+    };
+
     const handleValidationPaymentClick = async () => {
         setPaymentStatus(null);
         try {
+            console.log("\n\n***********************************APPEL API PAYMENT***********************************\n\n")
+            console.log(`Appel au service externe Payment qui valid ou non le payement\nA l'adresse : GET http://localhost:8050/api/payment`);
+            console.log("\n\n****************************************************************************************\n\n")
+
             const response = await fetch('http://localhost:8050/api/payment');
             if (response.ok) {
                 const result = await response.text();
                 if (result === "valid payment") {
                     setPaymentStatus('success');
+                    await handlePostRequest();
                 } else {
                     setPaymentStatus('failure');
                 }

@@ -19,6 +19,9 @@ function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible, se
 
     useEffect(() => {
         if (selectedRestaurant) {
+            console.log("\n\n***********************************APPEL API RESTAURANT***********************************\n\n")
+            console.log(`Appel au service externe Restaurant pour récupérer les détails du restaurant séléctionné : ${selectedRestaurant} \nA l'adresse : GET http://localhost:8080/api/restaurant/${selectedRestaurant}`);
+            console.log("\n\n******************************************************************************************\n\n")
             // fetch(`${API_BASE_URL}/api/restaurant/${selectedRestaurant}`)
             fetch(`http://localhost:8080/api/restaurant/${selectedRestaurant}`)
                 .then((response) => {
@@ -111,7 +114,11 @@ function CreateGroupPopUp({onClose, closing, setValidationCreatePopUpVisible, se
             setValidationCreatePopUpVisible(true);
         }, 300);
 
-
+        console.log("\n\n***********************************APPEL API GROUP***********************************\n\n")
+        console.log(`Appel au service externe Group pour créer un groupe \nA l'adresse: POST http://localhost:8001/api/group/create`);
+        console.log("Données envoyées :", groupData);
+        console.log("\n\n*************************************************************************************\n\n")
+        
         fetch('http://localhost:8001/api/group/create', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
