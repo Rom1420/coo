@@ -49,7 +49,6 @@ function CartResume({ onBackToPrevClick, onBackToHomeClick,cart, removeArticleFr
                 data.articles.push(article);
             }
         }
-        console.log(JSON.stringify(data));
         try {
             console.log("\n\n***********************************APPEL API ORDER***********************************\n\n")
             console.log(`Appel au service externe Order qui crée une commande après qu'elle soit validée\nA l'adresse : POST http://localhost:8002/api/order`);
@@ -83,7 +82,6 @@ function CartResume({ onBackToPrevClick, onBackToHomeClick,cart, removeArticleFr
             const response = await fetch('http://localhost:8050/api/payment');
             if (response.ok) {
                 const result = await response.text();
-                console.log(result);
                 if (result === "valid payment") {
                     setPaymentStatus('success');
                     await handlePostRequest();

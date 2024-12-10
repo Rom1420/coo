@@ -11,16 +11,43 @@
   },
   "3" : {
     "menus" : [ ],
+    "articles" : [ ],
+    "id" : 3
+  },
+  "4" : {
+    "menus" : [ ],
+    "articles" : [ ],
+    "id" : 4
+  },
+  "5" : {
+    "menus" : [ ],
     "articles" : [ {
-      "name" : "Big Mac",
-      "price" : 7.5,
+      "name" : "Cookie",
+      "price" : 2.0,
       "timeRequiredForPreparation" : 0,
       "categorie" : null,
       "description" : null
     } ],
-    "id" : 3
+    "id" : 5
   },
-  "4" : {
+  "6" : {
+    "menus" : [ ],
+    "articles" : [ {
+      "name" : "Sundae",
+      "price" : 3.0,
+      "timeRequiredForPreparation" : 0,
+      "categorie" : null,
+      "description" : null
+    }, {
+      "name" : "Sundae",
+      "price" : 3.0,
+      "timeRequiredForPreparation" : 0,
+      "categorie" : null,
+      "description" : null
+    } ],
+    "id" : 6
+  },
+  "7" : {
     "menus" : [ ],
     "articles" : [ {
       "name" : "Big Mac",
@@ -29,12 +56,116 @@
       "categorie" : null,
       "description" : null
     }, {
-      "name" : "Bucket Original",
-      "price" : 20.0,
+      "name" : "Big Mac",
+      "price" : 7.5,
+      "timeRequiredForPreparation" : 0,
+      "categorie" : null,
+      "description" : null
+    }, {
+      "name" : "Big Mac",
+      "price" : 7.5,
       "timeRequiredForPreparation" : 0,
       "categorie" : null,
       "description" : null
     } ],
-    "id" : 4
+    "id" : 7
+  },
+  "8" : {
+    "menus" : [ ],
+    "articles" : [ {
+      "name" : "Cookie",
+      "price" : 2.0,
+      "timeRequiredForPreparation" : 0,
+      "categorie" : null,
+      "description" : null
+    } ],
+    "id" : 8
+  },
+  "9" : {
+    "menus" : [ ],
+    "articles" : [ ],
+    "id" : 9
+  },
+  "10" : {
+    "menus" : [ ],
+    "articles" : [ {
+      "name" : "Cookie",
+      "price" : 2.0,
+      "timeRequiredForPreparation" : 0,
+      "categorie" : null,
+      "description" : null
+    }, {
+      "name" : "Cookie",
+      "price" : 2.0,
+      "timeRequiredForPreparation" : 0,
+      "categorie" : null,
+      "description" : null
+    }, {
+      "name" : "Cookie",
+      "price" : 2.0,
+      "timeRequiredForPreparation" : 0,
+      "categorie" : null,
+      "description" : null
+    }, {
+      "name" : "Cookie",
+      "price" : 2.0,
+      "timeRequiredForPreparation" : 0,
+      "categorie" : null,
+      "description" : null
+    }, {
+      "name" : "Cookie",
+      "price" : 2.0,
+      "timeRequiredForPreparation" : 0,
+      "categorie" : null,
+      "description" : null
+    }, {
+      "name" : "Cookie",
+      "price" : 2.0,
+      "timeRequiredForPreparation" : 0,
+      "categorie" : null,
+      "description" : null
+    } ],
+    "id" : 10
+  },
+  "11" : {
+    "menus" : [ ],
+    "articles" : [ {
+      "name" : "Cookie",
+      "price" : 2.0,
+      "timeRequiredForPreparation" : 0,
+      "categorie" : null,
+      "description" : null
+    }, {
+      "name" : "Cookie",
+      "price" : 2.0,
+      "timeRequiredForPreparation" : 0,
+      "categorie" : null,
+      "description" : null
+    }, {
+      "name" : "Cookie",
+      "price" : 2.0,
+      "timeRequiredForPreparation" : 0,
+      "categorie" : null,
+      "description" : null
+    }, {
+      "name" : "Cookie",
+      "price" : 2.0,
+      "timeRequiredForPreparation" : 0,
+      "categorie" : null,
+      "description" : null
+    }, {
+      "name" : "Cookie",
+      "price" : 2.0,
+      "timeRequiredForPreparation" : 0,
+      "categorie" : null,
+      "description" : null
+    }, {
+      "name" : "Cookie",
+      "price" : 2.0,
+      "timeRequiredForPreparation" : 0,
+      "categorie" : null,
+      "description" : null
+    } ],
+    "id" : 11
   }
 }
