@@ -48,7 +48,7 @@ public class OrderHttpHandler implements HttpHandler {
         OrderImpl order = JaxsonUtils.fromJson(requestBody, OrderImpl.class);
         OrderManager.getOrderManagerInstance().addOrder(order);
 
-        String response = "Order created with ID: " + order.getId();
+        String response = JaxsonUtils.toJson("Order created with ID: " + order.getId());
         exchange.sendResponseHeaders(201, response.getBytes().length);
         exchange.getResponseBody().write(response.getBytes());
         exchange.close();
@@ -72,7 +72,7 @@ public class OrderHttpHandler implements HttpHandler {
 
     private void sendErrorResponse(HttpExchange exchange, int statusCode, String message) throws IOException {
         exchange.getResponseHeaders().set("Content-Type", "text/plain");
-        String response = "{\"error\": \"" + message + "\"}";
+        String response = JaxsonUtils.toJson("{\"error\": \"" + message + "\"}");
         exchange.sendResponseHeaders(statusCode, response.getBytes().length);
         exchange.getResponseBody().write(response.getBytes());
         exchange.close();

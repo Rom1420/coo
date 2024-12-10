@@ -5,6 +5,7 @@ package fr.unice.polytech.components;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import fr.unice.polytech.db.GroupOrderManager;
 import fr.unice.polytech.db.OrderManager;
 import fr.unice.polytech.entities.DiscountType;
 import fr.unice.polytech.entities.Order;
@@ -18,7 +19,7 @@ public class GroupOrderImpl implements GroupOrderInterface {
 
     private String groupName;
 
-    private Map<Integer, Order> usersOrders;
+    private List<Integer> usersOrders;
 
     private Restaurant restaurant;
 
@@ -34,13 +35,13 @@ public class GroupOrderImpl implements GroupOrderInterface {
     //Default constructor, for testing
     public GroupOrderImpl(int groupId) {
         this.groupId = groupId;
-        this.usersOrders = new HashMap<>();
+        this.usersOrders = new ArrayList<>();
         this.userList = new ArrayList<>();
         this.status = "pending";
     }
 
     public GroupOrderImpl() {
-        this.usersOrders = new HashMap<>();
+        this.usersOrders = new ArrayList<>();
         this.userList = new ArrayList<>();
         this.status = "pending";
     }
@@ -48,12 +49,13 @@ public class GroupOrderImpl implements GroupOrderInterface {
     public GroupOrderImpl(int groupId, String groupName, Restaurant restaurant, Date deliveryDate, String deliveryLocation) {
         this.groupId = groupId;
         this.groupName = groupName;
-        this.usersOrders = new HashMap<>();
+        this.usersOrders = new ArrayList<>();
         this.restaurant = restaurant;
         this.deliveryDate = deliveryDate;
         this.deliveryLocation = deliveryLocation;
         this.userList = new ArrayList<>();
         this.status = "pending";
+        this.totalPreparationTime = 0;
     }
 
 
@@ -62,7 +64,7 @@ public class GroupOrderImpl implements GroupOrderInterface {
     public GroupOrderImpl(
             @JsonProperty("groupId") int groupId,
             @JsonProperty("groupName") String groupName,
-            @JsonProperty("usersOrders") Map<Integer, Order> usersOrders,
+            @JsonProperty("usersOrders") List<Integer> usersOrders,
             @JsonProperty("restaurant") Restaurant restaurant,
             @JsonProperty("groupOrderDeliveryDate") Date deliveryDate,
             @JsonProperty("groupOrderDeliveryLocation") String deliveryLocation,
@@ -71,7 +73,7 @@ public class GroupOrderImpl implements GroupOrderInterface {
             @JsonProperty("totalPreparationTime") int totalPreparationTime){
         this.groupId = groupId;
         this.groupName = groupName;
-        this.usersOrders = usersOrders != null ? usersOrders : new HashMap<>();
+        this.usersOrders = usersOrders != null ? usersOrders : new ArrayList<>();
         this.restaurant = restaurant;
         this.deliveryDate = deliveryDate;
         this.deliveryLocation = deliveryLocation;
@@ -95,8 +97,8 @@ public class GroupOrderImpl implements GroupOrderInterface {
     public void addMember(Integer user) { userList.add(user); }
 
     @Override
-    public Order getOrder(Integer user) {
-        return usersOrders.get(user);
+    public Integer getOrder(Integer id) {
+        return usersOrders.get(id - 1);
     }
 
     public Restaurant getRestaurant() {
@@ -111,16 +113,17 @@ public class GroupOrderImpl implements GroupOrderInterface {
     public List<Integer> getUserList() {
         return userList;
     }
+
     @Override
-    public void addOrUpdateUserOrder(Integer user, Order order) {
-        if (!userList.contains(user)) {
-            userList.add(user);
+    public void addOrUpdateUserOrder(Integer orderId, Integer preparationTime) {
+        if (!usersOrders.contains(orderId)) {
+            usersOrders.add(orderId);
+            totalPreparationTime += preparationTime;
         }
-        usersOrders.put(user, order);
     }
 
     @Override
-    public Map<Integer, Order> getUsersOrders() {
+    public List<Integer> getUsersOrders() {
         return usersOrders;
     }
 
@@ -131,10 +134,9 @@ public class GroupOrderImpl implements GroupOrderInterface {
 
     @Override
     public int getTotalPreparationTime() {
-        return getUsersOrders().values().stream()
-                .mapToInt(Order::getTotalPreparationTime)
-                .sum();
+        return totalPreparationTime;
     }
+
 
     @Override
     public Date getGroupOrderDeliveryDate() {

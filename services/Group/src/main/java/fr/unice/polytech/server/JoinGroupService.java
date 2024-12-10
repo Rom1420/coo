@@ -1,28 +1,32 @@
 package fr.unice.polytech.server;
 
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
+import com.sun.net.httpserver.HttpServer;
+import fr.unice.polytech.server.httphandlers.JoinGroupHandler;
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class JoinGroupService {
 
-    /*HashMap<Integer, GroupOrderProxy> groupOrders = GroupOrderService.getGroupOrderServiceInstance().getGroupOrders();
+    public static final int DEFAULT_PORT = 8002;
 
+    public static Logger logger = java.util.logging.Logger.getLogger("joinGroupLogger");
 
-    public void joinGroup(Boolean validate, Integer userId, Integer groupOrderId, ArrayList<String> articles, ArrayList<String> menus) {
-        if (validate) {
-            if (!groupOrders.containsKey(groupOrderId)) throw new RuntimeException("Idenrifiant de groupe inexistant !");
-            // Récupération du groupe et des paramètres utiles
-            GroupOrderProxy groupOrder = groupOrders.get(groupOrderId);
-            Date deliveryDate = groupOrder.getGroupOrderDeliveryDate();
-            String deliveryLocation = groupOrder.getGroupOrderDeliveryLocation();
-            String restaurant = groupOrder.getRestaurant();
-            // Ajoute de l'utilisateur et de sa commande au groupe
-            //if (!groupOrder.getUserList().contains(joiner)) groupOrder.addMember(joiner); ajout fait dans GroupOrderImpl
-            Order userOrder = new Order(new Date(), deliveryDate, deliveryLocation, restaurant);
-            userOrder.setOrderArticlesAndMenus(articles, menus); // création de sa commande avec les articles et menus qu'il a sélectionné
-            groupOrder.addOrUpdateUserOrder(userId, userOrder);
+    public static void main(String[] args) {
+        try {
+            startServer(DEFAULT_PORT);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-    }*/
+    }
+
+    public static HttpServer startServer(int port) throws IOException {
+        HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
+        server.createContext("/api/group/join", new JoinGroupHandler());
+        server.setExecutor(null); // creates a default executor
+        server.start();
+        logger.log(Level.INFO, "Join Group Server started on port " + port);
+        return server;
+    }
 }
