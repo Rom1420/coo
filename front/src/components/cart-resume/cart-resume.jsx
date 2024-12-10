@@ -40,11 +40,11 @@ function CartResume({ onBackToPrevClick, onBackToHomeClick,cart, removeArticleFr
 
     const handlePostRequest = async () => {
         const data = { articles: []};
-        for(let i = 0; i < cart.length; i++){
-            for(let j = 0; j < cart[i].quantity; j++){
+        for(const element of cart) {
+            for (let j = 0; j < element.quantity; j++) {
                 const article = {
-                    name: cart[i].name,
-                    price: cart[i].price
+                    name: element.name,
+                    price: element.price
                 }
                 data.articles.push(article);
             }
