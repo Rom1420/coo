@@ -90,5 +90,5 @@ Sophia-Eats/
     │   └── pom.xml
     └── pom.xml               # Fichier de configuration Maven pour le module `services`.
 ```
-
+![Visualization of the codebase](./diagram.svg)
 
